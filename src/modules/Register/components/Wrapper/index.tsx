@@ -1,6 +1,6 @@
 import { Keyboard, ScrollView, TouchableWithoutFeedback, View } from 'react-native';
 
-import { Text } from '../../../../components/Text';
+import { Text } from '../../../../components';
 import theme from '../../../../styles/theme';
 
 import { Step } from '../Step';
@@ -19,8 +19,8 @@ export const Wrapper = ({ title, subTitle, children, currentPage }: WrapperProps
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={{ flex: 1 }}>  
-          <Step currentPage={currentPage}/>
+        <View style={{ flex: 1 }}>
+          <Step currentPage={currentPage} />
 
           {title && (
             <Text color={colors.text} fontSize={20} style={styles.title}>
@@ -33,7 +33,7 @@ export const Wrapper = ({ title, subTitle, children, currentPage }: WrapperProps
               {subTitle}
             </Text>
           )}
-          
+
           {children}
         </View>
       </ScrollView>

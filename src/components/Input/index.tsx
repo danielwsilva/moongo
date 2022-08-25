@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Platform, View, Text, StyleProp, TextStyle } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Platform, View, Text, StyleProp, TextStyle, TouchableOpacity } from 'react-native';
 import MaskInput, { MaskInputProps } from 'react-native-mask-input';
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { Ionicons } from '@expo/vector-icons';
 
 import theme from '../../styles/theme';
 
@@ -17,9 +18,12 @@ type InputProps = MaskInputProps & {
   focus?: () => void;
   styleInput?: StyleProp<TextStyle> | Array<StyleProp<TextStyle>>;
   color?: string;
+  hasSufix?: boolean;
+  isPassword?: boolean;
+  sufixIcon?: JSX.Element;
 };
 
-const Input = ({
+export const Input = ({
   width,
   errorText,
   placeholder,
@@ -30,11 +34,16 @@ const Input = ({
   focus,
   styleInput,
   color,
+  hasSufix,
+  isPassword,
+  sufixIcon,
   ...props
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [securePassword, setSecurePassword] = useState(true);
+
   const { colors } = theme;
-  
+
   const styles = getStyles({ width, valid, isFocused });
 
   const randomFontSize = useSharedValue(14);
@@ -63,6 +72,10 @@ const Input = ({
     }
   };
 
+  const handleSufixPressed = () => {
+    setSecurePassword(!securePassword);
+  };
+
   useEffect(() => {
     if (isFocused) {
       randomFontSize.value = 12;
@@ -80,6 +93,26 @@ const Input = ({
     return setIsFocused(true);
   }, [value]);
 
+  const Sufix = useCallback(() => {
+    if (isPassword) {
+      return (
+        <TouchableOpacity style={styles.rightIconButton} onPress={handleSufixPressed}>
+          <Ionicons
+            size={18}
+            name={securePassword ? 'eye-off-outline' : 'eye-outline'}
+            color={valid ? colors.text : colors.error}
+          />
+        </TouchableOpacity>
+      );
+    }
+
+    if (sufixIcon) {
+      return sufixIcon;
+    }
+
+    return null;
+  }, [securePassword, sufixIcon, valid]);
+
   return (
     <Animated.View style={styles.container}>
       <Animated.Text style={[styles.label, myStyle]}>{placeholder}</Animated.Text>
@@ -89,16 +122,20 @@ const Input = ({
           editable={!disabled}
           style={[styles.input, styleInput]}
           onChangeText={onChangeText}
+          secureTextEntry={isPassword && securePassword}
           value={value}
           onFocus={handleFocus}
           onBlur={handleBlur}
           selectionColor={color ?? colors.black}
           {...props}
         />
+        {hasSufix && (
+          <View style={styles.rightIconContainer}>
+            <Sufix />
+          </View>
+        )}
       </View>
       {!valid && <Text style={styles.errorText}>{errorText}</Text>}
     </Animated.View>
   );
 };
-
-export default Input;

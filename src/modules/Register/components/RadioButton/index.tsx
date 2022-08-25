@@ -1,6 +1,6 @@
 import { TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 
-import { Text } from '../../../../components/Text';
+import { Text } from '../../../../components';
 import theme from '../../../../styles/theme';
 
 import styles from './styles';
@@ -15,14 +15,11 @@ export const RadioButton = ({ title, active, ...rest }: RadioButtonProps) => {
 
   return (
     <TouchableOpacity {...rest} style={styles.container} activeOpacity={0.8}>
-      <View style={styles.radio}>
-        {
-          active &&
-          <View style={styles.active} />
-        }
-      </View>
+      <View style={styles.radio}>{active && <View style={styles.active} />}</View>
 
-      <Text fontSize={12} fontWeight='normal' color={colors.textLight} style={{ paddingLeft: 4 }}>{title}</Text>
+      <Text fontSize={12} fontWeight="normal" color={colors.textLight} style={{ paddingLeft: 4 }}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
