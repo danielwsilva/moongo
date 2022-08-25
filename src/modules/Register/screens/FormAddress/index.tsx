@@ -4,11 +4,10 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikErrors } from 'formik';
 
-import { Button, Input } from '../../../../components';
+import { Button, Input, Wrapper } from '../../../../components';
 import { ROUTES } from '../../../../navigation/appRoutes';
 import { getCep } from '../../../../services/api/global'
 ;
-import { Wrapper } from '../../components/Wrapper';
 import { AddressForm, initialValues, validationSchema } from './form';
 
 type CepParams = {

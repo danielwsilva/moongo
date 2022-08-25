@@ -5,11 +5,11 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/core';
 import { Formik } from 'formik';
 
-import { Button, Input, Text } from '../../../../components';
+import { Button, Input, Text, Wrapper } from '../../../../components';
 import { ROUTES } from '../../../../navigation/appRoutes';
 import theme from '../../../../styles/theme';
 
-import { CheckBox, RadioButton, Wrapper } from '../../components';
+import { CheckBox, RadioButton } from '../../components';
 import { initialValues, UserForm, validationSchema } from './form';
 import styles from './styles';
 

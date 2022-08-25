@@ -8,5 +8,6 @@ export enum ROUTES {
 
   // AUTH
   AUTH_STACK = 'auth-stack',
-  SIGNIN = 'signin'
+  SIGNIN = 'signin',
+  FORGOT_PASSWORD = 'forgot-password',
 }

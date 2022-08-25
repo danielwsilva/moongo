@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import theme from '../../../../styles/theme';
+import theme from '../../styles/theme';
 
 export default StyleSheet.create({
   container: {
@@ -9,6 +9,10 @@ export default StyleSheet.create({
     paddingTop: RFValue(18), 
     paddingHorizontal: RFValue(24),
     backgroundColor: theme.colors.white
+  },
+  header: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between'
   },
   title: {
     marginTop: RFValue(24), 

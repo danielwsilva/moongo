@@ -1,19 +1,20 @@
 import { Keyboard, ScrollView, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import { Text } from '../../../../components';
-import theme from '../../../../styles/theme';
+
+import { ROUTES } from '../../navigation/appRoutes';
+import theme from '../../styles/theme';
 
 import { Step } from '../Step';
+import { Text } from '../Text';
 import styles from './styles';
-import { ROUTES } from '../../../../navigation/appRoutes';
 
 type WrapperProps = {
   children: React.ReactNode;
   title?: string;
   subTitle?: string;
   currentPage: number;
+  hasStep: boolean;
   hasBackButton?: boolean;
   hasCloseButton?: boolean;
 };
@@ -23,6 +24,7 @@ export const Wrapper = ({
   subTitle,
   children,
   currentPage,
+  hasStep = true,
   hasBackButton = true,
   hasCloseButton = true
 }: WrapperProps) => {
@@ -41,7 +43,7 @@ export const Wrapper = ({
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={styles.header}>
           {hasBackButton ? (
             <TouchableOpacity onPress={goBack}>
               <MaterialIcons name="arrow-back" size={20} color={colors.black} />
@@ -49,9 +51,13 @@ export const Wrapper = ({
           ) : (
             <View style={{ width: 20 }} />
           )}
-          <View style={styles.step}>
-            <Step currentPage={currentPage} />
-          </View>
+
+          {hasStep && (
+            <View style={styles.step}>
+              <Step currentPage={currentPage} />
+            </View>
+          )}
+
           {hasCloseButton ? (
             <TouchableOpacity onPress={handleCloseButton}>
               <MaterialIcons name="close" size={20} color={colors.black} />

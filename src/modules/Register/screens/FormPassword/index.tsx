@@ -2,9 +2,8 @@ import { Platform, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { Formik } from 'formik';
 
-import { Button, Input } from '../../../../components';
+import { Button, Input, Wrapper } from '../../../../components';
 
-import { Wrapper } from '../../components/Wrapper';
 import { initialValues, PasswordForm, validationSchema } from './form';
 
 export const FormPassword = () => {

@@ -1,12 +1,7 @@
 import StepIndicator from 'react-native-step-indicator';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import theme from '../../../../styles/theme';
-
-type StepConfig = {
-  position: number;
-  stepStatus: string;
-}
+import theme from '../../styles/theme';
 
 const secondIndicatorStyles = {
   stepIndicatorSize: 30,
@@ -67,10 +62,17 @@ const getStepIndicatorIconConfig = ({ position, stepStatus }: StepConfig) => {
   return iconConfig;
 };
 
-export const Step = ({ currentPage = 0 }: { currentPage: number }) => {
-  const renderStepIndicator = (params: StepConfig) => (
-    <MaterialIcons {...getStepIndicatorIconConfig(params)} />
-  );
+type StepConfig = {
+  position: number;
+  stepStatus: string;
+};
+
+type StepProps = {
+  currentPage: number;
+};
+
+export const Step = ({ currentPage = 0 }: StepProps) => {
+  const renderStepIndicator = (params: StepConfig) => <MaterialIcons {...getStepIndicatorIconConfig(params)} />;
 
   return (
     <StepIndicator
@@ -86,4 +88,4 @@ export const Step = ({ currentPage = 0 }: { currentPage: number }) => {
       ]}
     />
   );
-}
+};
