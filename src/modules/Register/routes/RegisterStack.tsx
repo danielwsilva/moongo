@@ -16,7 +16,7 @@ const { Navigator, Screen } = createNativeStackNavigator<RegisterRouteMap>();
 const RegisterRoutes = () => (
   <Navigator
     initialRouteName={ROUTES.REGISTER_USER}
-    screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
+    screenOptions={{ headerShown: false, animation: 'slide_from_right', animationTypeForReplace: 'pop' }}
   >
     <Screen name={ROUTES.REGISTER_USER} component={FormUser} />
     <Screen name={ROUTES.REGISTER_CAR} component={FormCar} />

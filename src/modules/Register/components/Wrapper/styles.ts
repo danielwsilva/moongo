@@ -16,5 +16,10 @@ export default StyleSheet.create({
   },
   subTitle: {
     marginBottom: RFValue(24)
+  },
+  step: {
+    flex: 1, 
+    paddingHorizontal: RFValue(20), 
+    marginTop: RFValue(-8)
   }
 });

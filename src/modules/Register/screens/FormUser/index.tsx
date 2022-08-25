@@ -40,6 +40,7 @@ export const FormUser = () => {
       title="Vamos começar!"
       subTitle="Por favor, informe seus dados para prossguirmos com o seu cadastro."
       currentPage={0}
+      hasBackButton={false}
     >
       <Formik
         initialValues={initialValues}
