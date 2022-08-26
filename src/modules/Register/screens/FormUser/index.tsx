@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/core';
 
 import { Formik } from 'formik';
 import { Button, Input, Text, Wrapper } from 'components';
+import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
 import theme from 'styles/theme';
 
@@ -19,11 +20,15 @@ export const FormUser = () => {
   const [gender, setGender] = useState(sexo[0]);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
+  const { addUser } = useRegister();
+
   const { navigate } = useNavigation();
   const { colors } = theme;
 
   const submitUser = (values: UserForm) => {
-    // ADD CONTEXT
+    const data = { ...values, gender };
+    addUser(data);
+
     navigate(ROUTES.REGISTER_CAR);
   };
 
@@ -32,7 +37,7 @@ export const FormUser = () => {
   };
 
   const disabled = (values: UserForm) => {
-    return !values.name || !values.document || !values.birth_date || !values.email || !values.phone || !acceptedTerms;
+    return !values.name || !values.cpf || !values.date_birth || !values.email || !values.phone || !acceptedTerms;
   };
 
   return (
@@ -74,11 +79,11 @@ export const FormUser = () => {
 
               <Input
                 placeholder="Informe o seu CPF"
-                valid={!errors.document}
-                errorText={errors.document}
-                onChangeText={handleChange('document')}
-                onChange={() => setErrors({ ...errors, document: '' })}
-                value={values.document}
+                valid={!errors.cpf}
+                errorText={errors.cpf}
+                onChangeText={handleChange('cpf')}
+                onChange={() => setErrors({ ...errors, cpf: '' })}
+                value={values.cpf}
                 mask={Masks.BRL_CPF}
                 keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
                 maxLength={14}
@@ -86,11 +91,11 @@ export const FormUser = () => {
 
               <Input
                 placeholder="Informe sua data de nascimento"
-                valid={!errors.birth_date}
-                errorText={errors.birth_date}
-                onChangeText={handleChange('birth_date')}
-                onChange={() => setErrors({ ...errors, birth_date: '' })}
-                value={values.birth_date}
+                valid={!errors.date_birth}
+                errorText={errors.date_birth}
+                onChangeText={handleChange('date_birth')}
+                onChange={() => setErrors({ ...errors, date_birth: '' })}
+                value={values.date_birth}
                 mask={Masks.DATE_DDMMYYYY}
                 maxLength={10}
                 keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}

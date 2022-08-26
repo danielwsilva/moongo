@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikErrors } from 'formik';
 
 import { Button, Input, Wrapper } from 'components';
+import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
 import { getCep } from 'services/api/global';
 
@@ -19,9 +20,10 @@ type CepParams = {
 
 export const FormAddress = () => {
   const { navigate } = useNavigation();
+  const { addAddress } = useRegister();
 
   const submitAddress = (values: AddressForm) => {
-    // ADD CONTEXT
+    addAddress(values);
     navigate(ROUTES.AUTH_FORGOT_PASSWORD, { stack: 'register' });
   };
 

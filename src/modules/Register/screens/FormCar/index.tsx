@@ -4,20 +4,22 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 
 import { Button, Input, Wrapper } from 'components';
+import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
 
 import { CarForm, initialValues, validationSchema } from './form';
 
 export const FormCar = () => {
   const { navigate } = useNavigation();
+  const { addCar } = useRegister();
 
   const submitCar = (values: CarForm) => {
-    // ADD CONTEXT
+    addCar(values);
     navigate(ROUTES.REGISTER_ADDRESS);
   };
 
   const disabled = (values: CarForm) => {
-    return !values.plate || !values.renamed || !values.model || !values.year || !values.color;
+    return !values.car_plate || !values.car_renamed || !values.model || !values.year || !values.color;
   };
 
   return (
@@ -38,22 +40,22 @@ export const FormCar = () => {
             <View>
               <Input
                 placeholder="Informe a placa"
-                valid={errors.plate === '' || !errors.plate}
-                errorText={errors.plate}
-                onChangeText={handleChange('plate')}
-                onChange={() => setErrors({ ...errors, plate: '' })}
-                value={values.plate}
+                valid={errors.car_plate === '' || !errors.car_plate}
+                errorText={errors.car_plate}
+                onChangeText={handleChange('car_plate')}
+                onChange={() => setErrors({ ...errors, car_plate: '' })}
+                value={values.car_plate}
                 autoCapitalize="characters"
                 maxLength={7}
               />
 
               <Input
                 placeholder="Informe o seu renavam"
-                valid={errors.renamed === '' || !errors.renamed}
-                errorText={errors.renamed}
-                onChangeText={handleChange('renamed')}
-                onChange={() => setErrors({ ...errors, renamed: '' })}
-                value={values.renamed}
+                valid={errors.car_renamed === '' || !errors.car_renamed}
+                errorText={errors.car_renamed}
+                onChangeText={handleChange('car_renamed')}
+                onChange={() => setErrors({ ...errors, car_renamed: '' })}
+                value={values.car_renamed}
                 keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
               />
 

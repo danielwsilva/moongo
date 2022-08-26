@@ -2,8 +2,8 @@ import * as Yup from 'yup';
 
 export type UserForm = {
   name: string;
-  document: string;
-  birth_date: string;
+  cpf: string;
+  date_birth: string;
   email: string;
   phone: string;
   gender: string;
@@ -11,8 +11,8 @@ export type UserForm = {
 
 export const initialValues = {
   name: '',
-  document: '',
-  birth_date: '',
+  cpf: '',
+  date_birth: '',
   email: '',
   phone: '',
   gender: ''
@@ -54,8 +54,8 @@ const isValidNinthDigit = (phone?: string) => {
 
 export const validationSchema = Yup.object().shape({
   name: Yup.string().test('name', 'Nome completo como no documento.', validFullName),
-  document: Yup.string().length(14, 'CPF inválido.').test('document', 'CPF inválido.', isValidCpf),
-  birth_date: Yup.string().length(10, 'Data inválido.'),
+  cpf: Yup.string().length(14, 'CPF inválido.').test('document', 'CPF inválido.', isValidCpf),
+  date_birth: Yup.string().length(10, 'Data inválido.'),
   email: Yup.string().email('E-mail inválido.'),
   phone: Yup.string()
     .length(15, 'DDD + 9 números, exemplo (00) 90000-0000.')

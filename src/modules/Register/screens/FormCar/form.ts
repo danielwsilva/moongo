@@ -1,22 +1,22 @@
 import * as Yup from 'yup';
 
 export type CarForm = {
-  plate: string;
-  renamed: string;
+  car_plate: string;
+  car_renamed: string;
   model: string;
   year: string;
   color: string;
 };
 
 export const initialValues = {
-  plate: '',
-  renamed: '',
+  car_plate: '',
+  car_renamed: '',
   model: '',
   year: '',
   color: ''
 };
 
 export const validationSchema = Yup.object().shape({
-  plate: Yup.string().length(7, 'Placa inválido.'),
+  car_plate: Yup.string().length(7, 'Placa inválido.'),
   year: Yup.string().length(4, 'Ano inválido.')
 });

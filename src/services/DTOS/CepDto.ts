@@ -1,4 +1,4 @@
-export type CepResponse = {
+export type CepDtoRes = {
   logradouro: string;
   bairro: string;
   localidade: string;

@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
 
 import { Button, Input, Wrapper } from 'components';
+import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
 
 import { AuthRouteMap } from '../../../routes/AuthStack';
@@ -13,9 +14,15 @@ type PasswordProps = NativeStackScreenProps<AuthRouteMap, ROUTES.AUTH_FORGOT_PAS
 
 export const Password = ({ route: { params } }: PasswordProps) => {
   const { stack } = params;
+  const { user, car, address } = useRegister();
 
   const submitPassword = (values: PasswordForm) => {
-    // ADD CONTEXT
+    const data = {
+      ...user,
+      ...car,
+      ...address,
+      password: values.password
+    };
   };
 
   const disabled = (values: PasswordForm) => {
