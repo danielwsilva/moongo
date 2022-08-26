@@ -13,6 +13,8 @@ export declare global {
       [ROUTES.AUTH_STACK]: undefined;
       [ROUTES.SIGNIN]: undefined;
       [ROUTES.FORGOT_PASSWORD]: undefined;
+      [ROUTES.SMS]: undefined;
+      [ROUTES.PASSWORD]: undefined;
 
     }
   }

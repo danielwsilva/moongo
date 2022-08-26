@@ -14,8 +14,8 @@ type WrapperProps = {
   children: React.ReactNode;
   title?: string;
   subTitle?: string;
-  currentPage: number;
-  hasStep: boolean;
+  hasStep?: boolean;
+  currentPage?: number;
   hasBackButton?: boolean;
   hasCloseButton?: boolean;
 };
@@ -24,8 +24,8 @@ export const Wrapper = ({
   title,
   subTitle,
   children,
-  currentPage,
   hasStep = true,
+  currentPage,
   hasBackButton = true,
   hasCloseButton = true
 }: WrapperProps) => {
@@ -56,7 +56,7 @@ export const Wrapper = ({
 
           {hasStep && (
             <View style={styles.step}>
-              <Step currentPage={currentPage} />
+              <Step currentPage={currentPage!} />
             </View>
           )}
 

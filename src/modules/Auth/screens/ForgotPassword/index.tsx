@@ -20,7 +20,7 @@ export const ForgotPassword = () => {
 
   const submitUser = (values: ForgotPasswordForm) => {
     // ADD CONTEXT
-    navigate(ROUTES.REGISTER_CAR);
+    navigate(ROUTES.SMS);
   };
 
   const disabled = (values: ForgotPasswordForm) => {

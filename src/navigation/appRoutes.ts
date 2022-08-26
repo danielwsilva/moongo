@@ -10,4 +10,6 @@ export enum ROUTES {
   AUTH_STACK = 'auth-stack',
   SIGNIN = 'signin',
   FORGOT_PASSWORD = 'forgot-password',
+  SMS = 'sms',
+  PASSWORD = 'password'
 }
