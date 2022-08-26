@@ -3,8 +3,8 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 
-import { Button, Input, Wrapper } from '../../../../components';
-import { ROUTES } from '../../../../navigation/appRoutes';
+import { Button, Input, Wrapper } from 'components';
+import { ROUTES } from 'navigation/appRoutes';
 
 import { CarForm, initialValues, validationSchema } from './form';
 

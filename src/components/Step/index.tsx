@@ -1,7 +1,7 @@
 import StepIndicator from 'react-native-step-indicator';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import theme from '../../styles/theme';
+import theme from 'styles/theme';
 
 const secondIndicatorStyles = {
   stepIndicatorSize: 30,
@@ -35,7 +35,7 @@ const getStepIndicatorIconConfig = ({ position, stepStatus }: StepConfig) => {
   const iconConfig = {
     name: '',
     color: stepStatus === 'finished' ? colors.white : colors.primary,
-    size: 18,
+    size: 18
   };
 
   switch (position) {
@@ -80,12 +80,7 @@ export const Step = ({ currentPage = 0 }: StepProps) => {
       customStyles={secondIndicatorStyles}
       currentPosition={currentPage}
       renderStepIndicator={renderStepIndicator}
-      labels={[
-        'Dados Pessoais',
-        'Carro',
-        'Endereço',
-        'Senha'
-      ]}
+      labels={['Dados Pessoais', 'Carro', 'Endereço', 'Senha']}
     />
   );
 };

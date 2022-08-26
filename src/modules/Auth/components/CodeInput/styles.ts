@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
-import theme from "../../../../styles/theme";
+import theme from 'styles/theme';
 
 export const getStyles = (valid: boolean) => {
   const { colors, fonts } = theme;
@@ -17,7 +17,7 @@ export const getStyles = (valid: boolean) => {
       borderWidth: 1,
       borderColor: valid ? colors.lightGray : colors.error,
       color: valid ? colors.primary : colors.error,
-      fontFamily: fonts.primary_700,
+      fontFamily: fonts.primary_700
     },
     errorText: {
       marginTop: 2,
@@ -40,4 +40,4 @@ export const getStyles = (valid: boolean) => {
       fontWeight: '700'
     }
   });
-}
+};

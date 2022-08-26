@@ -3,8 +3,8 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
 
-import { Button, Input, Wrapper } from '../../../../../components';
-import { ROUTES } from '../../../../../navigation/appRoutes';
+import { Button, Input, Wrapper } from 'components';
+import { ROUTES } from 'navigation/appRoutes';
 
 import { AuthRouteMap } from '../../../routes/AuthStack';
 import { initialValues, PasswordForm, validationSchema } from './form';

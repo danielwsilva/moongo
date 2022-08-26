@@ -1,14 +1,15 @@
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { Keyboard, ScrollView, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 
-import { ROUTES } from '../../navigation/appRoutes';
-import theme from '../../styles/theme';
+import { ROUTES } from 'navigation/appRoutes';
+import theme from 'styles/theme';
 
 import { Step } from '../Step';
 import { Text } from '../Text';
 import styles from './styles';
-import { StatusBar } from 'expo-status-bar';
 
 type WrapperProps = {
   children: React.ReactNode;
@@ -44,7 +45,7 @@ export const Wrapper = ({
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container}>
-      <StatusBar style="dark" backgroundColor={colors.white} translucent={false} />
+        <StatusBar backgroundColor={colors.white} translucent={false} />
         <View style={styles.header}>
           {hasBackButton ? (
             <TouchableOpacity onPress={goBack}>

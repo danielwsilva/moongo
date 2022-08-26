@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import theme from '../../styles/theme';
+import theme from 'styles/theme';
 
 type Props = {
   width?: number;
@@ -15,7 +15,7 @@ const getStyles = ({ width, valid, isFocused }: Props) => {
   return StyleSheet.create({
     container: {
       width,
-      paddingBottom: 14,
+      paddingBottom: 14
     },
     label: {
       color: !valid ? colors.danger : isFocused ? colors.textLight : colors.textLight,
@@ -56,6 +56,6 @@ const getStyles = ({ width, valid, isFocused }: Props) => {
       color: colors.none
     }
   });
-}
+};
 
 export default getStyles;

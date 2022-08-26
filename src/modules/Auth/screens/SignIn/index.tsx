@@ -6,10 +6,10 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 
-import Logo from '../../../../assets/logo.svg';
-import { Button, Input, Text } from '../../../../components';
-import { ROUTES } from '../../../../navigation/appRoutes';
-import theme from '../../../../styles/theme';
+import { Button, Input, Text } from 'components';
+import { ROUTES } from 'navigation/appRoutes';
+import theme from 'styles/theme';
+import Logo from 'assets/logo.svg';
 
 import styles from './styles';
 
@@ -17,12 +17,14 @@ export const SignIn = () => {
   const { navigate } = useNavigation();
   const { colors } = theme;
 
-  const submitSignIn = () => {};
+  const submitSignIn = () => {
+    // submitSignIn
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <LinearGradient colors={[colors.primaryLight, colors.primary, colors.primary]} style={styles.container}>
-        <StatusBar style="dark" backgroundColor={colors.primaryLight} translucent={false} />
+        <StatusBar backgroundColor={colors.primaryLight} translucent={false} />
         <Logo color={colors.black} width={450} style={{ alignSelf: 'center' }} />
 
         <View style={styles.wrapper}>
@@ -68,11 +70,7 @@ export const SignIn = () => {
                   Esqueci a senha
                 </Button>
 
-                <Button 
-                  type="dark"
-                  style={{ marginBottom: RFValue(24) }}
-                  onPress={() => handleSubmit()}
-                >
+                <Button type="dark" style={{ marginBottom: RFValue(24) }} onPress={() => handleSubmit()}>
                   Entrar na minha conta
                 </Button>
               </>

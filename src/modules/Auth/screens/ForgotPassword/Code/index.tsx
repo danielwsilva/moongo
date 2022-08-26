@@ -3,16 +3,18 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/core';
 import { Formik, FormikErrors } from 'formik';
 
-import { CodeInput } from '../../../components/CodeInput';
-import { Button, Wrapper } from '../../../../../components';
-import { ROUTES } from '../../../../../navigation/appRoutes';
+import { Button, Wrapper } from 'components';
+import { ROUTES } from 'navigation/appRoutes';
 
+import { CodeInput } from '../../../components/CodeInput';
 import { initialValues, SMSForm } from './form';
 
 export const Code = () => {
   const { navigate } = useNavigation();
 
-  const handleResendCode = async () => {};
+  const handleResendCode = async () => {
+    // handleResendCode
+  };
 
   const submitCode = (values: SMSForm, { setErrors }: { setErrors: (_errors: FormikErrors<SMSForm>) => void }) => {
     navigate(ROUTES.AUTH_FORGOT_PASSWORD, { stack: 'auth' });

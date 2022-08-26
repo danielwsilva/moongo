@@ -4,7 +4,7 @@ import MaskInput, { MaskInputProps } from 'react-native-mask-input';
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 
-import theme from '../../styles/theme';
+import theme from 'styles/theme';
 
 import getStyles from './styles';
 

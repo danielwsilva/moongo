@@ -1,6 +1,5 @@
 import * as Updates from 'expo-updates';
 import { Platform } from 'react-native';
-
 import axios from 'axios';
 
 import { API_CEP } from './consts';
@@ -15,7 +14,7 @@ export const getEnvironment = () => {
 
   return {
     envName: 'DEVELOPMENT',
-    API_CEP,
+    API_CEP
   };
 };
 

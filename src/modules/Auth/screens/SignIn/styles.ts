@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import theme from '../../../../styles/theme';
+import theme from 'styles/theme';
 
 export default StyleSheet.create({
   container: {
-    flex: 1, 
-    justifyContent: 'space-between', 
+    flex: 1,
+    justifyContent: 'space-between',
     backgroundColor: theme.colors.primary
   },
   wrapper: {

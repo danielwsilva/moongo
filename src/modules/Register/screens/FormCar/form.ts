@@ -18,5 +18,5 @@ export const initialValues = {
 
 export const validationSchema = Yup.object().shape({
   plate: Yup.string().length(7, 'Placa inválido.'),
-  year: Yup.string().length(4, 'Ano inválido.'),
+  year: Yup.string().length(4, 'Ano inválido.')
 });

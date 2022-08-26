@@ -5,8 +5,8 @@ import CountDown from 'react-native-countdown-component';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { FormikErrors } from 'formik';
 
-import { Button, Text } from '../../../../components';
-import theme from '../../../../styles/theme';
+import { Button, Text } from 'components';
+import theme from 'styles/theme';
 
 import { getStyles } from './styles';
 

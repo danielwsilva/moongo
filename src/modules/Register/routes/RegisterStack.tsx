@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { ROUTES } from '../../../navigation/appRoutes';
+import { ROUTES } from 'navigation/appRoutes';
 
 import { FormUser, FormCar, FormAddress } from '../screens';
 

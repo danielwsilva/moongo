@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import theme from '../../styles/theme';
+import theme from 'styles/theme';
 
 const fontFamily = {
   bold: theme.fonts.primary_700,
@@ -14,6 +14,6 @@ export const getStyles = (fontWeight: 'normal' | 'semiBold' | 'bold', fontSize: 
     text: {
       fontSize: RFValue(fontSize),
       fontFamily: fontFamily[fontWeight],
-      color: color
+      color
     }
   });

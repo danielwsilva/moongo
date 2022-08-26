@@ -5,9 +5,9 @@ export type PasswordForm = {
   confirmPassword: string;
 };
 
-export const initialValues = { 
-  password: '', 
-  confirmPassword: '' 
+export const initialValues = {
+  password: '',
+  confirmPassword: ''
 };
 
 export const validationSchema = Yup.object().shape({

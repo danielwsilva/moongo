@@ -15,7 +15,7 @@ export const initialValues = {
   birth_date: '',
   email: '',
   phone: '',
-  gender: '',
+  gender: ''
 };
 
 const validFullName = (name?: string) => {
@@ -47,7 +47,6 @@ function isValidCpf(cpf?: string) {
     ((toValidate(pop).reduce((soma, el, i) => soma + el * (count - i), 0) * 10) % 11) % 10;
   return !(rest(10, 2) !== validator[0] || rest(11, 1) !== validator[1]);
 }
-
 
 const isValidNinthDigit = (phone?: string) => {
   return Number(phone!.slice(5, 6)) === 9;
