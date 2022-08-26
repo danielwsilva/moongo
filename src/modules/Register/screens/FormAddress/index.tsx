@@ -22,7 +22,7 @@ export const FormAddress = () => {
 
   const submitAddress = (values: AddressForm) => {
     // ADD CONTEXT
-    navigate(ROUTES.REGISTER_PASSWORD);
+    navigate(ROUTES.AUTH_FORGOT_PASSWORD, { stack: 'register' });
   };
 
   const fetchCep = async ({ value, setValues, setErrors, errors }: CepParams) => {

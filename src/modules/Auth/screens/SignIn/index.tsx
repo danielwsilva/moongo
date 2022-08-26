@@ -63,7 +63,7 @@ export const SignIn = () => {
                   fontWeight="semiBold"
                   color={colors.primary}
                   style={{ marginBottom: RFValue(10) }}
-                  onPress={() => navigate(ROUTES.FORGOT_PASSWORD)}
+                  onPress={() => navigate(ROUTES.AUTH_FORGOT_CPF)}
                 >
                   Esqueci a senha
                 </Button>

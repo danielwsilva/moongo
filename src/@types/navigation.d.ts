@@ -1,5 +1,4 @@
 import { ROUTES } from "../navigation/appRoutes";
-
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
@@ -8,14 +7,12 @@ export declare global {
       [ROUTES.REGISTER_USER]: undefined;
       [ROUTES.REGISTER_CAR]: undefined;
       [ROUTES.REGISTER_ADDRESS]: undefined;
-      [ROUTES.REGISTER_PASSWORD]: undefined;
       // AUTH
       [ROUTES.AUTH_STACK]: undefined;
-      [ROUTES.SIGNIN]: undefined;
-      [ROUTES.FORGOT_PASSWORD]: undefined;
-      [ROUTES.SMS]: undefined;
-      [ROUTES.PASSWORD]: undefined;
-
+      [ROUTES.AUTH_SIGNIN]: undefined;
+      [ROUTES.AUTH_FORGOT_CPF]: undefined;
+      [ROUTES.AUTH_FORGOT_CODE]: undefined;
+      [ROUTES.AUTH_FORGOT_PASSWORD]: { stack: 'auth' | 'register' };
     }
   }
 }

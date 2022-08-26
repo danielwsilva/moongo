@@ -25,15 +25,15 @@ export const FormUser = () => {
   const submitUser = (values: UserForm) => {
     // ADD CONTEXT
     navigate(ROUTES.REGISTER_CAR);
-  };
+  }
 
   const handleOpenContract = () => {
     // LINK DO CONTRATO
-  } 
+  }
 
   const disabled = (values: UserForm) => {
     return !values.name || !values.document || !values.birth_date || !values.email || !values.phone || !acceptedTerms;
-  };
+  }
 
   return (
     <Wrapper

@@ -4,23 +4,17 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/core';
 import { Formik } from 'formik';
 
-import { Button, Input, Wrapper } from '../../../../components';
-import { ROUTES } from '../../../../navigation/appRoutes';
+import { Button, Input, Wrapper } from '../../../../../components';
+import { ROUTES } from '../../../../../navigation/appRoutes';
 
 import { initialValues, ForgotPasswordForm, validationSchema } from './form';
 
-const labels = [
-  'Documento',
-  'Código',
-  'Senha',
-];
-
-export const ForgotPassword = () => {
+export const CPF = () => {
   const { navigate } = useNavigation();
 
   const submitUser = (values: ForgotPasswordForm) => {
     // ADD CONTEXT
-    navigate(ROUTES.SMS);
+    navigate(ROUTES.AUTH_FORGOT_CODE);
   };
 
   const disabled = (values: ForgotPasswordForm) => {

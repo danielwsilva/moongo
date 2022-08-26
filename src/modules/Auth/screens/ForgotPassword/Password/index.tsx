@@ -1,12 +1,19 @@
 import { Platform, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
 
-import { Button, Input, Wrapper } from '../../../../components';
+import { Button, Input, Wrapper } from '../../../../../components';
+import { ROUTES } from '../../../../../navigation/appRoutes';
 
+import { AuthRouteMap } from '../../../routes/AuthStack';
 import { initialValues, PasswordForm, validationSchema } from './form';
 
-export const Password = () => {
+type PasswordProps = NativeStackScreenProps<AuthRouteMap, ROUTES.AUTH_FORGOT_PASSWORD>;
+
+export const Password = ({ route: { params } }: PasswordProps) => {
+  const { stack } = params;
+
   const submitPassword = (values: PasswordForm) => {
     // ADD CONTEXT
   };
@@ -17,9 +24,14 @@ export const Password = () => {
 
   return (
     <Wrapper
-      title="Nova senha"
-      subTitle="Quase lá! Crie uma nova senha para acessar a sua conta no app."
-      hasStep={false}
+      title={stack === 'auth' ? 'Nova senha' : 'Criar senha'}
+      subTitle={
+        stack === 'auth'
+          ? 'Quase lá! Crie uma nova senha para acessar a sua conta no app.'
+          : 'Quase lá! Crie uma senha para acessar a sua conta no app.'
+      }
+      hasStep={stack !== 'auth'}
+      currentPage={3}
     >
       <Formik
         initialValues={initialValues}

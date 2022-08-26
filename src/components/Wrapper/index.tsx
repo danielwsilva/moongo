@@ -36,7 +36,7 @@ export const Wrapper = ({
     return dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{ name: ROUTES.SIGNIN }]
+        routes: [{ name: ROUTES.AUTH_SIGNIN }]
       })
     );
   };
