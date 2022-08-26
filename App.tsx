@@ -16,7 +16,6 @@ export default function App() {
 
   return (
     <>
-      <StatusBar style="dark" backgroundColor={colors.white} translucent={false} />
       { fontsLoaded ? <Routes /> : null}
     </>
   );

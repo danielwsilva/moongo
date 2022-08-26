@@ -6,6 +6,7 @@ export default {
   
     // Primary colors
     primary: '#f9b000',
+    primaryLight: '#fdea00',
 
     // Status Colors
     success: '#5CB85C',

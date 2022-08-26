@@ -8,6 +8,7 @@ import theme from '../../styles/theme';
 import { Step } from '../Step';
 import { Text } from '../Text';
 import styles from './styles';
+import { StatusBar } from 'expo-status-bar';
 
 type WrapperProps = {
   children: React.ReactNode;
@@ -43,6 +44,7 @@ export const Wrapper = ({
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container}>
+      <StatusBar style="dark" backgroundColor={colors.white} translucent={false} />
         <View style={styles.header}>
           {hasBackButton ? (
             <TouchableOpacity onPress={goBack}>
