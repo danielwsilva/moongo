@@ -3,11 +3,11 @@ import { Platform, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/core';
-import { Formik } from 'formik';
 
-import { Button, Input, Text, Wrapper } from '../../../../components';
-import { ROUTES } from '../../../../navigation/appRoutes';
-import theme from '../../../../styles/theme';
+import { Formik } from 'formik';
+import { Button, Input, Text, Wrapper } from 'components';
+import { ROUTES } from 'navigation/appRoutes';
+import theme from 'styles/theme';
 
 import { CheckBox, RadioButton } from '../../components';
 import { initialValues, UserForm, validationSchema } from './form';
@@ -25,15 +25,15 @@ export const FormUser = () => {
   const submitUser = (values: UserForm) => {
     // ADD CONTEXT
     navigate(ROUTES.REGISTER_CAR);
-  }
+  };
 
   const handleOpenContract = () => {
     // LINK DO CONTRATO
-  }
+  };
 
   const disabled = (values: UserForm) => {
     return !values.name || !values.document || !values.birth_date || !values.email || !values.phone || !acceptedTerms;
-  }
+  };
 
   return (
     <Wrapper
