@@ -8,7 +8,7 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.white,
     paddingHorizontal: RFValue(8),
     paddingVertical: RFValue(8),
-    borderRadius: RFValue(16),
+    borderRadius: RFValue(8),
     marginBottom: RFValue(8),
     marginLeft: RFValue(8)
   },
