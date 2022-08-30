@@ -13,5 +13,10 @@ export enum ROUTES {
   AUTH_SIGNIN = 'auth-signin',
   AUTH_FORGOT_CPF = 'auth-forgot-cpf',
   AUTH_FORGOT_CODE = 'auth-forgot-code',
-  AUTH_FORGOT_PASSWORD = 'auth-forgot-password'
+  AUTH_FORGOT_PASSWORD = 'auth-forgot-password',
+
+  // HOME
+  HOME_STACK = 'home-stack',
+  HOME_INITIAL = 'home-initial',
+  HOME = 'home'
 }

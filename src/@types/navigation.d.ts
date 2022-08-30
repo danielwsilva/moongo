@@ -1,4 +1,5 @@
-import { ROUTES } from "../navigation/appRoutes";
+import { ROUTES } from '../navigation/appRoutes';
+
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
@@ -13,6 +14,9 @@ export declare global {
       [ROUTES.AUTH_FORGOT_CPF]: undefined;
       [ROUTES.AUTH_FORGOT_CODE]: undefined;
       [ROUTES.AUTH_FORGOT_PASSWORD]: { stack: 'auth' | 'register' };
+      // HOME
+      [ROUTES.HOME_STACK]: undefined;
+      [ROUTES.HOME]: undefined;
     }
   }
 }
