@@ -18,43 +18,41 @@ const BottomNav = () => {
   const { colors } = theme;
 
   return (
-    <CartProvider>
-      <Tab.Navigator
-        initialRouteName={ROUTES.HOME}
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: styles.navigator
-        }}
-      >
-        {MENU_ROUTES.map((item) => (
-          <Tab.Screen
-            key={item.name}
-            name={item.name}
-            component={item.component}
-            options={{
-              tabBarLabel: () => null,
-              tabBarButton: (props: any) => {
-                const { onPress } = props;
-                return <Pressable {...props} onPress={() => onPress()} />;
-              },
-              tabBarIcon: ({ focused }) => (
-                <View style={styles.content}>
-                  <Feather name={item.iconName} size={item.size} color={focused ? colors.primary : colors.textLight} />
-                  <Text
-                    fontWeight="normal"
-                    fontSize={12}
-                    color={focused ? colors.primary : colors.textLight}
-                    style={{ marginTop: 2, textAlign: 'center' }}
-                  >
-                    {item.textBottomBar}
-                  </Text>
-                </View>
-              )
-            }}
-          />
-        ))}
-      </Tab.Navigator>
-    </CartProvider>
+    <Tab.Navigator
+      initialRouteName={ROUTES.HOME}
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: styles.navigator
+      }}
+    >
+      {MENU_ROUTES.map((item) => (
+        <Tab.Screen
+          key={item.name}
+          name={item.name}
+          component={item.component}
+          options={{
+            tabBarLabel: () => null,
+            tabBarButton: (props: any) => {
+              const { onPress } = props;
+              return <Pressable {...props} onPress={() => onPress()} />;
+            },
+            tabBarIcon: ({ focused }) => (
+              <View style={styles.content}>
+                <Feather name={item.iconName} size={item.size} color={focused ? colors.primary : colors.textLight} />
+                <Text
+                  fontWeight="normal"
+                  fontSize={12}
+                  color={focused ? colors.primary : colors.textLight}
+                  style={{ marginTop: 2, textAlign: 'center' }}
+                >
+                  {item.textBottomBar}
+                </Text>
+              </View>
+            )
+          }}
+        />
+      ))}
+    </Tab.Navigator>
   );
 };
 

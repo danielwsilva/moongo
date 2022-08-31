@@ -1,20 +1,24 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+import { ImageSourcePropType } from 'react-native';
 
 export type Product = {
   id: string;
   name: string;
   brad: string;
-  price: string;
+  price: number;
   saleNumber: string;
   stock: number;
+  supply?: number;
   stockMin: number;
   stockMax: number;
+  image: ImageSourcePropType;
 };
 
 interface CartContextData {
   cart: Product[];
   addCart: (_item: Product) => void;
   removeProduct: (_item: Product) => void;
+  updateProduct: (_item: Product, _supply: number) => void;
 }
 
 interface PropsProvider {
@@ -30,13 +34,15 @@ export function CartProvider({ children }: PropsProvider) {
     (product: Product) => {
       const productIndex = cart.findIndex((item) => item.id === product.id);
 
-      if (productIndex >= 0) {
-      } else {
-        setCart([...cart, { ...product }]);
-      }
+      if (productIndex < 0) setCart([...cart, { ...product }]);
     },
     [cart]
   );
+
+  const updateProduct = (product: Product, supply: number) => {
+    const productIndex = cart.findIndex((item) => item.id === product.id);
+    cart[productIndex].supply = supply;
+  };
 
   const removeProduct = useCallback(
     (product: Product) => {
@@ -51,7 +57,8 @@ export function CartProvider({ children }: PropsProvider) {
       value={{
         cart,
         addCart,
-        removeProduct
+        removeProduct,
+        updateProduct
       }}
     >
       {children}

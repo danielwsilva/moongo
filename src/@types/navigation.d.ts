@@ -18,6 +18,7 @@ export declare global {
       [ROUTES.BUTTON_NAV]: undefined;
       // HOME
       [ROUTES.HOME_STACK]: undefined;
+      [ROUTES.HOME_CART]: undefined;
       [ROUTES.HOME]: undefined;
       // SALES
       [ROUTES.SALES_STACK]: undefined;

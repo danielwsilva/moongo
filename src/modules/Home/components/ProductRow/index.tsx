@@ -5,7 +5,6 @@ import { AntDesign } from '@expo/vector-icons';
 import { Text, Modal } from 'components';
 import { Product, useCart } from 'hooks/cart';
 import theme from 'styles/theme';
-import kitkat from 'assets/kitkat.png';
 
 import { getStyles } from './styles';
 
@@ -20,7 +19,7 @@ export const ProductRow = ({ item }: ProductRowProps) => {
 
   const checkStock = () => {
     if (item.stock === item.stockMax) return false;
-    if (item.stock === item.stockMin) return true;
+    if (item.stock === item.stockMin || item.stock === 0) return true;
     if (item.stock > item.stockMin || item.stock < item.stockMax) return false;
     return true;
   };
@@ -29,11 +28,12 @@ export const ProductRow = ({ item }: ProductRowProps) => {
   const styles = getStyles({ addProductCart, checkStock });
 
   const handleAddCart = (product: Product) => {
+    const data = { ...product, supply: 1 };
     if (addProductCart) {
-      removeProduct(product);
+      removeProduct(data);
       setAddProductCart(false);
     } else {
-      addCart(product);
+      addCart(data);
       setAddProductCart(true);
     }
   };
@@ -49,7 +49,7 @@ export const ProductRow = ({ item }: ProductRowProps) => {
           <AntDesign name="hearto" color={theme.colors.error} size={16} />
         </TouchableOpacity>
 
-        <Image source={kitkat} resizeMode="stretch" style={styles.image} />
+        <Image source={item.image} resizeMode="stretch" style={styles.image} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text fontWeight="bold" fontSize={14} numberOfLines={1} style={{ flex: 1, marginRight: 2 }}>
             {item.name}
@@ -108,7 +108,7 @@ export const ProductRow = ({ item }: ProductRowProps) => {
             </Text>
           </Text>
           <TouchableOpacity>
-            <Text color={theme.colors.success} onPress={() => setVisible(!visible)}>
+            <Text color={theme.colors.primary} onPress={() => setVisible(!visible)}>
               Entendi
             </Text>
           </TouchableOpacity>

@@ -1,13 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 
 import { Text } from 'components';
-import { Product, useCart } from 'hooks/cart';
+import { useCart } from 'hooks/cart';
+import { CountCart } from 'modules/Home/components/CountCart';
 import { ProductRow } from 'modules/Home/components/ProductRow';
+import { ROUTES } from 'navigation/appRoutes';
 import theme from 'styles/theme';
+
+import amendoim from 'assets/amendoim.png';
 import avatar from 'assets/avatar.png';
+import kitkat from 'assets/kitkat.png';
+import talento_cafe from 'assets/talento-cafe.png';
+import talento_castanhas from 'assets/talento-castanhas.png';
 
 import styles from './styles';
 
@@ -16,46 +24,51 @@ const DATA = [
     id: '1',
     name: 'Kit Kat 45G',
     brad: 'Nestle',
-    price: '3.51',
+    price: 3.51,
     saleNumber: '14.245',
     stock: 1,
     stockMin: 1,
-    stockMax: 4
+    stockMax: 100,
+    image: kitkat
   },
   {
     id: '2',
-    name: 'Kit Kat 45G',
-    brad: 'Nestle',
-    price: '3.51',
+    name: 'Amendoim Dori',
+    brad: 'Dori',
+    price: 3.51,
     saleNumber: '14.245',
-    stock: 2,
+    stock: 0,
     stockMin: 1,
-    stockMax: 4
+    stockMax: 4,
+    image: amendoim
   },
   {
     id: '3',
-    name: 'Kit Kat 45G',
-    brad: 'Nestle',
-    price: '3.51',
-    saleNumber: '14.245',
-    stock: 4,
-    stockMin: 1,
-    stockMax: 4
-  },
-  {
-    id: '3',
-    name: 'Kit Kat 45G',
-    brad: 'Nestle',
-    price: '3.51',
+    name: 'Talento Café',
+    brad: 'Garoto',
+    price: 3.51,
     saleNumber: '14.245',
     stock: 1,
     stockMin: 1,
-    stockMax: 4
+    stockMax: 4,
+    image: talento_cafe
+  },
+  {
+    id: '4',
+    name: 'Talento Castanhas',
+    brad: 'Garoto',
+    price: 3.51,
+    saleNumber: '14.245',
+    stock: 1,
+    stockMin: 1,
+    stockMax: 4,
+    image: talento_castanhas
   }
 ];
 
 export const Home = () => {
   const { cart } = useCart();
+  const { navigate } = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -82,17 +95,7 @@ export const Home = () => {
               <AntDesign name="hearto" color={theme.colors.white} size={18} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-              {!!cart.length && (
-                <View style={styles.countCart}>
-                  <Text fontSize={10} color={theme.colors.white} style={styles.countCartText}>
-                    {`${cart.length}`}
-                  </Text>
-                </View>
-              )}
-
-              <AntDesign name="shoppingcart" color={theme.colors.white} size={18} />
-            </TouchableOpacity>
+            <CountCart hasBackground onPress={() => navigate(ROUTES.HOME_STACK)} disabled={!cart.length} />
           </View>
           <View style={styles.countProduct}>
             <Text fontWeight="bold" fontSize={14}>

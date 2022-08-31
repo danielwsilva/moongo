@@ -2,20 +2,20 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ROUTES } from 'navigation/appRoutes';
 
-import { Home } from '../screens';
+import { Cart } from '../screens';
 
 export type HomeRouteMap = {
-  [ROUTES.HOME]: undefined;
+  [ROUTES.HOME_CART]: undefined;
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<HomeRouteMap>();
 
 const HomeRoutes = () => (
   <Navigator
-    initialRouteName={ROUTES.HOME}
+    initialRouteName={ROUTES.HOME_CART}
     screenOptions={{ headerShown: false, animation: 'slide_from_right', animationTypeForReplace: 'pop' }}
   >
-    <Screen name={ROUTES.HOME} component={Home} />
+    <Screen name={ROUTES.HOME_CART} component={Cart} />
   </Navigator>
 );
 

@@ -1,89 +1,85 @@
-import { StatusBar } from 'expo-status-bar';
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import { Keyboard, ScrollView, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import {
+  View,
+  StatusBar,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ScrollView,
+  TouchableOpacity
+} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
-import { ROUTES } from 'navigation/appRoutes';
+import { Text } from 'components/Text';
 import theme from 'styles/theme';
 
-import { Step } from '../Step';
-import { Text } from '../Text';
-import styles from './styles';
+import getStyles from './styles';
 
 type WrapperProps = {
   children: React.ReactNode;
   title?: string;
-  subTitle?: string;
-  hasStep?: boolean;
-  currentPage?: number;
+  showHeader?: boolean;
+  disabledScrollView?: boolean;
+  isLight?: boolean;
   hasBackButton?: boolean;
-  hasCloseButton?: boolean;
+  hasClose?: boolean;
+  action?: React.ReactNode;
 };
 
 export const Wrapper = ({
-  title,
-  subTitle,
   children,
-  hasStep = true,
-  currentPage,
+  title,
+  showHeader = true,
+  disabledScrollView = false,
+  isLight = true,
   hasBackButton = true,
-  hasCloseButton = true
+  hasClose,
+  action
 }: WrapperProps) => {
-  const { colors } = theme;
-  const { goBack, dispatch } = useNavigation();
+  const styles = getStyles();
 
-  const handleCloseButton = () => {
-    return dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: ROUTES.AUTH_SIGNIN }]
-      })
-    );
-  };
+  const Header = () => (
+    <View style={styles.containerHeader}>
+      {hasBackButton ? (
+        <TouchableOpacity>
+          <AntDesign name="arrowleft" color={theme.colors.primary} size={16} />
+        </TouchableOpacity>
+      ) : (
+        <View style={{ width: 16 }} />
+      )}
+
+      {title && (
+        <Text fontSize={15} numberOfLines={1}>
+          {title}
+        </Text>
+      )}
+
+      {action ? (
+        <View>{action}</View>
+      ) : hasClose ? (
+        <TouchableOpacity>
+          <AntDesign name="close" color={theme.colors.text} size={16} />
+        </TouchableOpacity>
+      ) : (
+        <View style={{ width: 16 }} />
+      )}
+    </View>
+  );
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <StatusBar backgroundColor={colors.white} translucent={false} />
-        <View style={styles.header}>
-          {hasBackButton ? (
-            <TouchableOpacity onPress={goBack}>
-              <MaterialIcons name="arrow-back" size={20} color={colors.black} />
-            </TouchableOpacity>
-          ) : (
-            <View style={{ width: 20 }} />
-          )}
-
-          {hasStep && (
-            <View style={styles.step}>
-              <Step currentPage={currentPage!} />
-            </View>
-          )}
-
-          {hasCloseButton ? (
-            <TouchableOpacity onPress={handleCloseButton}>
-              <MaterialIcons name="close" size={20} color={colors.black} />
-            </TouchableOpacity>
-          ) : (
-            <View style={{ width: 20 }} />
-          )}
-        </View>
-
-        {title && (
-          <Text color={colors.text} fontSize={20} style={styles.title}>
-            {title}
-          </Text>
+    <>
+      <StatusBar barStyle={isLight ? 'dark-content' : 'light-content'} backgroundColor={theme.colors.white} />
+      {showHeader && <Header />}
+      <SafeAreaView style={styles.container}>
+        {!disabledScrollView ? (
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <ScrollView>{children}</ScrollView>
+          </TouchableWithoutFeedback>
+        ) : (
+          <View style={{ flex: 1 }}>{children}</View>
         )}
-
-        {subTitle && (
-          <Text color={colors.textLight} fontWeight="normal" style={styles.subTitle}>
-            {subTitle}
-          </Text>
-        )}
-
-        {children}
-      </ScrollView>
-    </TouchableWithoutFeedback>
+      </SafeAreaView>
+    </>
   );
 };
