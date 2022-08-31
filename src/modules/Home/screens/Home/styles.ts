@@ -36,7 +36,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingVertical: RFValue(8),
     paddingHorizontal: RFValue(8),
-    marginRight: RFValue(10),
+    marginRight: RFValue(4),
     borderRadius: 8,
     elevation: 5
   },
@@ -45,13 +45,27 @@ export default StyleSheet.create({
     marginLeft: 6,
     fontFamily: theme.fonts.primary_400
   },
-  like: {
+  button: {
     backgroundColor: theme.colors.lightBlack,
     paddingHorizontal: RFValue(12),
     paddingVertical: RFValue(12),
-    borderRadius: 8
+    borderRadius: 8,
+    marginLeft: 5
   },
-  count: {
+  countCart: {
+    position: 'absolute',
+    backgroundColor: theme.colors.primary,
+    borderRadius: 50,
+    top: RFValue(3),
+    left: RFValue(3),
+    zIndex: 1
+  },
+  countCartText: {
+    width: '100%',
+    marginHorizontal: RFValue(6),
+    marginVertical: RFValue(3)
+  },
+  countProduct: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

@@ -15,7 +15,7 @@ export const MENU_ROUTES = [
     component: Products,
     iconName: 'box',
     size: 24,
-    textBottomBar: 'Abastecer'
+    textBottomBar: 'Venda'
   },
   {
     name: ROUTES.REGISTER_ADDRESS,

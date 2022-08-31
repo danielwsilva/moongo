@@ -21,7 +21,8 @@ export default {
     lightBlack: '#343333',
 
     // Transparent color
-    none: 'transparent'
+    none: 'transparent',
+    overlay: 'rgba(0,0,0,0.3)'
   },
 
   fonts: {
