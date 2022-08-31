@@ -14,9 +14,15 @@ export declare global {
       [ROUTES.AUTH_FORGOT_CPF]: undefined;
       [ROUTES.AUTH_FORGOT_CODE]: undefined;
       [ROUTES.AUTH_FORGOT_PASSWORD]: { stack: 'auth' | 'register' };
+      // BUTTON-NAV
+      [ROUTES.BUTTON_NAV]: undefined;
       // HOME
       [ROUTES.HOME_STACK]: undefined;
       [ROUTES.HOME]: undefined;
+      // SALES
+      [ROUTES.SALES_STACK]: undefined;
+      [ROUTES.SALES_PRODUCT]: undefined;
+      [ROUTES.SALES_CART]: undefined;
     }
   }
 }

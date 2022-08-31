@@ -15,8 +15,15 @@ export enum ROUTES {
   AUTH_FORGOT_CODE = 'auth-forgot-code',
   AUTH_FORGOT_PASSWORD = 'auth-forgot-password',
 
+  // BUTTON-NAV
+  BUTTON_NAV = 'button_nav',
+
   // HOME
   HOME_STACK = 'home-stack',
-  HOME_INITIAL = 'home-initial',
-  HOME = 'home'
+  HOME = 'home',
+
+  // SALES
+  SALES_STACK = 'sales-stack',
+  SALES_PRODUCT = 'sales-product',
+  SALES_CART = 'sales-cart'
 }
