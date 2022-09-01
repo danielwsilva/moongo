@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 
 import { Text } from 'components';
-import { useCart } from 'hooks/cart';
+import { Product, useCart } from 'hooks/cart';
 import { CountCart } from 'modules/Home/components/CountCart';
 import { ProductRow } from 'modules/Home/components/ProductRow';
 import { ROUTES } from 'navigation/appRoutes';
@@ -41,29 +42,29 @@ const DATA = [
     stockMin: 1,
     stockMax: 4,
     image: amendoim
+  },
+  {
+    id: '3',
+    name: 'Talento Café',
+    brad: 'Garoto',
+    price: 3.51,
+    saleNumber: '14.245',
+    stock: 1,
+    stockMin: 1,
+    stockMax: 4,
+    image: talento_cafe
+  },
+  {
+    id: '4',
+    name: 'Talento Castanhas',
+    brad: 'Garoto',
+    price: 3.51,
+    saleNumber: '14.245',
+    stock: 1,
+    stockMin: 1,
+    stockMax: 4,
+    image: talento_castanhas
   }
-  // {
-  //   id: '3',
-  //   name: 'Talento Café',
-  //   brad: 'Garoto',
-  //   price: 3.51,
-  //   saleNumber: '14.245',
-  //   stock: 1,
-  //   stockMin: 1,
-  //   stockMax: 4,
-  //   image: talento_cafe
-  // },
-  // {
-  //   id: '4',
-  //   name: 'Talento Castanhas',
-  //   brad: 'Garoto',
-  //   price: 3.51,
-  //   saleNumber: '14.245',
-  //   stock: 1,
-  //   stockMin: 1,
-  //   stockMax: 4,
-  //   image: talento_castanhas
-  // },
   // {
   //   id: '5',
   //   name: 'Kit Kat 45G',
@@ -111,7 +112,7 @@ const DATA = [
 ];
 
 export const Home = () => {
-  const { cart } = useCart();
+  const { addProduct, removeProduct } = useCart();
   const { navigate } = useNavigation();
 
   return (
@@ -139,7 +140,7 @@ export const Home = () => {
               <AntDesign name="hearto" color={theme.colors.white} size={18} />
             </TouchableOpacity>
 
-            <CountCart hasBackground onPress={() => navigate(ROUTES.HOME_STACK)} disabled={!cart.length} />
+            <CountCart hasBackground onPress={() => navigate(ROUTES.HOME_STACK)} />
           </View>
           <View style={styles.countProduct}>
             <Text fontWeight="bold" fontSize={14}>
@@ -154,7 +155,7 @@ export const Home = () => {
         <FlashList
           data={DATA}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <ProductRow item={item} />}
+          renderItem={({ item }) => <ProductRow item={item} removeProduct={removeProduct} addProduct={addProduct} />}
           estimatedItemSize={200}
           numColumns={2}
           contentContainerStyle={{ paddingTop: 2, paddingBottom: 100 }}

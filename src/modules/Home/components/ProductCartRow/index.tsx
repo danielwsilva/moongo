@@ -11,10 +11,10 @@ import styles from './styles';
 
 type ProductRowProps = {
   item: Product;
-  handleTotalCart: (_products: Product[]) => void;
+  totalCart: (_products: Product[]) => void;
 };
 
-export const ProductCartRowComponent = ({ item, handleTotalCart }: ProductRowProps) => {
+export const ProductCartRowComponent = ({ item, totalCart }: ProductRowProps) => {
   const [amount, setAmount] = useState(item.supply || 0);
 
   const { cart, updateProduct, removeProduct } = useCart();
@@ -28,7 +28,7 @@ export const ProductCartRowComponent = ({ item, handleTotalCart }: ProductRowPro
     else amountAux = amount;
 
     setAmount(updateProduct(item, amountAux));
-    handleTotalCart(cart);
+    totalCart(cart);
   };
 
   const decrement = () => {
@@ -38,12 +38,12 @@ export const ProductCartRowComponent = ({ item, handleTotalCart }: ProductRowPro
     else amountAux = 1;
 
     setAmount(updateProduct(item, amountAux));
-    handleTotalCart(cart);
+    totalCart(cart);
   };
 
   const rightSwipe = () => (
     <TouchableOpacity
-      onPress={() => removeProduct(item)}
+      onPress={() => removeProduct(cart, item)}
       style={{ width: 74, backgroundColor: theme.colors.swipeDelete, justifyContent: 'center', alignItems: 'center' }}
     >
       <Ionicons name="md-trash-sharp" size={20} color={colors.error} />

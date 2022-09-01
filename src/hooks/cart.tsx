@@ -16,8 +16,9 @@ export type Product = {
 
 interface CartContextData {
   cart: Product[];
-  addProduct: (_item: Product) => void;
-  removeProduct: (_item: Product) => void;
+  setCart: (_item: Product[]) => void;
+  addProduct: (_cart: Product[], _item: Product) => void;
+  removeProduct: (_cart: Product[], _item: Product) => void;
   updateProduct: (_item: Product, _supply: number) => number;
 }
 
@@ -30,14 +31,10 @@ const CartContext = createContext<CartContextData>({} as CartContextData);
 export function CartProvider({ children }: PropsProvider) {
   const [cart, setCart] = useState<Product[]>([]);
 
-  const addProduct = useCallback(
-    (product: Product) => {
-      const productIndex = cart.findIndex((item) => item.id === product.id);
-
-      if (productIndex < 0) setCart([...cart, { ...product }]);
-    },
-    [cart]
-  );
+  const addProduct = useCallback((productCart: Product[], product: Product) => {
+    const productIndex = productCart.findIndex((item) => item.id === product.id);
+    if (productIndex < 0) setCart([...productCart, { ...product }]);
+  }, []);
 
   const updateProduct = useCallback(
     (product: Product, supply: number) => {
@@ -48,18 +45,16 @@ export function CartProvider({ children }: PropsProvider) {
     [cart]
   );
 
-  const removeProduct = useCallback(
-    (product: Product) => {
-      const filterProduct = cart.filter((item) => item.id !== product.id);
-      setCart(filterProduct);
-    },
-    [cart]
-  );
+  const removeProduct = useCallback((productCart: Product[], product: Product) => {
+    const filterProduct = productCart.filter((item) => item.id !== product.id);
+    setCart(filterProduct);
+  }, []);
 
   return (
     <CartContext.Provider
       value={{
         cart,
+        setCart,
         addProduct,
         removeProduct,
         updateProduct

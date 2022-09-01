@@ -10,12 +10,15 @@ import { getStyles } from './styles';
 
 type ProductRowProps = {
   item: Product;
+  removeProduct: (_cart: Product[], _item: Product) => void;
+  addProduct: (_cart: Product[], _item: Product) => void;
 };
 
-export const ProductRow = ({ item }: ProductRowProps) => {
-  const { addProduct, removeProduct } = useCart();
+export const ProductRow = ({ item, removeProduct, addProduct }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
   const [existProductCart, setExistProductCart] = useState(false);
+
+  const { cart } = useCart();
 
   const checkStock = () => {
     if (item.stock === item.stockMax) return false;
@@ -27,13 +30,14 @@ export const ProductRow = ({ item }: ProductRowProps) => {
   const { colors } = theme;
   const styles = getStyles({ existProductCart, checkStock });
 
-  const handleAddCart = (product: Product) => {
-    const data = { ...product, supply: 1 };
+  const handleAddCart = () => {
+    const data = { ...item, supply: 1 };
+
     if (existProductCart) {
-      removeProduct(data);
+      removeProduct(cart, data);
       setExistProductCart(false);
     } else {
-      addProduct(data);
+      addProduct(cart, data);
       setExistProductCart(true);
     }
   };
@@ -73,7 +77,7 @@ export const ProductRow = ({ item }: ProductRowProps) => {
           </View>
 
           {checkStock() && (
-            <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => handleAddCart(item)}>
+            <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => handleAddCart()}>
               <AntDesign name={existProductCart ? 'check' : 'plus'} size={20} color={colors.white} />
             </TouchableOpacity>
           )}
