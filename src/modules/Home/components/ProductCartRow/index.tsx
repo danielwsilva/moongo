@@ -11,11 +11,10 @@ import styles from './styles';
 
 type ProductRowProps = {
   item: Product;
-  indexSeparator: number;
   handleTotalCart: (_products: Product[]) => void;
 };
 
-export const ProductCartRowComponent = ({ item, indexSeparator, handleTotalCart }: ProductRowProps) => {
+export const ProductCartRowComponent = ({ item, handleTotalCart }: ProductRowProps) => {
   const [amount, setAmount] = useState(item.supply || 0);
 
   const { cart, updateProduct, removeProduct } = useCart();
@@ -91,7 +90,7 @@ export const ProductCartRowComponent = ({ item, indexSeparator, handleTotalCart 
         </View>
       </Swipeable>
 
-      {indexSeparator !== cart.length - 1 && <View style={styles.separator} />}
+      {item.id !== cart[cart.length - 1].id && <View style={styles.separator} />}
     </>
   );
 };

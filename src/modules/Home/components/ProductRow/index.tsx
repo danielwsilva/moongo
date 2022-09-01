@@ -1,8 +1,7 @@
-import { useState, useMemo, memo, useCallback } from 'react';
+import { useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-import { useFocusEffect } from '@react-navigation/native';
 import { Text, Modal } from 'components';
 import { Product, useCart } from 'hooks/cart';
 import theme from 'styles/theme';
@@ -14,7 +13,7 @@ type ProductRowProps = {
 };
 
 export const ProductRow = ({ item }: ProductRowProps) => {
-  const { cart, addProduct, removeProduct } = useCart();
+  const { addProduct, removeProduct } = useCart();
   const [visible, setVisible] = useState(false);
   const [existProductCart, setExistProductCart] = useState(false);
 
@@ -29,7 +28,7 @@ export const ProductRow = ({ item }: ProductRowProps) => {
   const styles = getStyles({ existProductCart, checkStock });
 
   const handleAddCart = (product: Product) => {
-    const data = { ...product };
+    const data = { ...product, supply: 1 };
     if (existProductCart) {
       removeProduct(data);
       setExistProductCart(false);
