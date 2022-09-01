@@ -5,7 +5,8 @@ import theme from 'styles/theme';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: RFValue(4),
+    backgroundColor: theme.colors.white,
+    paddingHorizontal: RFValue(24),
     flexDirection: 'row',
     alignItems: 'center'
   },
@@ -53,8 +54,9 @@ export default StyleSheet.create({
   },
   separator: {
     width: '100%',
-    borderWidth: 1,
+    borderBottomWidth: 1.5,
     borderColor: theme.colors.textLight,
-    borderStyle: 'dashed'
+    borderStyle: 'dashed',
+    marginLeft: RFValue(115)
   }
 });

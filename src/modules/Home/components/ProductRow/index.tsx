@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo, memo, useCallback } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
+import { useFocusEffect } from '@react-navigation/native';
 import { Text, Modal } from 'components';
 import { Product, useCart } from 'hooks/cart';
 import theme from 'styles/theme';
@@ -13,9 +14,9 @@ type ProductRowProps = {
 };
 
 export const ProductRow = ({ item }: ProductRowProps) => {
-  const { addCart, removeProduct } = useCart();
-  const [addProductCart, setAddProductCart] = useState(false);
+  const { cart, addProduct, removeProduct } = useCart();
   const [visible, setVisible] = useState(false);
+  const [existProductCart, setExistProductCart] = useState(false);
 
   const checkStock = () => {
     if (item.stock === item.stockMax) return false;
@@ -25,16 +26,16 @@ export const ProductRow = ({ item }: ProductRowProps) => {
   };
 
   const { colors } = theme;
-  const styles = getStyles({ addProductCart, checkStock });
+  const styles = getStyles({ existProductCart, checkStock });
 
   const handleAddCart = (product: Product) => {
-    const data = { ...product, supply: 1 };
-    if (addProductCart) {
+    const data = { ...product };
+    if (existProductCart) {
       removeProduct(data);
-      setAddProductCart(false);
+      setExistProductCart(false);
     } else {
-      addCart(data);
-      setAddProductCart(true);
+      addProduct(data);
+      setExistProductCart(true);
     }
   };
 
@@ -74,7 +75,7 @@ export const ProductRow = ({ item }: ProductRowProps) => {
 
           {checkStock() && (
             <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => handleAddCart(item)}>
-              <AntDesign name={addProductCart ? 'check' : 'plus'} size={20} color={colors.white} />
+              <AntDesign name={existProductCart ? 'check' : 'plus'} size={20} color={colors.white} />
             </TouchableOpacity>
           )}
 

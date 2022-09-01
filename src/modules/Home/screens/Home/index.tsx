@@ -28,7 +28,7 @@ const DATA = [
     saleNumber: '14.245',
     stock: 1,
     stockMin: 1,
-    stockMax: 100,
+    stockMax: 4,
     image: kitkat
   },
   {
@@ -41,29 +41,73 @@ const DATA = [
     stockMin: 1,
     stockMax: 4,
     image: amendoim
-  },
-  {
-    id: '3',
-    name: 'Talento Café',
-    brad: 'Garoto',
-    price: 3.51,
-    saleNumber: '14.245',
-    stock: 1,
-    stockMin: 1,
-    stockMax: 4,
-    image: talento_cafe
-  },
-  {
-    id: '4',
-    name: 'Talento Castanhas',
-    brad: 'Garoto',
-    price: 3.51,
-    saleNumber: '14.245',
-    stock: 1,
-    stockMin: 1,
-    stockMax: 4,
-    image: talento_castanhas
   }
+  // {
+  //   id: '3',
+  //   name: 'Talento Café',
+  //   brad: 'Garoto',
+  //   price: 3.51,
+  //   saleNumber: '14.245',
+  //   stock: 1,
+  //   stockMin: 1,
+  //   stockMax: 4,
+  //   image: talento_cafe
+  // },
+  // {
+  //   id: '4',
+  //   name: 'Talento Castanhas',
+  //   brad: 'Garoto',
+  //   price: 3.51,
+  //   saleNumber: '14.245',
+  //   stock: 1,
+  //   stockMin: 1,
+  //   stockMax: 4,
+  //   image: talento_castanhas
+  // },
+  // {
+  //   id: '5',
+  //   name: 'Kit Kat 45G',
+  //   brad: 'Nestle',
+  //   price: 3.51,
+  //   saleNumber: '14.245',
+  //   stock: 1,
+  //   stockMin: 1,
+  //   stockMax: 4,
+  //   image: kitkat
+  // },
+  // {
+  //   id: '6',
+  //   name: 'Amendoim Dori',
+  //   brad: 'Dori',
+  //   price: 3.51,
+  //   saleNumber: '14.245',
+  //   stock: 0,
+  //   stockMin: 1,
+  //   stockMax: 4,
+  //   image: amendoim
+  // },
+  // {
+  //   id: '7',
+  //   name: 'Talento Café',
+  //   brad: 'Garoto',
+  //   price: 3.51,
+  //   saleNumber: '14.245',
+  //   stock: 1,
+  //   stockMin: 1,
+  //   stockMax: 4,
+  //   image: talento_cafe
+  // },
+  // {
+  //   id: '8',
+  //   name: 'Talento Castanhas',
+  //   brad: 'Garoto',
+  //   price: 3.51,
+  //   saleNumber: '14.245',
+  //   stock: 1,
+  //   stockMin: 1,
+  //   stockMax: 4,
+  //   image: talento_castanhas
+  // }
 ];
 
 export const Home = () => {
@@ -109,6 +153,7 @@ export const Home = () => {
 
         <FlashList
           data={DATA}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ProductRow item={item} />}
           estimatedItemSize={200}
           numColumns={2}

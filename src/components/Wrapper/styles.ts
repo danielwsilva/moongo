@@ -8,11 +8,10 @@ const getStyles = () => {
     container: {
       flex: 1,
       backgroundColor: theme.colors.white,
-      paddingHorizontal: RFValue(25),
       paddingTop: RFValue(32)
     },
     containerHeader: {
-      height: RFValue(50),
+      height: RFValue(40),
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignContent: 'center',

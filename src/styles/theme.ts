@@ -22,7 +22,8 @@ export default {
 
     // Transparent color
     none: 'transparent',
-    overlay: 'rgba(0,0,0,0.3)'
+    overlay: 'rgba(0,0,0,0.3)',
+    swipeDelete: 'rgba(239,12,12, .3)'
   },
 
   fonts: {
