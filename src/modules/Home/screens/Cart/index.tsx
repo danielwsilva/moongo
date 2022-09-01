@@ -9,20 +9,18 @@ import { ProductCartRow } from 'modules/Home/components/ProductCartRow';
 
 export const Cart = () => {
   const { cart } = useCart();
-  const [total, setTotal] = useState(0);
+  const [totalCart, setTotalCart] = useState(0);
 
-  const totalCart = (products: Product[]) => {
-    const totalProducts = products.reduce((sum, item) => {
-      return sum + item.supply! * item.price;
+  const handleTotalCart = (products: Product[]) => {
+    const totalProducts = products.reduce((total, item) => {
+      return total + item.supply! * item.price;
     }, 0);
 
-    setTotal(totalProducts);
+    setTotalCart(totalProducts);
   };
 
-  console.log('aqiii 22');
-
   useEffect(() => {
-    totalCart(cart);
+    handleTotalCart(cart);
   }, [cart]);
 
   return (
@@ -30,7 +28,9 @@ export const Cart = () => {
       <FlashList
         data={cart}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCartRow item={item} totalCart={totalCart} />}
+        renderItem={({ item, index }) => (
+          <ProductCartRow item={item} indexSeparator={index} handleTotalCart={handleTotalCart} />
+        )}
         estimatedItemSize={200}
         contentContainerStyle={{ paddingTop: 2, paddingBottom: 50 }}
         showsVerticalScrollIndicator={false}
@@ -39,7 +39,7 @@ export const Cart = () => {
       <View style={{ paddingHorizontal: 24 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
           <Text fontWeight="normal">Total</Text>
-          <Text fontWeight="bold">{`R$ ${total.toFixed(2)}`}</Text>
+          <Text fontWeight="bold">{`R$ ${totalCart.toFixed(2)}`}</Text>
         </View>
         <Button style={{ marginBottom: 32 }}>Finalizar abastecimento</Button>
       </View>
