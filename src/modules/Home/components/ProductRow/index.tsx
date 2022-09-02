@@ -12,10 +12,10 @@ type ProductRowProps = TouchableOpacityProps & {
   item: Product;
 };
 
-export const ProductRowComponent = ({ item, ...rest }: ProductRowProps) => {
+export const ProductRow = ({ item, ...rest }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
 
-  console.log(item);
+  // console.log(item);
 
   const checkStock = () => {
     if (item.stock === item.stockMax) return false;
@@ -106,7 +106,3 @@ export const ProductRowComponent = ({ item, ...rest }: ProductRowProps) => {
     </>
   );
 };
-
-export const ProductRow = memo(ProductRowComponent, (prevProps, nextProps) => {
-  return Object.is(prevProps.item, nextProps.item);
-});

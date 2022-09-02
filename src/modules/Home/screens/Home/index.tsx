@@ -68,9 +68,10 @@ const DATA = [
 ];
 
 export const Home = () => {
+  const [product, setProduct] = useState<Product>({} as Product);
+
   const { cart, addProduct } = useCart();
   const { navigate } = useNavigation();
-  const [product, setProduct] = useState<Product>({} as Product);
 
   useEffect(() => {
     const handleAddCart = (productCart: Product[], prod: Product) => {
@@ -81,7 +82,9 @@ export const Home = () => {
     };
 
     handleAddCart(cart, product);
-  }, [product]);
+  }, [product, !!product]);
+
+  // console.log('aquii');
 
   return (
     <View style={styles.container}>
