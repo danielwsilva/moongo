@@ -1,5 +1,5 @@
-import { memo, useState } from 'react';
-import { Image, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { ReactNode, useState } from 'react';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { Text, Modal } from 'components';
@@ -8,24 +8,18 @@ import theme from 'styles/theme';
 
 import { getStyles } from './styles';
 
-type ProductRowProps = TouchableOpacityProps & {
+type ProductRowProps = {
   item: Product;
+  children: ReactNode;
 };
 
-export const ProductRow = ({ item, ...rest }: ProductRowProps) => {
+export const ProductRow = ({ item, children, ...rest }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
 
-  // console.log(item);
-
-  const checkStock = () => {
-    if (item.stock === item.stockMax) return false;
-    if (item.stock === item.stockMin || item.stock === 0) return true;
-    if (item.stock > item.stockMin || item.stock < item.stockMax) return false;
-    return true;
-  };
+  console.log(item);
 
   const { colors } = theme;
-  const styles = getStyles({ check: false, checkStock });
+  const styles = getStyles();
 
   return (
     <>
@@ -61,18 +55,7 @@ export const ProductRow = ({ item, ...rest }: ProductRowProps) => {
             </Text>
           </View>
 
-          {checkStock() && (
-            <TouchableOpacity {...rest} style={styles.button} activeOpacity={0.8}>
-              <AntDesign name={false ? 'check' : 'plus'} size={20} color={colors.white} />
-            </TouchableOpacity>
-          )}
-
-          <View style={styles.stock}>
-            <AntDesign name="dropbox" size={20} color={colors.white} />
-            <Text fontWeight="bold" fontSize={14} color={colors.white} style={{ marginLeft: 10 }}>
-              {item.stock}
-            </Text>
-          </View>
+          {children}
         </View>
       </View>
 

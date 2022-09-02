@@ -45,12 +45,28 @@ export default StyleSheet.create({
     marginLeft: 6,
     fontFamily: theme.fonts.primary_400
   },
-  button: {
+  buttonHeart: {
     backgroundColor: theme.colors.lightBlack,
     paddingHorizontal: RFValue(12),
     paddingVertical: RFValue(12),
     borderRadius: 8,
     marginLeft: 5
+  },
+  button: {
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.lightBlack,
+    padding: RFValue(5),
+    marginLeft: RFValue(12)
+  },
+  stock: {
+    flexDirection: 'row',
+    backgroundColor: theme.colors.lightBlack,
+    borderTopEndRadius: 8,
+    borderBottomEndRadius: 8,
+    padding: RFValue(5)
   },
   countCart: {
     position: 'absolute',

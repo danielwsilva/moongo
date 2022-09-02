@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -73,6 +73,13 @@ export const Home = () => {
   const { cart, addProduct } = useCart();
   const { navigate } = useNavigation();
 
+  const checkStock = (item: Product) => {
+    if (item.stock === item.stockMax) return false;
+    if (item.stock === item.stockMin || item.stock === 0) return true;
+    if (item.stock > item.stockMin || item.stock < item.stockMax) return false;
+    return true;
+  };
+
   useEffect(() => {
     const handleAddCart = (productCart: Product[], prod: Product) => {
       if (Object.keys(prod).length !== 0) {
@@ -82,7 +89,7 @@ export const Home = () => {
     };
 
     handleAddCart(cart, product);
-  }, [product, !!product]);
+  }, [product]);
 
   // console.log('aquii');
 
@@ -107,7 +114,7 @@ export const Home = () => {
               <TextInput placeholder="Produtos" style={styles.input} />
             </View>
 
-            <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+            <TouchableOpacity style={styles.buttonHeart} activeOpacity={0.8}>
               <AntDesign name="hearto" color={theme.colors.white} size={18} />
             </TouchableOpacity>
 
@@ -125,7 +132,30 @@ export const Home = () => {
 
         <FlashList
           data={DATA}
-          renderItem={({ item }) => <ProductRow item={item} onPress={() => setProduct(item)} />}
+          renderItem={({ item }) => (
+            <ProductRow item={item}>
+              {checkStock(item) && (
+                <>
+                  <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => setProduct(item)}>
+                    <AntDesign name={false ? 'check' : 'plus'} size={20} color={theme.colors.white} />
+                  </TouchableOpacity>
+
+                  <View
+                    style={{
+                      ...styles.stock,
+                      borderTopLeftRadius: !checkStock(item) ? 8 : 0,
+                      borderBottomLeftRadius: !checkStock(item) ? 8 : 0
+                    }}
+                  >
+                    <AntDesign name="dropbox" size={20} color={theme.colors.white} />
+                    <Text fontWeight="bold" fontSize={14} color={theme.colors.white} style={{ marginLeft: 10 }}>
+                      {item.stock}
+                    </Text>
+                  </View>
+                </>
+              )}
+            </ProductRow>
+          )}
           estimatedItemSize={200}
           numColumns={2}
           contentContainerStyle={{ paddingTop: 2, paddingBottom: 100 }}
