@@ -16,7 +16,8 @@ export type Product = {
 
 interface CartContextData {
   cart: Product[];
-  addProduct: (_item: Product) => void;
+  setCart: (_item: Product[]) => void;
+  addProduct: (_cart: Product[], _item: Product) => void;
   removeProduct: (_item: Product) => void;
   updateProduct: (_item: Product, _supply: number) => number;
 }
@@ -31,10 +32,14 @@ export function CartProvider({ children }: PropsProvider) {
   const [cart, setCart] = useState<Product[]>([]);
 
   const addProduct = useCallback(
-    (product: Product) => {
-      const productIndex = cart.findIndex((item) => item.id === product.id);
+    (productCart: Product[], product: Product) => {
+      const productIndex = productCart.findIndex((item) => item.id === product.id);
 
-      if (productIndex < 0) setCart([...cart, { ...product }]);
+      if (productIndex < 0) {
+        setCart([...productCart, { ...product }]);
+      } else {
+        removeProduct(product);
+      }
     },
     [cart]
   );
@@ -60,6 +65,7 @@ export function CartProvider({ children }: PropsProvider) {
     <CartContext.Provider
       value={{
         cart,
+        setCart,
         addProduct,
         removeProduct,
         updateProduct

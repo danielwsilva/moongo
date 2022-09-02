@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { memo, useState } from 'react';
+import { Image, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { Text, Modal } from 'components';
-import { Product, useCart } from 'hooks/cart';
+import { Product } from 'hooks/cart';
 import theme from 'styles/theme';
 
 import { getStyles } from './styles';
 
-type ProductRowProps = {
+type ProductRowProps = TouchableOpacityProps & {
   item: Product;
 };
 
-export const ProductRow = ({ item }: ProductRowProps) => {
-  const { addProduct, removeProduct } = useCart();
+export const ProductRowComponent = ({ item, ...rest }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
-  const [existProductCart, setExistProductCart] = useState(false);
+
+  console.log(item);
 
   const checkStock = () => {
     if (item.stock === item.stockMax) return false;
@@ -25,18 +25,7 @@ export const ProductRow = ({ item }: ProductRowProps) => {
   };
 
   const { colors } = theme;
-  const styles = getStyles({ existProductCart, checkStock });
-
-  const handleAddCart = (product: Product) => {
-    const data = { ...product, supply: 1 };
-    if (existProductCart) {
-      removeProduct(data);
-      setExistProductCart(false);
-    } else {
-      addProduct(data);
-      setExistProductCart(true);
-    }
-  };
+  const styles = getStyles({ check: false, checkStock });
 
   return (
     <>
@@ -73,8 +62,8 @@ export const ProductRow = ({ item }: ProductRowProps) => {
           </View>
 
           {checkStock() && (
-            <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => handleAddCart(item)}>
-              <AntDesign name={existProductCart ? 'check' : 'plus'} size={20} color={colors.white} />
+            <TouchableOpacity {...rest} style={styles.button} activeOpacity={0.8}>
+              <AntDesign name={false ? 'check' : 'plus'} size={20} color={colors.white} />
             </TouchableOpacity>
           )}
 
@@ -117,3 +106,7 @@ export const ProductRow = ({ item }: ProductRowProps) => {
     </>
   );
 };
+
+export const ProductRow = memo(ProductRowComponent, (prevProps, nextProps) => {
+  return Object.is(prevProps.item, nextProps.item);
+});

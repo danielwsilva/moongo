@@ -3,11 +3,11 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import theme from 'styles/theme';
 
 type Pros = {
-  existProductCart: boolean;
+  check: boolean;
   checkStock: () => boolean;
 };
 
-export const getStyles = ({ existProductCart, checkStock }: Pros) => {
+export const getStyles = ({ check, checkStock }: Pros) => {
   return StyleSheet.create({
     container: {
       elevation: 5,
@@ -37,7 +37,7 @@ export const getStyles = ({ existProductCart, checkStock }: Pros) => {
       borderBottomLeftRadius: 8,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: existProductCart ? theme.colors.success : theme.colors.lightBlack,
+      backgroundColor: check ? theme.colors.success : theme.colors.lightBlack,
       padding: RFValue(5),
       marginLeft: RFValue(12)
     },
