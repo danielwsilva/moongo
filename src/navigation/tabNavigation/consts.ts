@@ -1,11 +1,11 @@
-import { Home } from 'modules/Home/screens';
+import HomeStack from 'modules/Home/routes/HomeStack';
 import { Products } from 'modules/Sales/screens';
 import { ROUTES } from 'navigation/appRoutes';
 
 export const MENU_ROUTES = [
   {
-    name: ROUTES.HOME,
-    component: Home,
+    name: ROUTES.HOME_TABNAVIGATION,
+    component: HomeStack,
     iconName: 'home',
     size: 24,
     textBottomBar: 'Início'
@@ -19,14 +19,14 @@ export const MENU_ROUTES = [
   },
   {
     name: ROUTES.REGISTER_ADDRESS,
-    component: Home,
+    component: HomeStack,
     iconName: 'credit-card',
     size: 24,
     textBottomBar: 'Carteira'
   },
   {
     name: ROUTES.REGISTER_CAR,
-    component: Home,
+    component: HomeStack,
     iconName: 'user',
     size: 24,
     textBottomBar: 'Perfil'

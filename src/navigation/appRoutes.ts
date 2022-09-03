@@ -22,6 +22,7 @@ export enum ROUTES {
   HOME_STACK = 'home-stack',
   HOME_CART = 'home-cart',
   HOME = 'home',
+  HOME_TABNAVIGATION = 'home-tabnavigation',
 
   // SALES
   SALES_STACK = 'sales-stack',

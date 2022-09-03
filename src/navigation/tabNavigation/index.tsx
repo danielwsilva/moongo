@@ -5,7 +5,6 @@ import { Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Text } from 'components';
-import { CartProvider } from 'hooks/cart';
 import { ROUTES } from 'navigation/appRoutes';
 import theme from 'styles/theme';
 
@@ -19,7 +18,7 @@ const BottomNav = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={ROUTES.HOME}
+      initialRouteName={ROUTES.HOME_TABNAVIGATION}
       screenOptions={{
         headerShown: false,
         tabBarStyle: styles.navigator

@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import MainStack from './main';
+import BottomNav from 'navigation/tabNavigation';
 
 const Routes = () => {
   return (
     <NavigationContainer>
-      <MainStack />
+      <BottomNav />
     </NavigationContainer>
   );
 };
