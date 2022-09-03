@@ -6,7 +6,7 @@ import { Text, Modal } from 'components';
 import { Product } from 'hooks/cart';
 import theme from 'styles/theme';
 
-import { getStyles } from './styles';
+import styles from './styles';
 
 type ProductRowProps = {
   item: Product;
@@ -17,21 +17,20 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
 
   const { colors } = theme;
-  const styles = getStyles();
 
   return (
     <>
       <View style={styles.container}>
         <TouchableOpacity style={styles.doubt} onPress={() => setVisible(true)}>
-          <AntDesign name="questioncircleo" color={theme.colors.textLight} size={16} />
+          <AntDesign name="questioncircleo" color={colors.textLight} size={16} />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.like}>
-          <AntDesign name="hearto" color={theme.colors.error} size={16} />
+          <AntDesign name="hearto" color={colors.error} size={16} />
         </TouchableOpacity>
 
         <Image source={item.image} resizeMode="stretch" style={styles.image} />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={styles.wrapperText}>
           <Text fontWeight="bold" fontSize={14} numberOfLines={1} style={{ flex: 1, marginRight: 2 }}>
             {item.name}
           </Text>
@@ -59,21 +58,22 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
 
       <Modal visible={visible} close={() => setVisible(!visible)} height={210}>
         <View style={styles.containerModal}>
-          <Text color={theme.colors.textLight}>Estoque mínimo e máximo</Text>
-          <Text fontWeight="normal" fontSize={12} color={theme.colors.textLight} style={{ textAlign: 'center' }}>
+          <Text color={colors.textLight}>Estoque mínimo e máximo</Text>
+
+          <Text fontWeight="normal" fontSize={12} color={colors.textLight} style={{ textAlign: 'center' }}>
             Só podera realizar o abastecimento se o estoque atual do produto for menor ou igual ao estoque mínimo.
           </Text>
-          <Text fontSize={14} color={theme.colors.textLight} style={{ textAlign: 'center' }}>
+
+          <Text fontSize={14} color={colors.textLight} style={{ textAlign: 'center' }}>
             {`${item.name}\n`}
-            <Text fontWeight="normal" fontSize={14} color={theme.colors.textLight}>
+            <Text fontWeight="normal" fontSize={14} color={colors.textLight}>
               Minímo: {item.stockMin} / Máximo: {item.stockMax}
             </Text>
           </Text>
-          <TouchableOpacity>
-            <Text color={theme.colors.primary} onPress={() => setVisible(!visible)}>
-              Entendi
-            </Text>
-          </TouchableOpacity>
+
+          <Text color={colors.primary} onPress={() => setVisible(!visible)}>
+            Entendi
+          </Text>
         </View>
       </Modal>
     </>

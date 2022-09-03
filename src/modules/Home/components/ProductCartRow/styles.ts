@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+
 import theme from 'styles/theme';
 
 export default StyleSheet.create({
@@ -10,13 +11,13 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  wrapper: {
-    flex: 1,
-    marginLeft: RFValue(12)
-  },
   image: {
     width: RFValue(80),
     height: RFValue(80)
+  },
+  wrapper: {
+    flex: 1,
+    marginLeft: RFValue(12)
   },
   Price: {
     flexDirection: 'row',
@@ -28,25 +29,25 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  AmountText: {
-    width: RFValue(28),
-    textAlign: 'center'
-  },
   buttonMinus: {
-    backgroundColor: theme.colors.none,
     borderWidth: 1,
+    backgroundColor: theme.colors.none,
     borderColor: theme.colors.lightBlack,
-    width: 28,
-    height: 28,
+    width: RFValue(24),
+    height: RFValue(24),
     borderBottomLeftRadius: 8,
     borderTopLeftRadius: 8,
     alignItems: 'center',
     justifyContent: 'center'
   },
+  AmountText: {
+    width: RFValue(28),
+    textAlign: 'center'
+  },
   buttonPlus: {
     backgroundColor: theme.colors.lightBlack,
-    width: 28,
-    height: 28,
+    width: RFValue(24),
+    height: RFValue(24),
     borderBottomEndRadius: 8,
     borderTopEndRadius: 8,
     alignItems: 'center',

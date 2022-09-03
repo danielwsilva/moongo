@@ -7,9 +7,12 @@ import { Product, useCart } from 'hooks/cart';
 import { CountCart } from 'modules/Home/components/CountCart';
 import { ProductCartRow } from 'modules/Home/components/ProductCartRow';
 
+import styles from './styles';
+
 export const Cart = () => {
-  const { cart } = useCart();
   const [totalCart, setTotalCart] = useState(0);
+
+  const { cart } = useCart();
 
   const handleTotalCart = (products: Product[]) => {
     const totalProducts = products.reduce((total, item) => {
@@ -28,20 +31,18 @@ export const Cart = () => {
       <FlashList
         data={cart}
         keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) => (
-          <ProductCartRow item={item} indexSeparator={index} handleTotalCart={handleTotalCart} />
-        )}
+        renderItem={({ item }) => <ProductCartRow item={item} handleTotalCart={handleTotalCart} />}
         estimatedItemSize={200}
-        contentContainerStyle={{ paddingTop: 2, paddingBottom: 50 }}
+        contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
       />
 
-      <View style={{ paddingHorizontal: 24 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
+      <View style={styles.footer}>
+        <View style={styles.totalText}>
           <Text fontWeight="normal">Total</Text>
           <Text fontWeight="bold">{`R$ ${totalCart.toFixed(2)}`}</Text>
         </View>
-        <Button style={{ marginBottom: 32 }}>Finalizar abastecimento</Button>
+        <Button style={styles.button}>Finalizar abastecimento</Button>
       </View>
     </Wrapper>
   );

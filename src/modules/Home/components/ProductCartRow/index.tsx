@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
@@ -14,7 +14,7 @@ type ProductRowProps = {
   handleTotalCart: (_products: Product[]) => void;
 };
 
-export const ProductCartRowComponent = ({ item, handleTotalCart }: ProductRowProps) => {
+export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
   const [amount, setAmount] = useState(item.supply || 0);
 
   const { cart, updateProduct, removeProduct } = useCart();
@@ -44,7 +44,7 @@ export const ProductCartRowComponent = ({ item, handleTotalCart }: ProductRowPro
   const rightSwipe = () => (
     <TouchableOpacity
       onPress={() => removeProduct(item)}
-      style={{ width: 74, backgroundColor: theme.colors.swipeDelete, justifyContent: 'center', alignItems: 'center' }}
+      style={{ width: 74, backgroundColor: colors.swipeDelete, justifyContent: 'center', alignItems: 'center' }}
     >
       <Ionicons name="md-trash-sharp" size={20} color={colors.error} />
       <Text color={colors.error} fontSize={12}>
@@ -62,11 +62,9 @@ export const ProductCartRowComponent = ({ item, handleTotalCart }: ProductRowPro
             <Text fontWeight="bold" fontSize={14} numberOfLines={1}>
               {item.name}
             </Text>
-
             <Text fontWeight="normal" fontSize={14} color={colors.textLight}>
               {item.brad}
             </Text>
-
             <View style={styles.Price}>
               <View style={styles.Amount}>
                 <TouchableOpacity style={styles.buttonMinus} onPress={decrement}>
@@ -94,7 +92,3 @@ export const ProductCartRowComponent = ({ item, handleTotalCart }: ProductRowPro
     </>
   );
 };
-
-export const ProductCartRow = memo(ProductCartRowComponent, (prevProps, nextProps) => {
-  return Object.is(prevProps.item, nextProps.item);
-});

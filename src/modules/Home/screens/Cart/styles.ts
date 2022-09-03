@@ -1,20 +1,20 @@
 import { StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import theme from 'styles/theme';
-
 export default StyleSheet.create({
-  countCart: {
-    position: 'absolute',
-    backgroundColor: theme.colors.primary,
-    borderRadius: 50,
-    top: RFValue(-8),
-    left: RFValue(-8),
-    zIndex: 1
+  list: {
+    paddingTop: RFValue(2),
+    paddingBottom: RFValue(48)
   },
-  countCartText: {
-    width: '100%',
-    marginHorizontal: RFValue(6),
-    marginVertical: RFValue(3)
+  footer: {
+    paddingHorizontal: RFValue(24)
+  },
+  totalText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: RFValue(12)
+  },
+  button: {
+    marginBottom: RFValue(32)
   }
 });

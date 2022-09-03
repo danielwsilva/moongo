@@ -3,6 +3,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
@@ -71,6 +72,7 @@ const DATA = [
 
 export const Home = () => {
   const { navigate } = useNavigation();
+  const { colors } = theme;
 
   const AddCart = ({ item }: { item: Product }) => {
     const [product, setProduct] = useState<Product>({} as Product);
@@ -92,17 +94,17 @@ export const Home = () => {
     };
 
     return (
-      <>
+      <View style={{ flexDirection: 'row' }}>
         {checkStock() && (
           <TouchableOpacity
             style={{
               ...styles.button,
-              backgroundColor: productCart?.id === item.id ? theme.colors.success : theme.colors.lightBlack
+              backgroundColor: productCart?.id === item.id ? colors.success : colors.lightBlack
             }}
             activeOpacity={0.8}
             onPress={() => handleAddCart()}
           >
-            <AntDesign name={productCart?.id === item.id ? 'check' : 'plus'} size={20} color={theme.colors.white} />
+            <AntDesign name={productCart?.id === item.id ? 'check' : 'plus'} size={20} color={colors.white} />
           </TouchableOpacity>
         )}
 
@@ -113,20 +115,20 @@ export const Home = () => {
             borderBottomLeftRadius: !checkStock() ? 8 : 0
           }}
         >
-          <AntDesign name="dropbox" size={20} color={theme.colors.white} />
-          <Text fontWeight="bold" fontSize={14} color={theme.colors.white} style={{ marginLeft: 10 }}>
+          <AntDesign name="dropbox" size={20} color={colors.white} />
+          <Text fontWeight="bold" fontSize={14} color={colors.white} style={styles.textStock}>
             {item.stock}
           </Text>
         </View>
-      </>
+      </View>
     );
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor={theme.colors.white} translucent={false} />
+      <StatusBar backgroundColor={colors.white} translucent={false} />
       <View style={styles.wrapper}>
-        <View style={{ marginHorizontal: 8 }}>
+        <View style={{ marginHorizontal: RFValue(8) }}>
           <View style={styles.personalData}>
             <View>
               <Text>Olá,</Text>
@@ -139,12 +141,12 @@ export const Home = () => {
 
           <View style={styles.filters}>
             <View style={styles.search}>
-              <AntDesign name="search1" color={theme.colors.text} size={18} />
+              <AntDesign name="search1" color={colors.text} size={18} />
               <TextInput placeholder="Produtos" style={styles.input} />
             </View>
 
-            <TouchableOpacity style={styles.buttonHeart} activeOpacity={0.8}>
-              <AntDesign name="hearto" color={theme.colors.white} size={18} />
+            <TouchableOpacity style={styles.buttomHeart} activeOpacity={0.8}>
+              <AntDesign name="hearto" color={colors.white} size={18} />
             </TouchableOpacity>
 
             <CountCart hasBackground onPress={() => navigate(ROUTES.HOME_STACK)} />
@@ -169,7 +171,7 @@ export const Home = () => {
           )}
           estimatedItemSize={200}
           numColumns={2}
-          contentContainerStyle={{ paddingTop: 2, paddingBottom: 100 }}
+          contentContainerStyle={styles.list}
           showsVerticalScrollIndicator={false}
         />
       </View>

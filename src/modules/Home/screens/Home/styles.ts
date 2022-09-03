@@ -38,47 +38,19 @@ export default StyleSheet.create({
     paddingHorizontal: RFValue(8),
     marginRight: RFValue(4),
     borderRadius: 8,
-    elevation: 5
+    elevation: 3
   },
   input: {
     flex: 1,
-    marginLeft: 6,
+    marginLeft: RFValue(6),
     fontFamily: theme.fonts.primary_400
   },
-  buttonHeart: {
+  buttomHeart: {
     backgroundColor: theme.colors.lightBlack,
     paddingHorizontal: RFValue(12),
     paddingVertical: RFValue(12),
-    borderRadius: 8,
-    marginLeft: 5
-  },
-  button: {
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: RFValue(5),
-    marginLeft: RFValue(12)
-  },
-  stock: {
-    flexDirection: 'row',
-    backgroundColor: theme.colors.lightBlack,
-    borderTopEndRadius: 8,
-    borderBottomEndRadius: 8,
-    padding: RFValue(5)
-  },
-  countCart: {
-    position: 'absolute',
-    backgroundColor: theme.colors.primary,
-    borderRadius: 50,
-    top: RFValue(3),
-    left: RFValue(3),
-    zIndex: 1
-  },
-  countCartText: {
-    width: '100%',
-    marginHorizontal: RFValue(6),
-    marginVertical: RFValue(3)
+    marginLeft: RFValue(5),
+    borderRadius: 8
   },
   countProduct: {
     flexDirection: 'row',
@@ -86,5 +58,26 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: RFValue(32),
     marginBottom: RFValue(14)
+  },
+  button: {
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: RFValue(2),
+    padding: RFValue(5)
+  },
+  stock: {
+    flexDirection: 'row',
+    backgroundColor: theme.colors.lightBlack,
+    borderRadius: 8,
+    padding: RFValue(5)
+  },
+  textStock: {
+    marginLeft: RFValue(10)
+  },
+  list: {
+    paddingTop: RFValue(2),
+    paddingBottom: RFValue(100)
   }
 });
