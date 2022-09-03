@@ -42,7 +42,7 @@ export const Cart = () => {
           <Text fontWeight="normal">Total</Text>
           <Text fontWeight="bold">{`R$ ${totalCart.toFixed(2)}`}</Text>
         </View>
-        <Button style={styles.button}>Finalizar abastecimento</Button>
+        <Button style={styles.button}>Finalizar</Button>
       </View>
     </Wrapper>
   );
