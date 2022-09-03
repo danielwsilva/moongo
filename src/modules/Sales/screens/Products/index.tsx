@@ -112,7 +112,6 @@ export const Products = () => {
       action={<CountCart onPress={() => navigate(ROUTES.HOME_CART)} />}
     >
       <View style={styles.container}>
-        <StatusBar backgroundColor={theme.colors.white} translucent={false} />
         <View style={styles.wrapper}>
           <View style={{ marginHorizontal: 8 }}>
             <View style={styles.search}>
