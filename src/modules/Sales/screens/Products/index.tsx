@@ -115,16 +115,11 @@ export const Products = () => {
         <StatusBar backgroundColor={theme.colors.white} translucent={false} />
         <View style={styles.wrapper}>
           <View style={{ marginHorizontal: 8 }}>
-            <View style={styles.filters}>
-              <View style={styles.search}>
-                <AntDesign name="search1" color={theme.colors.text} size={18} />
-                <TextInput placeholder="Produtos" style={styles.input} />
-              </View>
-
-              <TouchableOpacity style={styles.buttomHeart} activeOpacity={0.8}>
-                <AntDesign name="hearto" color={colors.white} size={18} />
-              </TouchableOpacity>
+            <View style={styles.search}>
+              <AntDesign name="search1" color={theme.colors.text} size={18} />
+              <TextInput placeholder="Produtos" style={styles.input} />
             </View>
+
             <View style={styles.count}>
               <Text fontWeight="bold" fontSize={14}>
                 Produtos

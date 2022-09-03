@@ -45,12 +45,6 @@ export default StyleSheet.create({
     marginLeft: RFValue(6),
     fontFamily: theme.fonts.primary_400
   },
-  buttomHeart: {
-    backgroundColor: theme.colors.lightBlack,
-    padding: RFValue(12),
-    marginLeft: RFValue(5),
-    borderRadius: 8
-  },
   buttomCountCart: {
     backgroundColor: theme.colors.lightBlack,
     padding: RFValue(12),

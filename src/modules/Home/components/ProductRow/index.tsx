@@ -25,10 +25,6 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
           <AntDesign name="questioncircleo" color={colors.textLight} size={16} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.like}>
-          <AntDesign name="hearto" color={colors.error} size={16} />
-        </TouchableOpacity>
-
         <Image source={item.image} resizeMode="stretch" style={styles.image} />
         <View style={styles.wrapperText}>
           <Text fontWeight="bold" fontSize={14} numberOfLines={1} style={{ flex: 1, marginRight: 2 }}>

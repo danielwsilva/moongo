@@ -14,16 +14,6 @@ export default StyleSheet.create({
   },
   doubt: {
     position: 'absolute',
-    left: RFValue(2),
-    top: RFValue(2),
-    height: RFValue(32),
-    width: RFValue(32),
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1
-  },
-  like: {
-    position: 'absolute',
     right: RFValue(2),
     top: RFValue(2),
     height: RFValue(32),

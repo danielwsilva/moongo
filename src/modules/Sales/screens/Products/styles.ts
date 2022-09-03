@@ -13,12 +13,7 @@ export default StyleSheet.create({
     flex: 1,
     width: '95%'
   },
-  filters: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   search: {
-    flex: 1,
     backgroundColor: theme.colors.white,
     flexDirection: 'row',
     alignItems: 'center',
@@ -30,12 +25,6 @@ export default StyleSheet.create({
     flex: 1,
     marginLeft: RFValue(6),
     fontFamily: theme.fonts.primary_400
-  },
-  buttomHeart: {
-    backgroundColor: theme.colors.lightBlack,
-    padding: RFValue(12),
-    marginLeft: RFValue(5),
-    borderRadius: 8
   },
   count: {
     flexDirection: 'row',
