@@ -1,5 +1,7 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/no-unstable-nested-components */
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -68,30 +70,57 @@ const DATA = [
 ];
 
 export const Home = () => {
-  const [product, setProduct] = useState<Product>({} as Product);
-
-  const { cart, addProduct } = useCart();
   const { navigate } = useNavigation();
 
-  const checkStock = (item: Product) => {
-    if (item.stock === item.stockMax) return false;
-    if (item.stock === item.stockMin || item.stock === 0) return true;
-    if (item.stock > item.stockMin || item.stock < item.stockMax) return false;
-    return true;
-  };
+  const AddCart = ({ item }: { item: Product }) => {
+    const [product, setProduct] = useState<Product>({} as Product);
+    const { cart, addProduct } = useCart();
 
-  useEffect(() => {
-    const handleAddCart = (productCart: Product[], prod: Product) => {
-      if (Object.keys(prod).length !== 0) {
-        const data = { ...prod, supply: 1 };
-        addProduct(productCart, data);
-      }
+    const productCart = cart.find((p) => p.id === product.id);
+
+    const checkStock = () => {
+      if (item.stock === item.stockMax) return false;
+      if (item.stock === item.stockMin || item.stock === 0) return true;
+      if (item.stock > item.stockMin || item.stock < item.stockMax) return false;
+      return true;
     };
 
-    handleAddCart(cart, product);
-  }, [product]);
+    const handleAddCart = () => {
+      const data = { ...item, supply: 1 };
+      setProduct(data);
+      addProduct(cart, data);
+    };
 
-  // console.log('aquii');
+    return (
+      <>
+        {checkStock() && (
+          <TouchableOpacity
+            style={{
+              ...styles.button,
+              backgroundColor: productCart?.id === item.id ? theme.colors.success : theme.colors.lightBlack
+            }}
+            activeOpacity={0.8}
+            onPress={() => handleAddCart()}
+          >
+            <AntDesign name={productCart?.id === item.id ? 'check' : 'plus'} size={20} color={theme.colors.white} />
+          </TouchableOpacity>
+        )}
+
+        <View
+          style={{
+            ...styles.stock,
+            borderTopLeftRadius: !checkStock() ? 8 : 0,
+            borderBottomLeftRadius: !checkStock() ? 8 : 0
+          }}
+        >
+          <AntDesign name="dropbox" size={20} color={theme.colors.white} />
+          <Text fontWeight="bold" fontSize={14} color={theme.colors.white} style={{ marginLeft: 10 }}>
+            {item.stock}
+          </Text>
+        </View>
+      </>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -132,28 +161,10 @@ export const Home = () => {
 
         <FlashList
           data={DATA}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <ProductRow item={item}>
-              {checkStock(item) && (
-                <>
-                  <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => setProduct(item)}>
-                    <AntDesign name={false ? 'check' : 'plus'} size={20} color={theme.colors.white} />
-                  </TouchableOpacity>
-
-                  <View
-                    style={{
-                      ...styles.stock,
-                      borderTopLeftRadius: !checkStock(item) ? 8 : 0,
-                      borderBottomLeftRadius: !checkStock(item) ? 8 : 0
-                    }}
-                  >
-                    <AntDesign name="dropbox" size={20} color={theme.colors.white} />
-                    <Text fontWeight="bold" fontSize={14} color={theme.colors.white} style={{ marginLeft: 10 }}>
-                      {item.stock}
-                    </Text>
-                  </View>
-                </>
-              )}
+              <AddCart item={item} />
             </ProductRow>
           )}
           estimatedItemSize={200}

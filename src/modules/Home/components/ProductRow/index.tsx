@@ -13,10 +13,8 @@ type ProductRowProps = {
   children: ReactNode;
 };
 
-export const ProductRow = ({ item, children, ...rest }: ProductRowProps) => {
+export const ProductRow = ({ item, children }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
-
-  console.log(item);
 
   const { colors } = theme;
   const styles = getStyles();
@@ -60,15 +58,7 @@ export const ProductRow = ({ item, children, ...rest }: ProductRowProps) => {
       </View>
 
       <Modal visible={visible} close={() => setVisible(!visible)} height={210}>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            paddingVertical: 12,
-            paddingHorizontal: 24
-          }}
-        >
+        <View style={styles.containerModal}>
           <Text color={theme.colors.textLight}>Estoque mínimo e máximo</Text>
           <Text fontWeight="normal" fontSize={12} color={theme.colors.textLight} style={{ textAlign: 'center' }}>
             Só podera realizar o abastecimento se o estoque atual do produto for menor ou igual ao estoque mínimo.

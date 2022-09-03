@@ -31,18 +31,15 @@ const CartContext = createContext<CartContextData>({} as CartContextData);
 export function CartProvider({ children }: PropsProvider) {
   const [cart, setCart] = useState<Product[]>([]);
 
-  const addProduct = useCallback(
-    (productCart: Product[], product: Product) => {
-      const productIndex = productCart.findIndex((item) => item.id === product.id);
+  const addProduct = (productCart: Product[], product: Product) => {
+    const productIndex = productCart.findIndex((item) => item.id === product.id);
 
-      if (productIndex < 0) {
-        setCart([...productCart, { ...product }]);
-      } else {
-        removeProduct(product);
-      }
-    },
-    [cart]
-  );
+    if (productIndex < 0) {
+      setCart([...productCart, { ...product }]);
+    } else {
+      removeProduct(product);
+    }
+  };
 
   const updateProduct = useCallback(
     (product: Product, supply: number) => {

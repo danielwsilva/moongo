@@ -47,6 +47,13 @@ export const getStyles = () => {
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 1
+    },
+    containerModal: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      paddingVertical: 12,
+      paddingHorizontal: 24
     }
   });
 };

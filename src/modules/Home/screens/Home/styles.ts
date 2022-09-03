@@ -57,7 +57,6 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.colors.lightBlack,
     padding: RFValue(5),
     marginLeft: RFValue(12)
   },
