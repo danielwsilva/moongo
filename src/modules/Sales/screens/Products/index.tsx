@@ -105,7 +105,12 @@ export const Products = () => {
   };
 
   return (
-    <Wrapper title="Venda" disabledScrollView action={<CountCart onPress={() => navigate(ROUTES.HOME_CART)} />}>
+    <Wrapper
+      title="Venda"
+      disabledScrollView
+      hasBackButton={false}
+      action={<CountCart onPress={() => navigate(ROUTES.HOME_CART)} />}
+    >
       <View style={styles.container}>
         <StatusBar backgroundColor={theme.colors.white} translucent={false} />
         <View style={styles.wrapper}>

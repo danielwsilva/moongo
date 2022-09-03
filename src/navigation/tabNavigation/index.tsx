@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-unstable-nested-components */
 import { Pressable, View } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Text } from 'components';
@@ -37,7 +37,7 @@ const BottomNav = () => {
             },
             tabBarIcon: ({ focused }) => (
               <View style={styles.content}>
-                <Feather name={item.iconName} size={item.size} color={focused ? colors.primary : colors.textLight} />
+                <AntDesign name={item.iconName} size={item.size} color={focused ? colors.primary : colors.textLight} />
                 <Text
                   fontWeight="normal"
                   fontSize={12}
