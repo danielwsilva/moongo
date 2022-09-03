@@ -5,20 +5,18 @@ import { Text } from 'components';
 import { useCart } from 'hooks/cart';
 
 import theme from 'styles/theme';
-import { getStyles } from './styles';
+import styles from './styles';
 
 type CountCartProps = TouchableOpacityProps & {
-  hasBackground?: boolean;
+  color?: string;
 };
 
-export const CountCart = ({ hasBackground = false, ...rest }: CountCartProps) => {
+export const CountCart = ({ color, ...rest }: CountCartProps) => {
   const { cart } = useCart();
   const { colors } = theme;
 
-  const styles = getStyles({ hasBackground });
-
   return (
-    <TouchableOpacity {...rest} activeOpacity={0.8} style={hasBackground ? styles.button : {}}>
+    <TouchableOpacity {...rest} activeOpacity={0.8}>
       {!!cart.length && (
         <View style={styles.countCart}>
           <Text fontSize={10} color={colors.white} style={styles.countCartText}>
@@ -27,7 +25,7 @@ export const CountCart = ({ hasBackground = false, ...rest }: CountCartProps) =>
         </View>
       )}
 
-      <AntDesign name="shoppingcart" color={hasBackground ? colors.white : colors.text} size={18} />
+      <AntDesign name="shoppingcart" color={color || colors.text} size={18} />
     </TouchableOpacity>
   );
 };

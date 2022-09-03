@@ -17,15 +17,15 @@ export enum ROUTES {
 
   // BUTTON-NAV
   BUTTON_NAV = 'button_nav',
+  HOME_TABNAVIGATION = 'home-tabnavigation',
+  SALES_TABNAVIGATION = 'sales-tabnavigation',
 
   // HOME
   HOME_STACK = 'home-stack',
   HOME_CART = 'home-cart',
   HOME = 'home',
-  HOME_TABNAVIGATION = 'home-tabnavigation',
 
   // SALES
   SALES_STACK = 'sales-stack',
-  SALES_PRODUCT = 'sales-product',
-  SALES_CART = 'sales-cart'
+  SALES_PRODUCT = 'sales-product'
 }

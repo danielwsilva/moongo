@@ -149,7 +149,9 @@ export const Home = () => {
               <AntDesign name="hearto" color={colors.white} size={18} />
             </TouchableOpacity>
 
-            <CountCart hasBackground onPress={() => navigate(ROUTES.HOME_CART)} />
+            <View style={styles.buttomCountCart}>
+              <CountCart color={colors.white} onPress={() => navigate(ROUTES.HOME_CART)} />
+            </View>
           </View>
           <View style={styles.countProduct}>
             <Text fontWeight="bold" fontSize={14}>

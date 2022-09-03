@@ -7,7 +7,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.white,
-    paddingTop: RFValue(16),
     alignItems: 'center'
   },
   wrapper: {
@@ -23,15 +22,20 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.white,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: RFValue(8),
-    paddingHorizontal: RFValue(8),
+    padding: RFValue(8),
     borderRadius: 8,
-    elevation: 5
+    elevation: 3
   },
   input: {
     flex: 1,
-    marginLeft: 6,
+    marginLeft: RFValue(6),
     fontFamily: theme.fonts.primary_400
+  },
+  buttomHeart: {
+    backgroundColor: theme.colors.lightBlack,
+    padding: RFValue(12),
+    marginLeft: RFValue(5),
+    borderRadius: 8
   },
   count: {
     flexDirection: 'row',
@@ -39,5 +43,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: RFValue(32),
     marginBottom: RFValue(14)
+  },
+  button: {
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: RFValue(5),
+    width: RFValue(60)
   }
 });

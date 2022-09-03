@@ -23,7 +23,6 @@ export declare global {
       // SALES
       [ROUTES.SALES_STACK]: undefined;
       [ROUTES.SALES_PRODUCT]: undefined;
-      [ROUTES.SALES_CART]: undefined;
     }
   }
 }

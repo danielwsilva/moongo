@@ -1,5 +1,5 @@
 import HomeStack from 'modules/Home/routes/HomeStack';
-import { Products } from 'modules/Sales/screens';
+import SalesStack from 'modules/Sales/routes/SalesStack';
 import { ROUTES } from 'navigation/appRoutes';
 
 export const MENU_ROUTES = [
@@ -11,8 +11,8 @@ export const MENU_ROUTES = [
     textBottomBar: 'Início'
   },
   {
-    name: ROUTES.SALES_PRODUCT,
-    component: Products,
+    name: ROUTES.SALES_TABNAVIGATION,
+    component: SalesStack,
     iconName: 'box',
     size: 24,
     textBottomBar: 'Venda'

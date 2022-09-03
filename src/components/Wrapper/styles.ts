@@ -7,8 +7,8 @@ const getStyles = () => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.white,
-      paddingTop: RFValue(32)
+      paddingTop: RFValue(16),
+      backgroundColor: theme.colors.white
     },
     containerHeader: {
       height: RFValue(40),

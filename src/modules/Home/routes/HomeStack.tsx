@@ -21,7 +21,7 @@ const HomeRoutes = ({ route }: NativeStackScreenProps<HomeRouteMap>) => {
   useEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
 
-    if (routeName === ROUTES.HOME_CART) {
+    if (routeName !== ROUTES.HOME && !!routeName) {
       navigation.setOptions({ tabBarStyle: { display: 'none' } });
     } else {
       navigation.setOptions({ tabBarStyle: styles.navigator });
@@ -35,7 +35,7 @@ const HomeRoutes = ({ route }: NativeStackScreenProps<HomeRouteMap>) => {
         screenOptions={{ headerShown: false, animation: 'slide_from_right', animationTypeForReplace: 'pop' }}
       >
         <Screen name={ROUTES.HOME} component={Home} />
-        <Screen name={ROUTES.HOME_CART} component={Cart} options={{ contentStyle: { zIndex: 0 } }} />
+        <Screen name={ROUTES.HOME_CART} component={Cart} />
       </Navigator>
     </CartProvider>
   );
