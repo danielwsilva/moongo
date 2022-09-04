@@ -3,10 +3,11 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 
-import { Button, Input, Wrapper } from 'components';
+import { Button, Input } from 'components';
 import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
 
+import { Wrapper } from '../../components';
 import { CarForm, initialValues, validationSchema } from './form';
 
 export const FormCar = () => {

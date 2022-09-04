@@ -4,17 +4,18 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikErrors } from 'formik';
 
-import { Button, Input, Wrapper } from 'components';
+import { Button, Input } from 'components';
 import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
 import { getCep } from 'services/api/global';
 
+import { Wrapper } from '../../components';
 import { AddressForm, initialValues, validationSchema } from './form';
 
 type CepParams = {
   value: string;
-  setValues: (value: AddressForm, shouldValidate?: boolean | undefined) => void;
-  setErrors: (errors: FormikErrors<AddressForm>) => void;
+  setValues: (_value: AddressForm, _shouldValidate?: boolean | undefined) => void;
+  setErrors: (_errors: FormikErrors<AddressForm>) => void;
   errors: FormikErrors<AddressForm>;
 };
 

@@ -4,7 +4,8 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/core';
 import { Formik } from 'formik';
 
-import { Button, Input, Wrapper } from 'components';
+import { Button, Input } from 'components';
+import { Wrapper } from 'modules/Register/components';
 import { ROUTES } from 'navigation/appRoutes';
 
 import { initialValues, ForgotPasswordForm, validationSchema } from './form';

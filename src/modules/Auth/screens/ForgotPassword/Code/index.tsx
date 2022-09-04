@@ -3,7 +3,8 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/core';
 import { Formik, FormikErrors } from 'formik';
 
-import { Button, Wrapper } from 'components';
+import { Button } from 'components';
+import { Wrapper } from 'modules/Register/components';
 import { ROUTES } from 'navigation/appRoutes';
 
 import { CodeInput } from '../../../components/CodeInput';

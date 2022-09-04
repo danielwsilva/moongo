@@ -7,8 +7,8 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import { ROUTES } from 'navigation/appRoutes';
 import theme from 'styles/theme';
 
-import { Step } from '../Step';
-import { Text } from '../Text';
+import { Step } from '../../../../components/Step';
+import { Text } from '../../../../components/Text';
 import styles from './styles';
 
 type WrapperProps = {
@@ -21,7 +21,7 @@ type WrapperProps = {
   hasCloseButton?: boolean;
 };
 
-export const WrapperAuth = ({
+export const Wrapper = ({
   title,
   subTitle,
   children,
