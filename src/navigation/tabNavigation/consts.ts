@@ -1,4 +1,5 @@
 import HomeStack from 'modules/Home/routes/HomeStack';
+import ProfileStack from 'modules/Profile/routes/ProfileStack';
 import SalesStack from 'modules/Sales/routes/SalesStack';
 import { ROUTES } from 'navigation/appRoutes';
 
@@ -25,8 +26,8 @@ export const MENU_ROUTES = [
     textBottomBar: 'Carteira'
   },
   {
-    name: ROUTES.REGISTER_CAR,
-    component: HomeStack,
+    name: ROUTES.PROFILE_TABNAVIGATION,
+    component: ProfileStack,
     iconName: 'user',
     size: 22,
     textBottomBar: 'Perfil'
