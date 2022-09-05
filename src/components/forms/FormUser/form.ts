@@ -18,6 +18,8 @@ export const initialValues = {
   gender: ''
 };
 
+export const genders = ['Masculino', 'Feminino', 'Outros'];
+
 const validFullName = (name?: string) => {
   if (!name) return true;
 

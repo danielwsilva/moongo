@@ -1,8 +1,8 @@
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 
-import { Text } from 'components';
 import theme from 'styles/theme';
+import { Text } from '../Text';
 
 import { getStyles } from './styles';
 

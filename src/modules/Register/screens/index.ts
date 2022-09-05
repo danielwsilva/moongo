@@ -1,3 +1,4 @@
-export { FormUser } from './FormUser';
-export { FormCar } from './FormCar';
-export { FormAddress } from './FormAddress';
+export { User } from './User';
+export { Car } from './Car';
+export { Address } from './Address';
+export { Password } from './Password';

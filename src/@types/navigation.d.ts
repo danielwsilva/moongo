@@ -8,12 +8,13 @@ export declare global {
       [ROUTES.REGISTER_USER]: undefined;
       [ROUTES.REGISTER_CAR]: undefined;
       [ROUTES.REGISTER_ADDRESS]: undefined;
+      [ROUTES.REGISTER_PASSWORD]: undefined;
       // AUTH
       [ROUTES.AUTH_STACK]: undefined;
       [ROUTES.AUTH_SIGNIN]: undefined;
       [ROUTES.AUTH_FORGOT_CPF]: undefined;
       [ROUTES.AUTH_FORGOT_CODE]: undefined;
-      [ROUTES.AUTH_FORGOT_PASSWORD]: { stack: 'auth' | 'register' };
+      [ROUTES.AUTH_FORGOT_PASSWORD]: undefined;
       // BUTTON-NAV
       [ROUTES.BUTTON_NAV]: undefined;
       // HOME

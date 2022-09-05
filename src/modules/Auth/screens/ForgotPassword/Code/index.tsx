@@ -18,7 +18,7 @@ export const Code = () => {
   };
 
   const submitCode = (values: SMSForm, { setErrors }: { setErrors: (_errors: FormikErrors<SMSForm>) => void }) => {
-    navigate(ROUTES.AUTH_FORGOT_PASSWORD, { stack: 'auth' });
+    navigate(ROUTES.AUTH_FORGOT_PASSWORD);
   };
 
   return (

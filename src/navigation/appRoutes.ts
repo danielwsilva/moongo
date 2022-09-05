@@ -8,10 +8,11 @@ export enum ROUTES {
   PROFILE_TABNAVIGATION = 'profile-tabnavigation',
 
   // REGISTER
+  REGISTER_STACK = 'register-stack',
   REGISTER_USER = 'register-user',
   REGISTER_CAR = 'register-car',
   REGISTER_ADDRESS = 'register-address',
-  REGISTER_STACK = 'register-stack',
+  REGISTER_PASSWORD = 'register-password',
 
   // AUTH
   AUTH_STACK = 'auth-stack',

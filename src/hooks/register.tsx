@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 
-import { AddressForm } from 'modules/Register/screens/FormAddress/form';
-import { CarForm } from 'modules/Register/screens/FormCar/form';
-import { UserForm } from 'modules/Register/screens/FormUser/form';
+import { AddressForm } from 'modules/Register/screens/Address/form';
+import { CarForm } from 'modules/Register/screens/Car/form';
+import { UserForm } from 'modules/Register/screens/User/form';
 
 type RegisterContextData = {
   user: UserForm;
