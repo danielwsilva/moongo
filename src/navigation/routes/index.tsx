@@ -7,7 +7,7 @@ import BottomNav from 'navigation/tabNavigation';
 const Routes = () => {
   return (
     <NavigationContainer>
-      <AuthStack />
+      <BottomNav />
     </NavigationContainer>
   );
 };

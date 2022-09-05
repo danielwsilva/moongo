@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Image, View, Pressable } from 'react-native';
 import { FontAwesome, Octicons } from '@expo/vector-icons';
 
@@ -13,23 +14,22 @@ const data = [
   {
     name: 'Dados pessoais',
     icon: 'user',
-    route: ROUTES.REGISTER_USER
+    route: ROUTES.PROFILE_USER
   },
   {
     name: 'Carro',
     icon: 'car',
-    route: ROUTES.REGISTER_CAR
+    route: ROUTES.PROFILE_CAR
   },
   {
     name: 'Endereço',
     icon: 'home',
-    route: ROUTES.REGISTER_ADDRESS
+    route: ROUTES.PROFILE_ADDRESS
   },
   {
-    name: 'Mudar senha',
+    name: 'Alterar senha',
     icon: 'lock',
-    route: ROUTES.AUTH_FORGOT_PASSWORD,
-    param: { stack: 'auth' }
+    route: ROUTES.PROFILE_PASSWORD
   },
   {
     name: 'Sair',
@@ -79,7 +79,7 @@ export const Profile = () => {
               <View style={{ height: 1, backgroundColor: colors.lightGray, marginTop: 4, marginHorizontal: 24 }} />
             )}
             <Pressable
-              onPress={() => navigate(item.route, item.param)}
+              onPress={() => navigate(item.route as any)}
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',

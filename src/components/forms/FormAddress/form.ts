@@ -10,14 +10,16 @@ export type AddressForm = {
   zipcode: string;
 };
 
-export const initialValues: AddressForm = {
-  address: '',
-  address_number: '',
-  complement: '',
-  neighborhood: '',
-  city: '',
-  state: '',
-  zipcode: ''
+export const getInitialValues = (item: AddressForm) => {
+  return {
+    address: item ? item.address : '',
+    address_number: item ? item.address_number : '',
+    complement: item ? item.complement : '',
+    neighborhood: item ? item.neighborhood : '',
+    city: item ? item.city : '',
+    state: item ? item.state : '',
+    zipcode: item ? item.zipcode : ''
+  };
 };
 
 export const validationSchema = Yup.object().shape({

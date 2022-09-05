@@ -1,21 +1,18 @@
 import { useEffect } from 'react';
 import { getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import { CartProvider } from 'hooks/cart';
 
-import { Password } from 'modules/Auth/screens/ForgotPassword';
-import { FormUser, FormCar, FormAddress } from 'modules/Register/screens';
 import { ROUTES } from 'navigation/appRoutes';
 import styles from 'navigation/tabNavigation/styles';
 
-import { Profile } from '../screens';
+import { Profile, User, Car, Address, Password } from '../screens';
 
 export type ProfileRouteMap = {
   [ROUTES.PROFILE]: undefined;
-  [ROUTES.REGISTER_USER]: undefined;
-  [ROUTES.REGISTER_CAR]: undefined;
-  [ROUTES.REGISTER_ADDRESS]: undefined;
-  [ROUTES.AUTH_FORGOT_PASSWORD]: { stack: 'auth' | 'register' };
+  [ROUTES.PROFILE_USER]: undefined;
+  [ROUTES.PROFILE_CAR]: undefined;
+  [ROUTES.PROFILE_ADDRESS]: undefined;
+  [ROUTES.PROFILE_PASSWORD]: undefined;
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<ProfileRouteMap>();
@@ -34,18 +31,16 @@ const ProfileRoutes = ({ route }: NativeStackScreenProps<ProfileRouteMap>) => {
   }, [navigation, route]);
 
   return (
-    <CartProvider>
-      <Navigator
-        initialRouteName={ROUTES.PROFILE}
-        screenOptions={{ headerShown: false, animation: 'slide_from_right', animationTypeForReplace: 'pop' }}
-      >
-        <Screen name={ROUTES.PROFILE} component={Profile} />
-        <Screen name={ROUTES.REGISTER_USER} component={FormUser} />
-        <Screen name={ROUTES.REGISTER_CAR} component={FormCar} />
-        <Screen name={ROUTES.REGISTER_ADDRESS} component={FormAddress} />
-        <Screen name={ROUTES.AUTH_FORGOT_PASSWORD} component={Password} />
-      </Navigator>
-    </CartProvider>
+    <Navigator
+      initialRouteName={ROUTES.PROFILE}
+      screenOptions={{ headerShown: false, animation: 'slide_from_right', animationTypeForReplace: 'pop' }}
+    >
+      <Screen name={ROUTES.PROFILE} component={Profile} />
+      <Screen name={ROUTES.PROFILE_USER} component={User} />
+      <Screen name={ROUTES.PROFILE_CAR} component={Car} />
+      <Screen name={ROUTES.PROFILE_ADDRESS} component={Address} />
+      <Screen name={ROUTES.PROFILE_PASSWORD} component={Password} />
+    </Navigator>
   );
 };
 

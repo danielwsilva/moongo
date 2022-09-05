@@ -3,6 +3,8 @@ import { ROUTES } from '../navigation/appRoutes';
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
+      // BUTTON-NAV
+      [ROUTES.BUTTON_NAV]: undefined;
       // REGISTER
       [ROUTES.REGISTER_STACK]: undefined;
       [ROUTES.REGISTER_USER]: undefined;
@@ -15,8 +17,6 @@ export declare global {
       [ROUTES.AUTH_FORGOT_CPF]: undefined;
       [ROUTES.AUTH_FORGOT_CODE]: undefined;
       [ROUTES.AUTH_FORGOT_PASSWORD]: undefined;
-      // BUTTON-NAV
-      [ROUTES.BUTTON_NAV]: undefined;
       // HOME
       [ROUTES.HOME_STACK]: undefined;
       [ROUTES.HOME_CART]: undefined;
@@ -24,6 +24,13 @@ export declare global {
       // SALES
       [ROUTES.SALES_STACK]: undefined;
       [ROUTES.SALES_PRODUCT]: undefined;
+      // PROFILE
+      [ROUTES.PROFILE_STACK]: undefined;
+      [ROUTES.PROFILE]: undefined;
+      [ROUTES.PROFILE_USER]: undefined;
+      [ROUTES.PROFILE_CAR]: undefined;
+      [ROUTES.PROFILE_ADDRESS]: undefined;
+      [ROUTES.PROFILE_PASSWORD]: undefined;
     }
   }
 }

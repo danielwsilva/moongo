@@ -8,12 +8,14 @@ export type CarForm = {
   color: string;
 };
 
-export const initialValues = {
-  car_plate: '',
-  car_renamed: '',
-  model: '',
-  year: '',
-  color: ''
+export const getInitialValues = (item: CarForm) => {
+  return {
+    car_plate: item ? item.car_plate : '',
+    car_renamed: item ? item.car_renamed : '',
+    model: item ? item.model : '',
+    year: item ? item.year : '',
+    color: item ? item.color : ''
+  };
 };
 
 export const validationSchema = Yup.object().shape({

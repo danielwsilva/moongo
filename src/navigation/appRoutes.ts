@@ -32,5 +32,9 @@ export enum ROUTES {
 
   // PROFILE
   PROFILE_STACK = 'profile-stack',
-  PROFILE = 'profile'
+  PROFILE = 'profile',
+  PROFILE_USER = 'profile-user',
+  PROFILE_CAR = 'profile-car',
+  PROFILE_ADDRESS = 'profile-address',
+  PROFILE_PASSWORD = 'profile-password'
 }

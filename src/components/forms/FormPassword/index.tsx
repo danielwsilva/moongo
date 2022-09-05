@@ -10,9 +10,10 @@ import { initialValues, PasswordForm, validationSchema } from './form';
 type FormPasswordProps = {
   onSubmit: (_values: PasswordForm) => void;
   disabled: (_values: PasswordForm) => boolean;
+  type: 'auth' | 'register' | 'profile';
 };
 
-const FormPassword = ({ onSubmit, disabled }: FormPasswordProps) => {
+const FormPassword = ({ onSubmit, disabled, type }: FormPasswordProps) => {
   return (
     <Formik
       initialValues={initialValues}
@@ -24,8 +25,23 @@ const FormPassword = ({ onSubmit, disabled }: FormPasswordProps) => {
       {({ handleChange, handleSubmit, values, errors, setErrors }) => (
         <View style={{ flex: 1, justifyContent: 'space-between' }}>
           <View>
+            {type === 'profile' && (
+              <Input
+                placeholder="Digite sua senha atual"
+                valid={!errors.oldPassword}
+                errorText={errors.oldPassword}
+                onChangeText={handleChange('oldPassword')}
+                value={values.oldPassword}
+                onChange={() => setErrors({ ...errors, oldPassword: '' })}
+                maxLength={4}
+                hasSufix
+                isPassword
+                keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
+              />
+            )}
+
             <Input
-              placeholder="Crie uma senha de 4 números"
+              placeholder={type === 'register' ? 'Crie uma senha de 4 números' : 'Digite a nova senha'}
               valid={!errors.password}
               errorText={errors.password}
               onChangeText={handleChange('password')}
@@ -38,8 +54,7 @@ const FormPassword = ({ onSubmit, disabled }: FormPasswordProps) => {
             />
 
             <Input
-              accessibilityHint="Agora digite a senha novamente"
-              placeholder="Confirme a senha"
+              placeholder={type === 'register' ? 'Agora digite a senha novamente' : 'Confirme a nova senha'}
               valid={!errors.confirmPassword}
               errorText={errors.confirmPassword}
               onChangeText={handleChange('confirmPassword')}

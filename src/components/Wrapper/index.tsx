@@ -74,10 +74,12 @@ export const Wrapper = ({
       <SafeAreaView style={styles.container}>
         {!disabledScrollView ? (
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <ScrollView>{children}</ScrollView>
+            <ScrollView style={{ flex: 1 }}>{children}</ScrollView>
           </TouchableWithoutFeedback>
         ) : (
-          <View style={{ flex: 1 }}>{children}</View>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flex: 1 }}>{children}</View>
+          </TouchableWithoutFeedback>
         )}
       </SafeAreaView>
     </>

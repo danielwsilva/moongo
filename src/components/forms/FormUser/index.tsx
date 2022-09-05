@@ -12,7 +12,7 @@ import { Input } from '../../Input';
 import { RadioButton } from '../../RadioButton';
 import { Text } from '../../Text';
 
-import { initialValues, UserForm, validationSchema, genders } from './form';
+import { getInitialValues, UserForm, validationSchema, genders } from './form';
 import styles from './styles';
 
 type FormUserProps = {
@@ -20,10 +20,19 @@ type FormUserProps = {
   disabled: (_values: UserForm) => boolean;
   getAcceptanceTerm?: (_term: boolean) => void;
   getGender?: (_gender: string) => void;
+  data?: UserForm;
+  textButton?: string;
 };
 
-const FormUser = ({ onSubmit, disabled, getAcceptanceTerm, getGender }: FormUserProps) => {
-  const [gender, setGender] = useState(genders[0]);
+const FormUser = ({
+  onSubmit,
+  disabled,
+  getAcceptanceTerm,
+  getGender,
+  data,
+  textButton = 'Avançar'
+}: FormUserProps) => {
+  const [gender, setGender] = useState(data ? data.gender : genders[0]);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const { colors } = theme;
@@ -50,7 +59,7 @@ const FormUser = ({ onSubmit, disabled, getAcceptanceTerm, getGender }: FormUser
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={getInitialValues(data!)}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
       validateOnChange={false}
@@ -140,7 +149,7 @@ const FormUser = ({ onSubmit, disabled, getAcceptanceTerm, getGender }: FormUser
           </View>
 
           <Button style={{ marginBottom: RFValue(32) }} disabled={disabled(values)} onPress={() => handleSubmit()}>
-            Avançar
+            {textButton}
           </Button>
         </View>
       )}

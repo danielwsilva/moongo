@@ -5,17 +5,19 @@ import { Formik } from 'formik';
 import { Button } from '../../Button';
 import { Input } from '../../Input';
 
-import { CarForm, initialValues, validationSchema } from './form';
+import { CarForm, getInitialValues, validationSchema } from './form';
 
 type FormFormCar = {
   onSubmit: (_values: CarForm) => void;
   disabled: (_values: CarForm) => boolean;
+  data?: CarForm;
+  textButton?: string;
 };
 
-const FormCar = ({ onSubmit, disabled }: FormFormCar) => {
+const FormCar = ({ onSubmit, disabled, data, textButton = 'Avançar' }: FormFormCar) => {
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={getInitialValues(data!)}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
       validateOnChange={false}
@@ -83,7 +85,7 @@ const FormCar = ({ onSubmit, disabled }: FormFormCar) => {
           </View>
 
           <Button style={{ marginBottom: RFValue(32) }} disabled={disabled(values)} onPress={() => handleSubmit()}>
-            Avançar
+            {textButton}
           </Button>
         </View>
       )}

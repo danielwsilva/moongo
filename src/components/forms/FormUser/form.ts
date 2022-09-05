@@ -9,13 +9,15 @@ export type UserForm = {
   gender: string;
 };
 
-export const initialValues = {
-  name: '',
-  cpf: '',
-  date_birth: '',
-  email: '',
-  phone: '',
-  gender: ''
+export const getInitialValues = (item: UserForm) => {
+  return {
+    name: item ? item.name : '',
+    cpf: item ? item.cpf : '',
+    date_birth: item ? item.date_birth : '',
+    email: item ? item.email : '',
+    phone: item ? item.phone : '',
+    gender: item ? item.gender : ''
+  };
 };
 
 export const genders = ['Masculino', 'Feminino', 'Outros'];

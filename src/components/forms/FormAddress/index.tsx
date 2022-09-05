@@ -8,7 +8,7 @@ import { getCep } from 'services/api/global';
 import { Button } from '../../Button';
 import { Input } from '../../Input';
 
-import { AddressForm, initialValues, validationSchema } from './form';
+import { AddressForm, getInitialValues, validationSchema } from './form';
 
 type CepParams = {
   value: string;
@@ -20,24 +20,26 @@ type CepParams = {
 type FormFormCar = {
   onSubmit: (_values: AddressForm) => void;
   disabled: (_values: AddressForm) => boolean;
+  data?: AddressForm;
+  textButton?: string;
 };
 
-const FormAddress = ({ disabled, onSubmit }: FormFormCar) => {
+const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar' }: FormFormCar) => {
   const fetchCep = async ({ value, setValues, setErrors, errors }: CepParams) => {
     try {
-      const { data } = await getCep(value.replace('-', ''));
+      const { data: dataCep } = await getCep(value.replace('-', ''));
 
-      if (data.erro) {
+      if (dataCep.erro) {
         setErrors({ ...errors, zipcode: 'CEP inválido.' });
       } else {
         setValues({
           zipcode: value,
-          city: data.localidade,
-          state: data.uf,
-          address: data.logradouro,
+          city: dataCep.localidade,
+          state: dataCep.uf,
+          address: dataCep.logradouro,
           address_number: '',
           complement: '',
-          neighborhood: data.bairro
+          neighborhood: dataCep.bairro
         });
       }
     } catch (error) {
@@ -47,7 +49,7 @@ const FormAddress = ({ disabled, onSubmit }: FormFormCar) => {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={getInitialValues(data!)}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
       validateOnChange={false}
@@ -146,7 +148,7 @@ const FormAddress = ({ disabled, onSubmit }: FormFormCar) => {
           </View>
 
           <Button style={{ marginBottom: RFValue(32) }} disabled={disabled(values)} onPress={() => handleSubmit()}>
-            Avançar
+            {textButton}
           </Button>
         </View>
       )}
