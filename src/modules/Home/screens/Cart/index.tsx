@@ -4,9 +4,9 @@ import { FlashList } from '@shopify/flash-list';
 
 import { Button, Text, Wrapper } from 'components';
 import { Product, useCart } from 'hooks/cart';
-import { CountCart } from 'modules/Home/components/CountCart';
-import { ProductCartRow } from 'modules/Home/components/ProductCartRow';
 
+import { CountCart } from '../../components/CountCart';
+import { ProductCartRow } from '../../components/ProductCartRow';
 import styles from './styles';
 
 export const Cart = () => {

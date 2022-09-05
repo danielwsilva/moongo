@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';

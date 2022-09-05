@@ -3,8 +3,8 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { Text } from 'components';
 import { useCart } from 'hooks/cart';
-
 import theme from 'styles/theme';
+
 import styles from './styles';
 
 type CountCartProps = TouchableOpacityProps & {
