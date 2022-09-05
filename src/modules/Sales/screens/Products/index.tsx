@@ -110,6 +110,7 @@ export const Products = () => {
       disabledScrollView
       hasBackButton={false}
       action={<CountCart onPress={() => navigate(ROUTES.HOME_CART)} />}
+      styleContainer={{ paddingHorizontal: 0 }}
     >
       <View style={styles.container}>
         <View style={styles.wrapper}>

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { View } from 'react-native';
 
 import { Wrapper } from 'components';
 import { FormUser, UserForm, genders } from 'components/forms/FormUser';
@@ -35,15 +34,13 @@ export const User = () => {
 
   return (
     <Wrapper title="Alterar dados pessoais" disabledScrollView hasBackButton>
-      <View style={{ flex: 1, paddingHorizontal: 24 }}>
-        <FormUser
-          onSubmit={submitUser}
-          disabled={disabled}
-          getGender={setGender}
-          data={response}
-          textButton="Confirmar"
-        />
-      </View>
+      <FormUser
+        onSubmit={submitUser}
+        disabled={disabled}
+        getGender={setGender}
+        data={response}
+        textButton="Confirmar"
+      />
     </Wrapper>
   );
 };

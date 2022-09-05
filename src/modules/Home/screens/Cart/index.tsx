@@ -27,7 +27,7 @@ export const Cart = () => {
   }, [cart]);
 
   return (
-    <Wrapper title="Carrinho" disabledScrollView action={<CountCart />}>
+    <Wrapper title="Carrinho" disabledScrollView action={<CountCart />} styleContainer={{ paddingHorizontal: 0 }}>
       <FlashList
         data={cart}
         keyExtractor={(item) => item.id}

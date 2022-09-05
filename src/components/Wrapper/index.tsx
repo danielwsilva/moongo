@@ -7,7 +7,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  ViewStyle
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -25,6 +26,7 @@ type WrapperProps = {
   hasBackButton?: boolean;
   hasClose?: boolean;
   action?: React.ReactNode;
+  styleContainer?: ViewStyle;
 };
 
 export const Wrapper = ({
@@ -35,7 +37,8 @@ export const Wrapper = ({
   isLight = true,
   hasBackButton = true,
   hasClose,
-  action
+  action,
+  styleContainer
 }: WrapperProps) => {
   const styles = getStyles();
 
@@ -71,7 +74,7 @@ export const Wrapper = ({
     <>
       <StatusBar barStyle={isLight ? 'dark-content' : 'light-content'} backgroundColor={theme.colors.white} />
       {showHeader && <Header />}
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, styleContainer]}>
         {!disabledScrollView ? (
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <ScrollView style={{ flex: 1 }}>{children}</ScrollView>

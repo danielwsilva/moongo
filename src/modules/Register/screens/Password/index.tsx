@@ -20,7 +20,7 @@ export const Password = () => {
 
   return (
     <Wrapper title="Criar senha" subTitle="Quase lá! Crie uma senha para acessar a sua conta no app." currentPage={3}>
-      <FormPassword onSubmit={submitPassword} disabled={disabled} />
+      <FormPassword onSubmit={submitPassword} disabled={disabled} type="register" />
     </Wrapper>
   );
 };

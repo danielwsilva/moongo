@@ -1,4 +1,3 @@
-import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Wrapper } from 'components';
@@ -39,9 +38,7 @@ export const Address = () => {
 
   return (
     <Wrapper title="Alterar endereço" disabledScrollView hasBackButton>
-      <View style={{ flex: 1, paddingHorizontal: 24 }}>
-        <FormAddress onSubmit={submitAddress} disabled={disabled} data={response} textButton="Confirmar" />
-      </View>
+      <FormAddress onSubmit={submitAddress} disabled={disabled} data={response} textButton="Confirmar" />
     </Wrapper>
   );
 };

@@ -16,7 +16,7 @@ export const Password = () => {
       subTitle="Quase lá! Crie uma nova senha para acessar a sua conta no app."
       hasStep={false}
     >
-      <FormPassword onSubmit={submitPassword} disabled={disabled} />
+      <FormPassword onSubmit={submitPassword} disabled={disabled} type="auth" />
     </Wrapper>
   );
 };

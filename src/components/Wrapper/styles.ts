@@ -8,7 +8,8 @@ const getStyles = () => {
     container: {
       flex: 1,
       paddingTop: RFValue(16),
-      backgroundColor: theme.colors.white
+      backgroundColor: theme.colors.white,
+      paddingHorizontal: RFValue(24)
     },
     containerHeader: {
       height: RFValue(40),

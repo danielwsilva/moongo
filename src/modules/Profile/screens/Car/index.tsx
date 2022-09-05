@@ -1,4 +1,3 @@
-import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Wrapper } from 'components';
@@ -35,9 +34,7 @@ export const Car = () => {
 
   return (
     <Wrapper title="Alterar informações do carro" disabledScrollView hasBackButton>
-      <View style={{ flex: 1, paddingHorizontal: 24 }}>
-        <FormCar onSubmit={submitCar} disabled={disabled} data={response} textButton="Confirmar" />
-      </View>
+      <FormCar onSubmit={submitCar} disabled={disabled} data={response} textButton="Confirmar" />
     </Wrapper>
   );
 };
