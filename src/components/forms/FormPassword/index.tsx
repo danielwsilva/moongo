@@ -11,9 +11,10 @@ type FormPasswordProps = {
   onSubmit: (_values: PasswordForm) => void;
   disabled: (_values: PasswordForm) => boolean;
   type: 'auth' | 'register' | 'profile';
+  loading?: boolean;
 };
 
-const FormPassword = ({ onSubmit, disabled, type }: FormPasswordProps) => {
+const FormPassword = ({ onSubmit, disabled, type, loading }: FormPasswordProps) => {
   return (
     <Formik
       initialValues={initialValues}
@@ -67,7 +68,12 @@ const FormPassword = ({ onSubmit, disabled, type }: FormPasswordProps) => {
             />
           </View>
 
-          <Button style={{ marginBottom: RFValue(32) }} disabled={disabled(values)} onPress={() => handleSubmit()}>
+          <Button
+            style={{ marginBottom: RFValue(32) }}
+            disabled={disabled(values)}
+            loading={loading}
+            onPress={() => handleSubmit()}
+          >
             Confirmar
           </Button>
         </View>

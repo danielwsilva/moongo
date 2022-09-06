@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/core';
 import { FormUser, UserForm, genders } from 'components/forms/FormUser';
 import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
-
 import { onlyNumbers } from 'utils/helpers';
+
 import { Wrapper } from '../../components';
 
 export const User = () => {
