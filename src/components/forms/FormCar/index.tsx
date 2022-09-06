@@ -45,6 +45,7 @@ const FormCar = ({ onSubmit, disabled, data, textButton = 'Avançar' }: FormForm
               onChange={() => setErrors({ ...errors, car_renamed: '' })}
               value={values.car_renamed}
               keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
+              maxLength={11}
             />
 
             <View style={{ flexDirection: 'row' }}>

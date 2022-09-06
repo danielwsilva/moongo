@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FormAddress, AddressForm } from 'components/forms/FormAddress';
 import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
+import { onlyNumbers } from 'utils/helpers';
 
 import { Wrapper } from '../../components';
 
@@ -11,7 +12,9 @@ export const Address = () => {
   const { addAddress } = useRegister();
 
   const submitAddress = (values: AddressForm) => {
-    addAddress(values);
+    const data = { ...values, zipcode: onlyNumbers(values.zipcode) };
+
+    addAddress(data);
     navigate(ROUTES.REGISTER_PASSWORD);
   };
 

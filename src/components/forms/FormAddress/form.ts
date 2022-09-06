@@ -23,5 +23,9 @@ export const getInitialValues = (item: AddressForm) => {
 };
 
 export const validationSchema = Yup.object().shape({
-  zipcode: Yup.string().length(9, 'CEP inválido.')
+  zipcode: Yup.string().length(9, 'CEP inválido.'),
+  city: Yup.string().min(3, 'Cidade inválido.'),
+  state: Yup.string().min(2, 'Estado inválido.'),
+  address: Yup.string().min(3, 'Endereço inválido.'),
+  neighborhood: Yup.string().min(3, 'Bairro inválido.')
 });

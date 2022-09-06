@@ -12,6 +12,7 @@ import { AddressForm, getInitialValues, validationSchema } from './form';
 
 type CepParams = {
   value: string;
+  values: AddressForm;
   setValues: (_value: AddressForm, _shouldValidate?: boolean | undefined) => void;
   setErrors: (_errors: FormikErrors<AddressForm>) => void;
   errors: FormikErrors<AddressForm>;
@@ -25,20 +26,28 @@ type FormFormCar = {
 };
 
 const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar' }: FormFormCar) => {
-  const fetchCep = async ({ value, setValues, setErrors, errors }: CepParams) => {
+  const fetchCep = async ({ value, values, setValues, setErrors, errors }: CepParams) => {
     try {
       const { data: dataCep } = await getCep(value.replace('-', ''));
 
       if (dataCep.erro) {
         setErrors({ ...errors, zipcode: 'CEP inválido.' });
       } else {
+        setErrors({
+          zipcode: '',
+          city: '',
+          state: '',
+          address: '',
+          neighborhood: ''
+        });
+
         setValues({
           zipcode: value,
           city: dataCep.localidade,
           state: dataCep.uf,
           address: dataCep.logradouro,
-          address_number: '',
-          complement: '',
+          address_number: values.address_number,
+          complement: values.complement,
           neighborhood: dataCep.bairro
         });
       }
@@ -66,7 +75,7 @@ const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar' }: Form
               onChange={(e) => {
                 const { text } = e.nativeEvent;
                 setErrors({ ...errors, zipcode: '' });
-                if (text.length === 9) fetchCep({ value: text, setValues, setErrors, errors });
+                if (text.length === 9) fetchCep({ value: text, values, setValues, setErrors, errors });
               }}
               value={values.zipcode}
               keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
@@ -83,7 +92,7 @@ const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar' }: Form
                   onChangeText={handleChange('city')}
                   onChange={() => setErrors({ ...errors, city: '' })}
                   value={values.city}
-                  disabled
+                  maxLength={100}
                 />
               </View>
               <View style={{ flex: 1.7, paddingLeft: RFValue(20) }}>
@@ -95,7 +104,7 @@ const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar' }: Form
                   onChangeText={handleChange('state')}
                   onChange={() => setErrors({ ...errors, state: '' })}
                   value={values.state}
-                  disabled
+                  maxLength={2}
                 />
               </View>
             </View>
@@ -107,7 +116,7 @@ const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar' }: Form
               onChangeText={handleChange('address')}
               onChange={() => setErrors({ ...errors, address: '' })}
               value={values.address}
-              maxLength={64}
+              maxLength={100}
             />
 
             <View style={{ flexDirection: 'row' }}>
@@ -143,7 +152,7 @@ const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar' }: Form
               onChangeText={handleChange('neighborhood')}
               onChange={() => setErrors({ ...errors, neighborhood: '' })}
               value={values.neighborhood}
-              maxLength={32}
+              maxLength={100}
             />
           </View>
 

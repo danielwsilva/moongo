@@ -32,7 +32,7 @@ const FormUser = ({
   data,
   textButton = 'Avançar'
 }: FormUserProps) => {
-  const [gender, setGender] = useState(data ? data.gender : genders[0]);
+  const [gender, setGender] = useState(data ? data.gender : genders[0].id);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const { colors } = theme;
@@ -74,7 +74,12 @@ const FormUser = ({
 
             <View style={styles.gender}>
               {genders.map((item) => (
-                <RadioButton key={item} title={item} onPress={() => handleGender(item)} active={item === gender} />
+                <RadioButton
+                  key={item.id}
+                  title={item.name}
+                  onPress={() => handleGender(item.id)}
+                  active={item.id === gender}
+                />
               ))}
             </View>
 
@@ -85,7 +90,7 @@ const FormUser = ({
               onChangeText={handleChange('name')}
               onChange={() => setErrors({ ...errors, name: '' })}
               value={values.name}
-              maxLength={64}
+              maxLength={30}
             />
 
             <Input
@@ -134,6 +139,16 @@ const FormUser = ({
               mask={Masks.BRL_PHONE}
               onChange={() => setErrors({ ...errors, phone: '' })}
               keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
+            />
+
+            <Input
+              placeholder="Informe a sua companhia"
+              valid={errors.company === '' || !errors.company}
+              errorText={errors.company}
+              onChangeText={handleChange('company')}
+              onChange={() => setErrors({ ...errors, company: '' })}
+              value={values.company}
+              maxLength={30}
             />
 
             {getAcceptanceTerm && (

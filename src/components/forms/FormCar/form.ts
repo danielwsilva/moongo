@@ -20,5 +20,6 @@ export const getInitialValues = (item: CarForm) => {
 
 export const validationSchema = Yup.object().shape({
   car_plate: Yup.string().length(7, 'Placa inválido.'),
+  car_renamed: Yup.string().length(11, 'Renavam inválido.'),
   year: Yup.string().length(4, 'Ano inválido.')
 });

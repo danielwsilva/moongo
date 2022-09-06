@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 export type UserForm = {
+  company: string;
   name: string;
   cpf: string;
   date_birth: string;
@@ -11,6 +12,7 @@ export type UserForm = {
 
 export const getInitialValues = (item: UserForm) => {
   return {
+    company: '',
     name: item ? item.name : '',
     cpf: item ? item.cpf : '',
     date_birth: item ? item.date_birth : '',
@@ -20,7 +22,20 @@ export const getInitialValues = (item: UserForm) => {
   };
 };
 
-export const genders = ['Masculino', 'Feminino', 'Outros'];
+export const genders = [
+  {
+    id: 'mas',
+    name: 'Masculino'
+  },
+  {
+    id: 'fem',
+    name: 'Feminino'
+  },
+  {
+    id: 'out',
+    name: 'Outros'
+  }
+];
 
 const validFullName = (name?: string) => {
   if (!name) return true;
