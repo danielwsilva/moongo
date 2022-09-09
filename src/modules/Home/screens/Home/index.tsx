@@ -4,10 +4,10 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useQuery } from 'react-query';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
+import { useQuery } from '@tanstack/react-query';
 
 import { Text } from 'components';
 import { Product, useCart } from 'hooks/cart';
@@ -76,7 +76,7 @@ export const Home = () => {
   const { navigate } = useNavigation();
   const { colors } = theme;
 
-  const { data } = useQuery('@meKey', getMe);
+  const { data } = useQuery(['@meKey'], getMe);
 
   const AddCart = ({ item }: { item: Product }) => {
     const [product, setProduct] = useState<Product>({} as Product);

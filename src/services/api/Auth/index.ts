@@ -13,6 +13,6 @@ export const postLogin = async (data: LoginDtoReq) => {
     return response;
   } catch (error) {
     const { response } = error as Error;
-    throw response.data.message;
+    throw response.data;
   }
 };

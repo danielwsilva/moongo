@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Image, View, Pressable } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useQueryClient } from 'react-query';
 import { FontAwesome, Octicons } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
+import { useQueryClient } from '@tanstack/react-query';
 import { Text, Wrapper } from 'components';
 import { MeDtoRes } from 'services/dtos/MeDto';
 import theme from 'styles/theme';
@@ -18,7 +18,7 @@ export const Profile = () => {
   const { navigate } = useNavigation();
 
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<MeDtoRes>('@meKey');
+  const data = queryClient.getQueryData<MeDtoRes>(['@meKey']);
 
   return (
     <Wrapper title="Meu perfil" disabledScrollView hasBackButton={false}>

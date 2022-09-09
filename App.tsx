@@ -1,8 +1,8 @@
 import { LogBox } from 'react-native';
 import GestureHandlerRootView from 'react-native-gesture-handler/src/GestureHandlerRootView';
 
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { useFonts, Nunito_400Regular, Nunito_600SemiBold, Nunito_700Bold } from '@expo-google-fonts/nunito';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { AuthProvider } from 'hooks/auth';
 import Routes from './src/navigation/routes';

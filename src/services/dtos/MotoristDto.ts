@@ -1,5 +1,5 @@
 export type MotoristDtoReq = {
-  company: string;
+  company?: string;
   name: string;
   email: string;
   phone: string;

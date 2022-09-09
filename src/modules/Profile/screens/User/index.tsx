@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Wrapper } from 'components';
 import { FormUser, UserForm, genders } from 'components/forms/FormUser';
@@ -9,7 +9,7 @@ export const User = () => {
   const [gender, setGender] = useState(genders[0].id);
 
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<MeDtoRes>('@meKey');
+  const data = queryClient.getQueryData<MeDtoRes>(['@meKey']);
 
   const submitUser = (values: UserForm) => {
     const item = { ...values, gender };

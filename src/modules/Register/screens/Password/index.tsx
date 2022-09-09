@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useMutation } from 'react-query';
 import { CommonActions, useNavigation } from '@react-navigation/native';
+import { useMutation } from '@tanstack/react-query';
 
 import { Animated, Modal, Text } from 'components';
 import { FormPassword, PasswordForm } from 'components/forms/FormPassword';
@@ -25,7 +25,7 @@ export const Password = () => {
   const { user, car, address } = useRegister();
   const { colors } = theme;
 
-  const { mutate, isLoading } = useMutation('@teste', postMotorist, {
+  const { mutate, isLoading } = useMutation(postMotorist, {
     onSuccess: async () => {
       setModal({ type: 'success', visible: true });
       setTimeout(() => {

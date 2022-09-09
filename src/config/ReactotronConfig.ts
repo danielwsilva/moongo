@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import { NativeModules } from 'react-native';
 import Reactotron from 'reactotron-react-native';

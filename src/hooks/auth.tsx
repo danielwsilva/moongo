@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { postLogin } from 'services/api/Auth';
 import { LoginDtoReq } from 'services/dtos/LoginDto';
@@ -23,10 +23,13 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export function AuthProvider({ children }: PropsProvider) {
   const [token, setToken] = useState('');
 
-  const { mutate, isLoading } = useMutation('@authUserKey', postLogin, {
+  const { mutate, isLoading } = useMutation(postLogin, {
     onSuccess: async (data) => {
       setToken(data.token);
       await saveString(authToken, data.token);
+    },
+    onError(error) {
+      console.tron.log!(error);
     }
   });
 
