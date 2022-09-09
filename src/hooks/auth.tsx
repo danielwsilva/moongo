@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { postLogin } from 'services/api/Auth';
 import { LoginDtoReq } from 'services/dtos/LoginDto';
 import { authToken, saveString } from 'services/storage';
+import { useCatch } from './catch';
 
 interface AuthContextData {
   token: string;
@@ -24,16 +25,15 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export function AuthProvider({ children }: PropsProvider) {
   const [token, setToken] = useState('');
 
+  const { catchError } = useCatch();
+
   const { mutate, isLoading } = useMutation(postLogin, {
     onSuccess: async (data) => {
       setToken(data.token);
       await saveString(authToken, data.token);
     },
-    onError(error) {
-      Toast.show({
-        type: 'generic',
-        props: { title: error }
-      });
+    onError(error: string[]) {
+      catchError(error);
     }
   });
 

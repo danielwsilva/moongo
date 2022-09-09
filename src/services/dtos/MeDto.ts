@@ -13,7 +13,7 @@ export type MeDtoRes = {
   created_at: string;
   place: {
     id: string;
-    zipcode: number;
+    zipcode: string;
     address: string;
     address_number: string;
     neighborhood: string;

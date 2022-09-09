@@ -1,5 +1,6 @@
 import { moongoAPI } from 'services/apiConfig';
 import { MotoristDtoReq, MotoristDtoRes } from 'services/dtos/MotoristDto';
+import { VerifyDtoReq, VerifyDtoRes } from 'services/dtos/VerifyDto';
 
 export type Error = {
   response: {
@@ -14,5 +15,15 @@ export const postMotorist = async (data: MotoristDtoReq) => {
   } catch (error) {
     const { response } = error as Error;
     throw response.data.message;
+  }
+};
+
+export const postVerify = async (data: VerifyDtoReq) => {
+  try {
+    const { data: response } = await moongoAPI.get(`/verify/profile`, { params: { ...data } });
+    return response;
+  } catch (error) {
+    const { response } = error as Error;
+    throw response.data.erros;
   }
 };

@@ -12,13 +12,13 @@ export type UserForm = {
 
 export const getInitialValues = (item: UserForm) => {
   return {
-    company: '',
     name: item ? item.name : '',
     cpf: item ? item.cpf : '',
     date_birth: item ? item.date_birth : '',
     email: item ? item.email : '',
     phone: item ? item.phone : '',
-    gender: item ? item.gender : ''
+    company: '',
+    gender: ''
   };
 };
 

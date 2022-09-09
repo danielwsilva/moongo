@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/no-unstable-nested-components */
 import { LogBox, View, StyleSheet } from 'react-native';
 import GestureHandlerRootView from 'react-native-gesture-handler/src/GestureHandlerRootView';
@@ -12,10 +13,17 @@ import theme from 'styles/theme';
 import Routes from './src/navigation/routes';
 
 import './src/config/ReactotronConfig';
+import { CatchProvider } from 'hooks/catch';
 
 LogBox.ignoreLogs(['EventEmitter.removeListener']);
 
 const queryClient = new QueryClient();
+
+type ToastProps = {
+  props: {
+    title: string;
+  };
+};
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,7 +33,7 @@ export default function App() {
   });
 
   const toastConfig = {
-    generic: ({ props }: any) => (
+    generic: ({ props }: ToastProps) => (
       <View style={styles.toast}>
         <Text fontWeight="normal" fontSize={14}>
           {props.title}
@@ -37,8 +45,10 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <AuthProvider>{fontsLoaded ? <Routes /> : null}</AuthProvider>
-        <Toast config={toastConfig} />
+        <CatchProvider>
+          <AuthProvider>{fontsLoaded ? <Routes /> : null}</AuthProvider>
+          <Toast config={toastConfig} />
+        </CatchProvider>
       </GestureHandlerRootView>
     </QueryClientProvider>
   );

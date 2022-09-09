@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 
+import { useMutation } from '@tanstack/react-query';
+import { FormikHelpers } from 'formik';
 import { FormUser, UserForm, genders } from 'components/forms/FormUser';
+import { useCatch } from 'hooks/catch';
 import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
+import { postVerify } from 'services/api/Register';
 import { onlyNumbers } from 'utils/helpers';
 
 import { Wrapper } from '../../components';
@@ -14,6 +18,17 @@ export const User = () => {
 
   const { addUser } = useRegister();
   const { navigate } = useNavigation();
+
+  // const { catchFormErrors } = useCatch();
+
+  // const { mutate } = useMutation(postVerify, {
+  //   onSuccess(data) {
+  //     console.log(data);
+  //   },
+  //   onError(error) {
+  //     console.log(error);
+  //   }
+  // });
 
   const submitUser = (values: UserForm) => {
     const data = { ...values, cpf: onlyNumbers(values.cpf), phone: onlyNumbers(values.phone), gender };
