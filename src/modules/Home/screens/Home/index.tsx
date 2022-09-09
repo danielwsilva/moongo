@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useQuery } from 'react-query';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
@@ -13,6 +14,7 @@ import { Product, useCart } from 'hooks/cart';
 import { CountCart } from 'modules/Home/components/CountCart';
 import { ProductRow } from 'modules/Home/components/ProductRow';
 import { ROUTES } from 'navigation/appRoutes';
+import { getMe } from 'services/api/Home';
 import theme from 'styles/theme';
 
 import amendoim from 'assets/amendoim.png';
@@ -74,6 +76,8 @@ export const Home = () => {
   const { navigate } = useNavigation();
   const { colors } = theme;
 
+  const { data: dataUser } = useQuery('@meKey', getMe);
+
   const AddCart = ({ item }: { item: Product }) => {
     const [product, setProduct] = useState<Product>({} as Product);
     const { cart, addProduct } = useCart();
@@ -133,7 +137,7 @@ export const Home = () => {
             <View>
               <Text>Olá,</Text>
               <Text fontSize={20} fontWeight="bold">
-                Daniel
+                {dataUser?.data.name}
               </Text>
             </View>
             <Image source={avatar} resizeMode="stretch" style={styles.avatar} />

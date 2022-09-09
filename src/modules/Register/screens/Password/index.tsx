@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useMutation } from 'react-query';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 
 import { Animated, Modal, Text } from 'components';
@@ -19,25 +20,13 @@ type ModalType = {
 
 export const Password = () => {
   const [modal, setModal] = useState<ModalType>({ type: 'success', visible: false });
-  const [loading, setLoading] = useState(false);
 
   const { dispatch } = useNavigation();
   const { user, car, address } = useRegister();
   const { colors } = theme;
 
-  const submitPassword = async (values: PasswordForm) => {
-    try {
-      setLoading(true);
-
-      const data = {
-        ...user,
-        ...car,
-        ...address,
-        password: values.password
-      };
-
-      await postMotorist(data);
-
+  const { mutate, isLoading } = useMutation('@teste', postMotorist, {
+    onSuccess: async () => {
       setModal({ type: 'success', visible: true });
       setTimeout(() => {
         setModal({ type: 'success', visible: false });
@@ -49,14 +38,24 @@ export const Password = () => {
           })
         );
       }, 3000);
-    } catch (error) {
+    },
+    onError: async () => {
       setModal({ type: 'error', visible: true });
       setTimeout(() => {
         setModal({ type: 'error', visible: false });
       }, 4000);
-    } finally {
-      setLoading(false);
     }
+  });
+
+  const submitPassword = (values: PasswordForm) => {
+    const data = {
+      ...user,
+      ...car,
+      ...address,
+      password: values.password
+    };
+
+    mutate(data);
   };
 
   const disabled = (values: PasswordForm) => {
@@ -66,7 +65,7 @@ export const Password = () => {
   return (
     <>
       <Wrapper title="Criar senha" subTitle="Quase lá! Crie uma senha para acessar a sua conta no app." currentPage={3}>
-        <FormPassword onSubmit={submitPassword} disabled={disabled} type="register" loading={loading} />
+        <FormPassword onSubmit={submitPassword} disabled={disabled} type="register" loading={isLoading} />
       </Wrapper>
 
       <Modal visible={modal.visible} height={400}>

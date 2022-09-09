@@ -2,7 +2,8 @@ import * as Updates from 'expo-updates';
 import { Platform } from 'react-native';
 import axios from 'axios';
 
-import { API_CEP, API_MOONGO, API_MOONGO_DEV } from './consts';
+import { API_CEP, API_MOONGO, API_MOONGO_DEV } from '../consts';
+import { authToken, loadString } from './storage';
 
 export const getEnvironment = () => {
   if (Updates.releaseChannel.startsWith('prod')) {
@@ -38,6 +39,19 @@ export const moongoAPI = axios.create({
     'Content-Type': 'application/json',
     Device: Platform.OS
   }
+});
+
+moongoAPI.interceptors.request.use(async (instanceConfig) => {
+  const newInstance = instanceConfig;
+  try {
+    const token = await loadString(authToken);
+
+    if (token && newInstance.headers) {
+      newInstance.headers.Authorization = `Bearer ${token}`;
+    }
+  } catch (error) {}
+
+  return newInstance;
 });
 
 export default {

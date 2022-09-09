@@ -77,8 +77,8 @@ const FormUser = ({
                 <RadioButton
                   key={item.id}
                   title={item.name}
-                  onPress={() => handleGender(item.id)}
-                  active={item.id === gender}
+                  onPress={() => handleGender(item.name)}
+                  active={item.name === gender}
                 />
               ))}
             </View>
@@ -141,15 +141,17 @@ const FormUser = ({
               keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
             />
 
-            <Input
-              placeholder="Informe a sua companhia"
-              valid={errors.company === '' || !errors.company}
-              errorText={errors.company}
-              onChangeText={handleChange('company')}
-              onChange={() => setErrors({ ...errors, company: '' })}
-              value={values.company}
-              maxLength={30}
-            />
+            {!data && (
+              <Input
+                placeholder="Informe a sua companhia"
+                valid={errors.company === '' || !errors.company}
+                errorText={errors.company}
+                onChangeText={handleChange('company')}
+                onChange={() => setErrors({ ...errors, company: '' })}
+                value={values.company}
+                maxLength={30}
+              />
+            )}
 
             {getAcceptanceTerm && (
               <CheckBox

@@ -7,8 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 
 import { Button, Input, Text } from 'components';
+import { useAuth } from 'hooks/auth';
 import { ROUTES } from 'navigation/appRoutes';
 import theme from 'styles/theme';
+import { onlyNumbers } from 'utils/helpers';
 import Logo from 'assets/logo.svg';
 
 import styles from './styles';
@@ -17,8 +19,11 @@ export const SignIn = () => {
   const { navigate } = useNavigation();
   const { colors } = theme;
 
-  const submitSignIn = () => {
-    // submitSignIn
+  const { isLoading, signIn } = useAuth();
+
+  const submitSignIn = (values: { cpf: string; password: string }) => {
+    const data = { ...values, cpf: onlyNumbers(values.cpf), device_name: 'api_moongo' };
+    signIn(data);
   };
 
   return (
@@ -70,7 +75,12 @@ export const SignIn = () => {
                   Esqueci a senha
                 </Button>
 
-                <Button type="dark" style={{ marginBottom: RFValue(24) }} onPress={() => handleSubmit()}>
+                <Button
+                  type="dark"
+                  style={{ marginBottom: RFValue(24) }}
+                  loading={isLoading}
+                  onPress={() => handleSubmit()}
+                >
                   Entrar na minha conta
                 </Button>
               </>

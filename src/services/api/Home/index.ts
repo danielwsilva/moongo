@@ -1,5 +1,5 @@
 import { moongoAPI } from 'services/apiConfig';
-import { MotoristDtoReq, MotoristDtoRes } from 'services/dtos/MotoristDto';
+import { MeDtoRes } from 'services/dtos/MeDto';
 
 export type Error = {
   response: {
@@ -7,9 +7,9 @@ export type Error = {
   };
 };
 
-export const postMotorist = async (data: MotoristDtoReq) => {
+export const getMe = async () => {
   try {
-    const { data: response } = await moongoAPI.post<MotoristDtoReq, MotoristDtoRes>(`/create/motorist`, data);
+    const { data: response } = await moongoAPI.get<MeDtoRes>('/me');
     return response;
   } catch (error) {
     const { response } = error as Error;

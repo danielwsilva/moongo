@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 export type UserForm = {
-  company: string;
+  company?: string;
   name: string;
   cpf: string;
   date_birth: string;

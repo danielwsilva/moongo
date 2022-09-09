@@ -1,34 +1,30 @@
 import { useState } from 'react';
+import { useQueryClient } from 'react-query';
 
 import { Wrapper } from 'components';
 import { FormUser, UserForm, genders } from 'components/forms/FormUser';
-
-const response = {
-  name: 'Daniel Wallace',
-  cpf: '440.089.898-97',
-  date_birth: '07/07/1988',
-  email: 'danielwllace@gmail.com',
-  phone: '16993784967',
-  gender: 'Masculino'
-};
+import { MeDtoRes } from 'services/dtos/MeDto';
+import { onlyNumbers } from 'utils/helpers';
 
 export const User = () => {
-  const [gender, setGender] = useState(genders[0]);
+  const [gender, setGender] = useState(genders[0].name);
+
+  const queryClient = useQueryClient();
+  const response = queryClient.getQueryData<MeDtoRes>('@meKey');
 
   const submitUser = (values: UserForm) => {
     const data = { ...values, gender };
-
     console.log(data);
   };
 
   const disabled = (values: UserForm) => {
     return (
-      values.name === response.name &&
-      values.gender === gender &&
-      values.cpf === response.cpf &&
-      values.date_birth === response.date_birth &&
-      values.email === response.email &&
-      values.phone === response.phone
+      values.name === response?.data.name &&
+      values.gender === response.data.gender &&
+      onlyNumbers(values.cpf) === response.data.cpf &&
+      values.date_birth === response.data.date_birth &&
+      values.email === response.data.email &&
+      onlyNumbers(values.phone) === response.data.phone
     );
   };
 
@@ -38,7 +34,7 @@ export const User = () => {
         onSubmit={submitUser}
         disabled={disabled}
         getGender={setGender}
-        data={response}
+        data={response?.data}
         textButton="Confirmar"
       />
     </Wrapper>
