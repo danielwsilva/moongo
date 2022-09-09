@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Image, View, Pressable } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useQueryClient } from 'react-query';
 import { FontAwesome, Octicons } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 import { Text, Wrapper } from 'components';
+import { MeDtoRes } from 'services/dtos/MeDto';
 import theme from 'styles/theme';
 import avatar from 'assets/avatar.png';
 
@@ -15,16 +17,19 @@ export const Profile = () => {
   const { colors } = theme;
   const { navigate } = useNavigation();
 
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData<MeDtoRes>('@meKey');
+
   return (
     <Wrapper title="Meu perfil" disabledScrollView hasBackButton={false}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Image source={avatar} resizeMode="stretch" style={styles.avatar} />
         <View style={{ marginLeft: RFValue(12) }}>
           <Text fontWeight="bold" fontSize={18}>
-            Daniel Wallace
+            {data?.name}
           </Text>
           <Text fontSize={14} color={colors.textLight}>
-            Motorista
+            Motorista - {data?.hash}
           </Text>
         </View>
       </View>
@@ -32,14 +37,14 @@ export const Profile = () => {
       <View style={{ flexDirection: 'row', marginTop: RFValue(12) }}>
         <FontAwesome name="phone" color={colors.textLight} size={20} />
         <Text fontWeight="normal" fontSize={14} color={colors.textLight} style={{ marginLeft: RFValue(12) }}>
-          (16) 99378-4967
+          {data?.phone}
         </Text>
       </View>
 
       <View style={{ flexDirection: 'row', marginTop: RFValue(12) }}>
         <FontAwesome name="envelope-o" color={colors.textLight} size={20} />
         <Text fontWeight="normal" fontSize={14} color={colors.textLight} style={{ marginLeft: RFValue(12) }}>
-          danielwllace@gmail.com
+          {data?.email}
         </Text>
       </View>
 

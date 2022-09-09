@@ -76,7 +76,7 @@ export const Home = () => {
   const { navigate } = useNavigation();
   const { colors } = theme;
 
-  const { data: dataUser } = useQuery('@meKey', getMe);
+  const { data } = useQuery('@meKey', getMe);
 
   const AddCart = ({ item }: { item: Product }) => {
     const [product, setProduct] = useState<Product>({} as Product);
@@ -92,9 +92,9 @@ export const Home = () => {
     };
 
     const handleAddCart = () => {
-      const data = { ...item, supply: 1 };
-      setProduct(data);
-      addProduct(cart, data);
+      const itemAddCart = { ...item, supply: 1 };
+      setProduct(itemAddCart);
+      addProduct(cart, itemAddCart);
     };
 
     return (
@@ -137,7 +137,7 @@ export const Home = () => {
             <View>
               <Text>Olá,</Text>
               <Text fontSize={20} fontWeight="bold">
-                {dataUser?.data.name}
+                {data?.name}
               </Text>
             </View>
             <Image source={avatar} resizeMode="stretch" style={styles.avatar} />

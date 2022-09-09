@@ -9,11 +9,10 @@ import { onlyNumbers } from 'utils/helpers';
 import { Wrapper } from '../../components';
 
 export const User = () => {
-  const [gender, setGender] = useState(genders[0].name);
+  const [gender, setGender] = useState(genders[0].id);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const { addUser } = useRegister();
-
   const { navigate } = useNavigation();
 
   const submitUser = (values: UserForm) => {

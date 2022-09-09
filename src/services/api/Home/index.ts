@@ -9,8 +9,8 @@ export type Error = {
 
 export const getMe = async () => {
   try {
-    const { data: response } = await moongoAPI.get<MeDtoRes>('/me');
-    return response;
+    const { data } = await moongoAPI.get<MeDtoRes>('/me');
+    return data;
   } catch (error) {
     const { response } = error as Error;
     throw response.data.message;

@@ -32,7 +32,7 @@ const FormUser = ({
   data,
   textButton = 'Avançar'
 }: FormUserProps) => {
-  const [gender, setGender] = useState(data ? data.gender : genders[0].name);
+  const [gender, setGender] = useState(data ? data.gender : genders[0].id);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const { colors } = theme;
@@ -77,8 +77,8 @@ const FormUser = ({
                 <RadioButton
                   key={item.id}
                   title={item.name}
-                  onPress={() => handleGender(item.name)}
-                  active={item.name === gender}
+                  onPress={() => handleGender(item.id)}
+                  active={item.id === gender}
                 />
               ))}
             </View>
@@ -127,6 +127,7 @@ const FormUser = ({
               autoCapitalize="none"
               onChange={() => setErrors({ ...errors, email: '' })}
               maxLength={64}
+              disabled={!!data}
             />
 
             <Input
