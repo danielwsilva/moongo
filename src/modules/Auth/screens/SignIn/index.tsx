@@ -80,6 +80,7 @@ export const SignIn = () => {
                   style={{ marginBottom: RFValue(24) }}
                   loading={isLoading}
                   onPress={() => handleSubmit()}
+                  disabled={values.cpf.length !== 14 || values.password.length !== 4}
                 >
                   Entrar na minha conta
                 </Button>
