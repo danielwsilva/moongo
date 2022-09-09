@@ -9,7 +9,7 @@ import { onlyNumbers } from 'utils/helpers';
 import { Wrapper } from '../../components';
 
 export const User = () => {
-  const [gender, setGender] = useState(genders[0].id);
+  const [gender, setGender] = useState(genders[0].name);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const { addUser } = useRegister();

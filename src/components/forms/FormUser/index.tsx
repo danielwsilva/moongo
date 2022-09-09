@@ -32,7 +32,7 @@ const FormUser = ({
   data,
   textButton = 'Avançar'
 }: FormUserProps) => {
-  const [gender, setGender] = useState(data ? data.gender : genders[0].id);
+  const [gender, setGender] = useState(data ? data.gender : genders[0].name);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const { colors } = theme;
