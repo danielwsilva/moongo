@@ -7,6 +7,8 @@ import { useFonts, Nunito_400Regular, Nunito_600SemiBold, Nunito_700Bold } from 
 import { AuthProvider } from 'hooks/auth';
 import Routes from './src/navigation/routes';
 
+import './src/config/ReactotronConfig';
+
 LogBox.ignoreLogs(['EventEmitter.removeListener']);
 
 const queryClient = new QueryClient();
