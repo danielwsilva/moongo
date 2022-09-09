@@ -2,8 +2,8 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useMutation } from 'react-query';
 
 import { postLogin } from 'services/api/Auth';
-import { authToken, saveString } from 'services/apiConfig/storage';
 import { LoginDtoReq } from 'services/dtos/LoginDto';
+import { authToken, saveString } from 'services/storage';
 
 interface AuthContextData {
   token: string;

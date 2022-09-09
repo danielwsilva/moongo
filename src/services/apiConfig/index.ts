@@ -2,8 +2,8 @@ import * as Updates from 'expo-updates';
 import { Platform } from 'react-native';
 import axios from 'axios';
 
-import { API_CEP, API_MOONGO, API_MOONGO_DEV } from '../consts';
-import { authToken, loadString } from './storage';
+import { authToken, loadString } from '../storage';
+import { API_CEP, API_MOONGO, API_MOONGO_DEV } from './consts';
 
 export const getEnvironment = () => {
   if (Updates.releaseChannel.startsWith('prod')) {
