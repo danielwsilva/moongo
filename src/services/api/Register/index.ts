@@ -1,21 +1,23 @@
 import { UserForm } from 'components/forms/FormUser';
 import { moongoAPI } from 'services/apiConfig';
-import { MotoristDtoReq, MotoristDtoRes } from 'services/dtos/MotoristDto';
+import { MotoristDtoReq } from 'services/dtos/MotoristDto';
+import { Error } from 'utils/types';
 
-export type Error = {
-  response: {
-    data: Record<string, Array<string>>;
-  };
-};
-
-export const postMotorist = async (data: MotoristDtoReq) => {
+export const postMotorist = async (motorist: MotoristDtoReq) => {
   try {
-    const { data: response } = await moongoAPI.post<MotoristDtoReq, MotoristDtoRes>(`/create/motorist`, data);
-    return response;
+    const { data } = await moongoAPI.post<MotoristDtoReq>(`/create/motorist`, motorist);
+    return data;
   } catch (error) {
     const { response } = error as Error;
     throw response.data.message;
   }
 };
 
-export const getVerify = (data: UserForm) => moongoAPI.get(`/verify/profile`, { params: { ...data } });
+export const getVerify = async (user: UserForm) => {
+  try {
+    await moongoAPI.get(`/verify/profile`, { params: { ...user } });
+  } catch (error) {
+    const { response } = error as Error;
+    throw response.data.errors;
+  }
+};

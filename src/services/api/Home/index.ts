@@ -1,11 +1,6 @@
 import { moongoAPI } from 'services/apiConfig';
 import { MeDtoRes } from 'services/dtos/MeDto';
-
-export type Error = {
-  response: {
-    data: Record<string, Array<string>>;
-  };
-};
+import { Error } from 'utils/types';
 
 export const getMe = async () => {
   try {

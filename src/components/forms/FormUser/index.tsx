@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Platform, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import { RFValue } from 'react-native-responsive-fontsize';
-
+import { useMutation } from '@tanstack/react-query';
 import { Formik, FormikHelpers } from 'formik';
+
 import { useCatch } from 'hooks/catch';
 import { getVerify } from 'services/api/Register';
 import theme from 'styles/theme';
-
 import { onlyNumbers } from 'utils/helpers';
+
 import { Button } from '../../Button';
 import { CheckBox } from '../../CheckBox';
 import { Input } from '../../Input';
@@ -25,12 +26,6 @@ type FormUserProps = {
   getGender?: (_gender: string) => void;
   data?: UserForm;
   textButton?: string;
-};
-
-export type Error = {
-  response: {
-    data: Record<string, Array<string>>;
-  };
 };
 
 const FormUser = ({
@@ -67,14 +62,15 @@ const FormUser = ({
     }
   };
 
+  const { mutateAsync, isLoading } = useMutation(getVerify);
+
   const onSubmitVerify = async (values: UserForm, actions: FormikHelpers<UserForm>) => {
     const objUser = { ...values, cpf: onlyNumbers(values.cpf), phone: onlyNumbers(values.phone), gender };
     try {
-      await getVerify(objUser);
+      await mutateAsync(objUser);
       onSubmit(objUser);
     } catch (error) {
-      const { response } = error as Error;
-      catchFormErrors(response.data.errors, actions.setErrors);
+      catchFormErrors(error, actions.setErrors);
     }
   };
 
@@ -187,7 +183,12 @@ const FormUser = ({
             )}
           </View>
 
-          <Button style={{ marginBottom: RFValue(32) }} disabled={disabled(values)} onPress={() => handleSubmit()}>
+          <Button
+            style={{ marginBottom: RFValue(32) }}
+            disabled={disabled(values)}
+            loading={isLoading}
+            onPress={() => handleSubmit()}
+          >
             {textButton}
           </Button>
         </View>
