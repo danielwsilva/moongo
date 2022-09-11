@@ -40,7 +40,7 @@ const FormUser = ({
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const { colors } = theme;
-  const { catchFormErrors } = useCatch();
+  const { catchFormError } = useCatch();
 
   const handleOpenContract = () => {
     // LINK DO CONTRATO
@@ -70,7 +70,7 @@ const FormUser = ({
       await mutateAsync(objUser);
       onSubmit(objUser);
     } catch (error) {
-      catchFormErrors(error, actions.setErrors);
+      catchFormError(error, actions.setErrors);
     }
   };
 

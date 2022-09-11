@@ -4,7 +4,7 @@ import { FormikErrors } from 'formik';
 
 interface CatchContextData {
   catchError: (_error: string[]) => void;
-  catchFormErrors: (_error: any, _setErrors: (_err: FormikErrors<any>) => void) => void;
+  catchFormError: (_error: any, _setErrors: (_err: FormikErrors<any>) => void) => void;
 }
 interface PropsProvider {
   children: ReactNode;
@@ -19,7 +19,7 @@ export function CatchProvider({ children }: PropsProvider) {
     }
   }, []);
 
-  const catchFormErrors = useCallback((error: any, setErrors: (_err: FormikErrors<any>) => void) => {
+  const catchFormError = useCallback((error: any, setErrors: (_err: FormikErrors<any>) => void) => {
     const fieldKey = Object.keys(error).map((item) => item);
 
     let objErrors = {};
@@ -35,7 +35,7 @@ export function CatchProvider({ children }: PropsProvider) {
     }
   }, []);
 
-  return <CatchContext.Provider value={{ catchError, catchFormErrors }}>{children}</CatchContext.Provider>;
+  return <CatchContext.Provider value={{ catchError, catchFormError }}>{children}</CatchContext.Provider>;
 }
 
 export function useCatch() {

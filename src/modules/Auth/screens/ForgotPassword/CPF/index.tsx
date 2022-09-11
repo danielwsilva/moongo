@@ -2,20 +2,35 @@ import { Platform, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/core';
-import { Formik } from 'formik';
+import { useMutation } from '@tanstack/react-query';
+import { Formik, FormikHelpers } from 'formik';
 
 import { Button, Input } from 'components';
+import { useCatch } from 'hooks/catch';
 import { Wrapper } from 'modules/Register/components';
 import { ROUTES } from 'navigation/appRoutes';
 
+import { getForgotCpf } from 'services/api/Auth';
+import { onlyNumbers } from 'utils/helpers';
 import { initialValues, ForgotPasswordForm, validationSchema } from './form';
 
 export const CPF = () => {
   const { navigate } = useNavigation();
+  const { catchFormError } = useCatch();
 
-  const submitUser = (values: ForgotPasswordForm) => {
-    // ADD CONTEXT
-    navigate(ROUTES.AUTH_FORGOT_CODE);
+  const { mutateAsync, isLoading } = useMutation(['@forgotKey'], getForgotCpf, {
+    onSuccess() {
+      navigate(ROUTES.AUTH_FORGOT_CODE);
+    }
+  });
+
+  const submitUser = async (values: ForgotPasswordForm, actions: FormikHelpers<ForgotPasswordForm>) => {
+    try {
+      const objCpf = { cpf: onlyNumbers(values.cpf) };
+      await mutateAsync(objCpf);
+    } catch (error) {
+      catchFormError(error, actions.setErrors);
+    }
   };
 
   const disabled = (values: ForgotPasswordForm) => {
@@ -51,7 +66,12 @@ export const CPF = () => {
               keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
             />
 
-            <Button style={{ marginTop: RFValue(32) }} disabled={disabled(values)} onPress={() => handleSubmit()}>
+            <Button
+              style={{ marginTop: RFValue(32) }}
+              disabled={disabled(values) || isLoading}
+              loading={isLoading}
+              onPress={() => handleSubmit()}
+            >
               Receber código
             </Button>
           </View>
