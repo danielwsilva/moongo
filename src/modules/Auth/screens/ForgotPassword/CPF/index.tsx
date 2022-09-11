@@ -7,18 +7,20 @@ import { Formik, FormikHelpers } from 'formik';
 
 import { Button, Input } from 'components';
 import { useCatch } from 'hooks/catch';
+import { useForgotPassword } from 'hooks/forgotPassword';
 import { Wrapper } from 'modules/Register/components';
 import { ROUTES } from 'navigation/appRoutes';
-
-import { getForgotCpf } from 'services/api/Auth';
+import { postForgotCpf } from 'services/api/Auth';
 import { onlyNumbers } from 'utils/helpers';
+
 import { initialValues, ForgotPasswordForm, validationSchema } from './form';
 
 export const CPF = () => {
   const { navigate } = useNavigation();
   const { catchFormError } = useCatch();
+  const { addCpf } = useForgotPassword();
 
-  const { mutateAsync, isLoading } = useMutation(['@forgotKey'], getForgotCpf, {
+  const { mutateAsync, isLoading } = useMutation(postForgotCpf, {
     onSuccess() {
       navigate(ROUTES.AUTH_FORGOT_CODE);
     }
@@ -28,6 +30,7 @@ export const CPF = () => {
     try {
       const objCpf = { cpf: onlyNumbers(values.cpf) };
       await mutateAsync(objCpf);
+      addCpf(objCpf.cpf);
     } catch (error) {
       catchFormError(error, actions.setErrors);
     }

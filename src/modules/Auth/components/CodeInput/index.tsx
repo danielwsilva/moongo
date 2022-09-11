@@ -10,10 +10,10 @@ import theme from 'styles/theme';
 
 import { getStyles } from './styles';
 
-const TIMER = 5;
+const TIMER = 240;
 
 type ValuesProps = {
-  code?: string;
+  token?: string;
 };
 
 type CodeInputProps = {
@@ -56,7 +56,7 @@ export const CodeInput = ({ value, onChangeText, valid, onResendCode, onChange, 
         onPressIn={() => {
           if (!valid) {
             onChangeText('');
-            if (setErrors) setErrors({ code: '' });
+            if (setErrors) setErrors({ token: '' });
           }
         }}
         keyboardType="number-pad"
@@ -78,7 +78,7 @@ export const CodeInput = ({ value, onChangeText, valid, onResendCode, onChange, 
       />
       {!valid && (
         <Text fontSize={12} color={colors.error} style={styles.errorText}>
-          {error?.code ?? 'Código inválido.'}
+          {error?.token ?? 'Código inválido.'}
         </Text>
       )}
       <View style={{ marginTop: RFValue(16) }}>

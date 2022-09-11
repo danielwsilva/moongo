@@ -1,5 +1,5 @@
 import { moongoAPI } from 'services/apiConfig';
-import { ForgotCpfDtoReq, ForgotPasswordDtoReq } from 'services/dtos/ForgotPassword';
+import { ForgotCodeDtoReq, ForgotCpfDtoReq, ForgotPasswordDtoReq } from 'services/dtos/ForgotPassword';
 import { LoginDtoReq, LoginDtoRes } from 'services/dtos/LoginDto';
 import { Error } from 'utils/types';
 
@@ -13,7 +13,7 @@ export const postLogin = async (user: LoginDtoReq) => {
   }
 };
 
-export const getForgotCpf = async (cpf: ForgotCpfDtoReq) => {
+export const postForgotCpf = async (cpf: ForgotCpfDtoReq) => {
   try {
     await moongoAPI.post(`/reset/password`, cpf);
   } catch (error) {
@@ -22,9 +22,9 @@ export const getForgotCpf = async (cpf: ForgotCpfDtoReq) => {
   }
 };
 
-export const getForgotCode = async (code: string) => {
+export const getForgotCode = async (token: ForgotCodeDtoReq) => {
   try {
-    await moongoAPI.get(`verify/token/password`, { params: code });
+    await moongoAPI.get(`verify/token/password`, { params: token });
   } catch (error) {
     const { response } = error as Error;
     throw response.data.errors;

@@ -1,3 +1,3 @@
-export type SMSForm = { code: string };
+export type SMSForm = { token: string };
 
-export const initialValues = { code: '' };
+export const initialValues = { token: '' };
