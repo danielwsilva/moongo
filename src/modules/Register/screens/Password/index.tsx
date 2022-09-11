@@ -59,7 +59,7 @@ export const Password = () => {
   };
 
   const disabled = (values: PasswordForm) => {
-    return !values.password || !values.confirmPassword;
+    return !values.password || !values.confirmPassword || isLoading;
   };
 
   return (

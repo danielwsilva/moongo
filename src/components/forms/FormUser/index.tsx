@@ -185,7 +185,7 @@ const FormUser = ({
 
           <Button
             style={{ marginBottom: RFValue(32) }}
-            disabled={disabled(values)}
+            disabled={disabled(values) || isLoading}
             loading={isLoading}
             onPress={() => handleSubmit()}
           >
