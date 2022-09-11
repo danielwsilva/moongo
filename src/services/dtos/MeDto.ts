@@ -11,6 +11,7 @@ export type MeDtoRes = {
   qr_code: string;
   status: string;
   created_at: string;
+  company: string;
   place: {
     id: string;
     zipcode: string;

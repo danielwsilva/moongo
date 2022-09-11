@@ -3,9 +3,12 @@ import { Platform, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
+import { useCatch } from 'hooks/catch';
+import { getVerify } from 'services/api/Register';
 import theme from 'styles/theme';
 
+import { onlyNumbers } from 'utils/helpers';
 import { Button } from '../../Button';
 import { CheckBox } from '../../CheckBox';
 import { Input } from '../../Input';
@@ -24,6 +27,12 @@ type FormUserProps = {
   textButton?: string;
 };
 
+export type Error = {
+  response: {
+    data: Record<string, Array<string>>;
+  };
+};
+
 const FormUser = ({
   onSubmit,
   disabled,
@@ -36,6 +45,7 @@ const FormUser = ({
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const { colors } = theme;
+  const { catchFormErrors } = useCatch();
 
   const handleOpenContract = () => {
     // LINK DO CONTRATO
@@ -57,11 +67,22 @@ const FormUser = ({
     }
   };
 
+  const onSubmitVerify = async (values: UserForm, actions: FormikHelpers<UserForm>) => {
+    const objUser = { ...values, cpf: onlyNumbers(values.cpf), phone: onlyNumbers(values.phone), gender };
+    try {
+      await getVerify(objUser);
+      onSubmit(objUser);
+    } catch (error) {
+      const { response } = error as Error;
+      catchFormErrors(response.data.errors, actions.setErrors);
+    }
+  };
+
   return (
     <Formik
       initialValues={getInitialValues(data!)}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
+      onSubmit={onSubmitVerify}
       validateOnChange={false}
       validateOnBlur={false}
     >
