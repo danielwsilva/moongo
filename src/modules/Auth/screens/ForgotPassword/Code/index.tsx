@@ -40,7 +40,7 @@ export const Code = () => {
       await mutateAsync(values);
       addCode(values.token);
     } catch (error) {
-      catchFormError(error, actions.setErrors);
+      catchFormError({ token: error }, actions.setErrors);
     }
   };
 
