@@ -2,6 +2,7 @@
   "expo": {
     "name": "moongo",
     "slug": "moongo",
+    "jsEngine": "hermes",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,10 +25,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.daniel.wsilva.moongo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9b208ea6-2e85-40c4-9e25-c5163ec299f8"
+      }
     }
   }
 }

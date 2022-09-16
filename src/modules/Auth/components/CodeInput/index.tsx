@@ -18,13 +18,13 @@ type ValuesProps = {
 
 type CodeInputProps = {
   value: string;
-  onChangeText: (_text: string) => void;
   valid: boolean;
   disabled?: boolean;
-  onResendCode: () => Promise<void>;
-  onChange?: () => void;
-  setErrors?: (_errors: FormikErrors<ValuesProps>) => void;
   error?: FormikErrors<ValuesProps>;
+  onChange?: () => void;
+  onResendCode: () => Promise<void>;
+  onChangeText: (_text: string) => void;
+  setErrors?: (_errors: FormikErrors<ValuesProps>) => void;
 };
 
 export const CodeInput = ({ value, onChangeText, valid, onResendCode, onChange, setErrors, error }: CodeInputProps) => {

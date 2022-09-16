@@ -16,10 +16,10 @@ import Logo from 'assets/logo.svg';
 import styles from './styles';
 
 export const SignIn = () => {
-  const { navigate } = useNavigation();
-  const { colors } = theme;
-
   const { isLoading, signIn } = useAuth();
+  const { navigate } = useNavigation();
+
+  const { colors } = theme;
 
   const submitSignIn = (values: { cpf: string; password: string }) => {
     const data = { ...values, cpf: onlyNumbers(values.cpf), device_name: 'api_moongo' };

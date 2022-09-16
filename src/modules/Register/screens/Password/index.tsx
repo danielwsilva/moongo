@@ -48,14 +48,8 @@ export const Password = () => {
   });
 
   const submitPassword = (values: PasswordForm) => {
-    const data = {
-      ...user,
-      ...car,
-      ...address,
-      password: values.password
-    };
-
-    mutate(data);
+    const objMotorist = { ...user, ...car, ...address, password: values.password };
+    mutate(objMotorist);
   };
 
   const disabled = (values: PasswordForm) => {

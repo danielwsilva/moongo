@@ -12,9 +12,8 @@ export const Address = () => {
   const { addAddress } = useRegister();
 
   const submitAddress = (values: AddressForm) => {
-    const data = { ...values, zipcode: onlyNumbers(values.zipcode) };
-
-    addAddress(data);
+    const objAddress = { ...values, zipcode: onlyNumbers(values.zipcode) };
+    addAddress(objAddress);
     navigate(ROUTES.REGISTER_PASSWORD);
   };
 

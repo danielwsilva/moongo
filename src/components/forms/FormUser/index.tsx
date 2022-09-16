@@ -42,6 +42,18 @@ const FormUser = ({
   const { colors } = theme;
   const { catchFormError } = useCatch();
 
+  const { mutateAsync, isLoading } = useMutation(getVerify);
+
+  const onSubmitVerify = async (values: UserForm, actions: FormikHelpers<UserForm>) => {
+    const objUser = { ...values, cpf: onlyNumbers(values.cpf), phone: onlyNumbers(values.phone), gender };
+    try {
+      await mutateAsync(objUser);
+      onSubmit(objUser);
+    } catch (error) {
+      catchFormError(error, actions.setErrors);
+    }
+  };
+
   const handleOpenContract = () => {
     // LINK DO CONTRATO
   };
@@ -59,18 +71,6 @@ const FormUser = ({
 
     if (getAcceptanceTerm) {
       getAcceptanceTerm(!acceptedTerms);
-    }
-  };
-
-  const { mutateAsync, isLoading } = useMutation(getVerify);
-
-  const onSubmitVerify = async (values: UserForm, actions: FormikHelpers<UserForm>) => {
-    const objUser = { ...values, cpf: onlyNumbers(values.cpf), phone: onlyNumbers(values.phone), gender };
-    try {
-      await mutateAsync(objUser);
-      onSubmit(objUser);
-    } catch (error) {
-      catchFormError(error, actions.setErrors);
     }
   };
 

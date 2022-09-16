@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ForgotProvider } from 'hooks/forgotPassword';
 
+import { ForgotProvider } from 'hooks/forgotPassword';
 import RegisterStack from 'modules/Register/routes/RegisterStack';
 import { ROUTES } from 'navigation/appRoutes';
 
@@ -10,7 +10,7 @@ export type AuthRouteMap = {
   [ROUTES.AUTH_SIGNIN]: undefined;
   [ROUTES.AUTH_FORGOT_CPF]: undefined;
   [ROUTES.AUTH_FORGOT_CODE]: undefined;
-  [ROUTES.AUTH_FORGOT_PASSWORD]: { stack: 'auth' | 'register' };
+  [ROUTES.AUTH_FORGOT_PASSWORD]: undefined;
   [ROUTES.REGISTER_STACK]: undefined;
 };
 

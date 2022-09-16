@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import Toast from 'react-native-toast-message';
 import { useMutation } from '@tanstack/react-query';
 
 import { postLogin } from 'services/api/Auth';
