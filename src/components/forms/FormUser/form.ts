@@ -11,12 +11,21 @@ export type UserForm = {
 };
 
 export const getInitialValues = (item: UserForm) => {
+  let objMask = {} as { cpf: string; phone: string };
+
+  if (item) {
+    objMask = {
+      cpf: item.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '$1.$2.$3-$4'),
+      phone: item.phone.replace(/^(\d{2})(\d)/g, '($1) $2').replace(/(\d)(\d{4})$/, '$1-$2')
+    };
+  }
+
   return {
     name: item ? item.name : '',
-    cpf: item ? item.cpf : '',
+    cpf: item ? objMask.cpf : '',
     date_birth: item ? item.date_birth : '',
     email: item ? item.email : '',
-    phone: item ? item.phone : '',
+    phone: item ? objMask.phone : '',
     company: '',
     gender: ''
   };

@@ -1,22 +1,15 @@
-import { useNavigation } from '@react-navigation/native';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { Wrapper } from 'components';
 import { FormCar, CarForm } from 'components/forms/FormCar';
-import { useRegister } from 'hooks/register';
-import { ROUTES } from 'navigation/appRoutes';
 import { MeDtoRes } from 'services/dtos/MeDto';
 
 export const Car = () => {
-  const { navigate } = useNavigation();
-  const { addCar } = useRegister();
-
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<MeDtoRes>(['@meKey']);
 
   const submitCar = (values: CarForm) => {
-    addCar(values);
-    navigate(ROUTES.REGISTER_ADDRESS);
+    console.log(values);
   };
 
   const disabled = (values: CarForm) => {

@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Wrapper } from 'components';
 import { FormUser, UserForm } from 'components/forms/FormUser';
 import { MeDtoRes } from 'services/dtos/MeDto';
+import { onlyNumbers } from 'utils/helpers';
 
 export const User = () => {
   const queryClient = useQueryClient();
@@ -17,7 +18,14 @@ export const User = () => {
   };
 
   const disabled = (values: UserForm) => {
-    return values.name === data?.name && gender === data.gender && values.date_birth === data.date_birth;
+    return (
+      gender === data?.gender &&
+      data?.name === values.name &&
+      data?.cpf === onlyNumbers(values.cpf) &&
+      data?.date_birth === values.date_birth &&
+      data?.email === values.email &&
+      data?.phone === onlyNumbers(values.phone)
+    );
   };
 
   return (

@@ -11,12 +11,11 @@ export const User = () => {
   const [gender, setGender] = useState(genders[0].id);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
-  const { addUser } = useRegister();
   const { navigate } = useNavigation();
+  const { addUser } = useRegister();
 
   const submitUser = (values: UserForm) => {
     const objUser = { ...values, gender };
-
     addUser(objUser);
     navigate(ROUTES.REGISTER_CAR);
   };

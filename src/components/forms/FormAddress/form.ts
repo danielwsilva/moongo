@@ -1,24 +1,24 @@
 import * as Yup from 'yup';
 
 export type AddressForm = {
+  zipcode: string;
+  city: string;
+  state: string;
   address: string;
   address_number: string;
   complement: string;
   neighborhood: string;
-  city: string;
-  state: string;
-  zipcode: string;
 };
 
 export const getInitialValues = (item: AddressForm) => {
   return {
+    zipcode: item ? `${item.zipcode.substring(0, 5)}-${item.zipcode.substring(5)}` : '',
+    city: item ? item.city : '',
+    state: item ? item.state : '',
     address: item ? item.address : '',
     address_number: item ? item.address_number : '',
     complement: item ? item.complement : '',
-    neighborhood: item ? item.neighborhood : '',
-    city: item ? item.city : '',
-    state: item ? item.state : '',
-    zipcode: item ? item.zipcode : ''
+    neighborhood: item ? item.neighborhood : ''
   };
 };
 
