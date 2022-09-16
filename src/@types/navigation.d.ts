@@ -1,36 +1,11 @@
-import { ROUTES } from '../navigation/appRoutes';
+import { AuthRouteMap } from 'modules/Auth/routes/AuthStack';
+import { HomeRouteMap } from 'modules/Home/routes/HomeStack';
+import { ProfileRouteMap } from 'modules/Profile/routes/ProfileStack';
+import { RegisterRouteMap } from 'modules/Register/routes/RegisterStack';
+import { SalesRouteMap } from 'modules/Sales/routes/SalesStack';
 
-export declare global {
+declare global {
   namespace ReactNavigation {
-    interface RootParamList {
-      // BUTTON-NAV
-      [ROUTES.BUTTON_NAV]: undefined;
-      // REGISTER
-      [ROUTES.REGISTER_STACK]: undefined;
-      [ROUTES.REGISTER_USER]: undefined;
-      [ROUTES.REGISTER_CAR]: undefined;
-      [ROUTES.REGISTER_ADDRESS]: undefined;
-      [ROUTES.REGISTER_PASSWORD]: undefined;
-      // AUTH
-      [ROUTES.AUTH_STACK]: undefined;
-      [ROUTES.AUTH_SIGNIN]: undefined;
-      [ROUTES.AUTH_FORGOT_CPF]: undefined;
-      [ROUTES.AUTH_FORGOT_CODE]: undefined;
-      [ROUTES.AUTH_FORGOT_PASSWORD]: undefined;
-      // HOME
-      [ROUTES.HOME_STACK]: undefined;
-      [ROUTES.HOME_CART]: undefined;
-      [ROUTES.HOME]: undefined;
-      // SALES
-      [ROUTES.SALES_STACK]: undefined;
-      [ROUTES.SALES_PRODUCT]: undefined;
-      // PROFILE
-      [ROUTES.PROFILE_STACK]: undefined;
-      [ROUTES.PROFILE]: undefined;
-      [ROUTES.PROFILE_USER]: undefined;
-      [ROUTES.PROFILE_CAR]: undefined;
-      [ROUTES.PROFILE_ADDRESS]: undefined;
-      [ROUTES.PROFILE_PASSWORD]: undefined;
-    }
+    interface RootParamList extends AuthRouteMap, RegisterRouteMap, HomeRouteMap, SalesRouteMap, ProfileRouteMap {}
   }
 }

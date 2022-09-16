@@ -6,7 +6,6 @@ import { FormAddress, AddressForm } from 'components/forms/FormAddress';
 import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
 import { MeDtoRes } from 'services/dtos/MeDto';
-import { onlyNumbers } from 'utils/helpers';
 
 export const Address = () => {
   const { navigate } = useNavigation();
