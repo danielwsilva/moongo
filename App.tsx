@@ -9,11 +9,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { Text } from 'components';
 import { AuthProvider } from 'hooks/auth';
+import { CatchProvider } from 'hooks/catch';
 import theme from 'styles/theme';
 import Routes from './src/navigation/routes';
 
 import './src/config/ReactotronConfig';
-import { CatchProvider } from 'hooks/catch';
 
 LogBox.ignoreLogs(['EventEmitter.removeListener']);
 
