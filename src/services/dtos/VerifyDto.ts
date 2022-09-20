@@ -1,10 +1,6 @@
 export type VerifyDtoReq = {
-  company: string;
+  cpf: string;
   email: string;
   phone: string;
-  cpf: string;
-};
-
-export type VerifyDtoRes = {
-  teste: '';
+  company: string;
 };

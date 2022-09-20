@@ -4,10 +4,11 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { FontAwesome, Octicons } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Text, Wrapper } from 'components';
-import { MeDtoRes } from 'services/dtos/MeDto';
+import { getMe } from 'services/api/Home';
 import theme from 'styles/theme';
+import { maskPhone } from 'utils/helpers';
 import avatar from 'assets/avatar.png';
 
 import { PROFILE_MODULES } from './consts';
@@ -17,8 +18,7 @@ export const Profile = () => {
   const { colors } = theme;
   const { navigate } = useNavigation();
 
-  const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<MeDtoRes>(['@meKey']);
+  const { data } = useQuery(['@meKey'], getMe);
 
   return (
     <Wrapper title="Meu perfil" disabledScrollView hasBackButton={false}>
@@ -37,7 +37,7 @@ export const Profile = () => {
       <View style={{ flexDirection: 'row', marginTop: RFValue(12) }}>
         <FontAwesome name="phone" color={colors.textLight} size={20} />
         <Text fontWeight="normal" fontSize={14} color={colors.textLight} style={{ marginLeft: RFValue(12) }}>
-          {data?.phone}
+          {maskPhone(data?.phone)}
         </Text>
       </View>
 

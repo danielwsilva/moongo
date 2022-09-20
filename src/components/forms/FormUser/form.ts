@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { maskCpf, maskPhone } from 'utils/helpers';
 
 export type UserForm = {
   company: string;
@@ -15,8 +16,8 @@ export const getInitialValues = (item: UserForm) => {
 
   if (item) {
     objMask = {
-      cpf: item.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '$1.$2.$3-$4'),
-      phone: item.phone.replace(/^(\d{2})(\d)/g, '($1) $2').replace(/(\d)(\d{4})$/, '$1-$2')
+      cpf: maskCpf(item.cpf),
+      phone: maskPhone(item.phone)
     };
   }
 
@@ -26,7 +27,7 @@ export const getInitialValues = (item: UserForm) => {
     date_birth: item ? item.date_birth : '',
     email: item ? item.email : '',
     phone: item ? objMask.phone : '',
-    company: '',
+    company: item ? item.company : '',
     gender: ''
   };
 };

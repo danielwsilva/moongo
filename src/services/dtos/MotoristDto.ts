@@ -1,4 +1,5 @@
 export type MotoristDtoReq = {
+  module?: string;
   company?: string;
   name: string;
   email: string;

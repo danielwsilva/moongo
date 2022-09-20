@@ -6,7 +6,8 @@ import { useMutation } from '@tanstack/react-query';
 import { Formik, FormikHelpers } from 'formik';
 
 import { useCatch } from 'hooks/catch';
-import { getVerify } from 'services/api/Register';
+import { getVerify } from 'services/api/global';
+import { VerifyDtoReq } from 'services/dtos/VerifyDto';
 import theme from 'styles/theme';
 import { onlyNumbers } from 'utils/helpers';
 
@@ -45,9 +46,35 @@ const FormUser = ({
   const { mutateAsync, isLoading } = useMutation(getVerify);
 
   const onSubmitVerify = async (values: UserForm, actions: FormikHelpers<UserForm>) => {
-    const objUser = { ...values, cpf: onlyNumbers(values.cpf), phone: onlyNumbers(values.phone), gender };
     try {
-      await mutateAsync(objUser);
+      let objUser = {} as UserForm;
+      let verify = {} as VerifyDtoReq;
+
+      if (data?.cpf !== onlyNumbers(values.cpf)) {
+        verify = { ...verify, cpf: onlyNumbers(values.cpf) };
+      }
+
+      if (data?.email !== values.email) {
+        verify = { ...verify, email: values.email };
+      }
+
+      if (data?.phone !== onlyNumbers(values.phone)) {
+        verify = { ...verify, phone: onlyNumbers(values.phone) };
+      }
+
+      if (data?.company !== values.company) {
+        verify = { ...verify, company: values.company };
+      }
+
+      objUser = {
+        ...values,
+        ...verify,
+        cpf: verify.cpf || onlyNumbers(values.cpf),
+        phone: verify.phone || onlyNumbers(values.phone),
+        gender
+      };
+
+      await mutateAsync(verify);
       onSubmit(objUser);
     } catch (error) {
       catchFormError(error, actions.setErrors);
@@ -120,6 +147,7 @@ const FormUser = ({
               mask={Masks.BRL_CPF}
               keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
               maxLength={14}
+              disabled={!!data}
             />
 
             <Input
@@ -144,7 +172,6 @@ const FormUser = ({
               autoCapitalize="none"
               onChange={() => setErrors({ ...errors, email: '' })}
               maxLength={64}
-              disabled={!!data}
             />
 
             <Input
@@ -159,17 +186,15 @@ const FormUser = ({
               keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
             />
 
-            {!data && (
-              <Input
-                placeholder="Informe a sua companhia"
-                valid={errors.company === '' || !errors.company}
-                errorText={errors.company}
-                onChangeText={handleChange('company')}
-                onChange={() => setErrors({ ...errors, company: '' })}
-                value={values.company}
-                maxLength={30}
-              />
-            )}
+            <Input
+              placeholder="Informe a sua companhia"
+              valid={errors.company === '' || !errors.company}
+              errorText={errors.company}
+              onChangeText={handleChange('company')}
+              onChange={() => setErrors({ ...errors, company: '' })}
+              value={values.company}
+              maxLength={30}
+            />
 
             {getAcceptanceTerm && (
               <CheckBox
