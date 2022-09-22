@@ -27,6 +27,7 @@ type FormUserProps = {
   getGender?: (_gender: string) => void;
   data?: UserForm;
   textButton?: string;
+  loading?: boolean;
 };
 
 const FormUser = ({
@@ -35,7 +36,8 @@ const FormUser = ({
   getAcceptanceTerm,
   getGender,
   data,
-  textButton = 'Avançar'
+  textButton = 'Avançar',
+  loading = false
 }: FormUserProps) => {
   const [gender, setGender] = useState(data ? data.gender : genders[0].id);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -210,8 +212,8 @@ const FormUser = ({
 
           <Button
             style={{ marginBottom: RFValue(32) }}
-            disabled={disabled(values) || isLoading}
-            loading={isLoading}
+            disabled={disabled(values) || isLoading || loading}
+            loading={isLoading || loading}
             onPress={() => handleSubmit()}
           >
             {textButton}

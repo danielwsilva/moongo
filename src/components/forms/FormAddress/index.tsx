@@ -23,9 +23,10 @@ type FormFormCar = {
   disabled: (_values: AddressForm) => boolean;
   data?: AddressForm;
   textButton?: string;
+  loading?: boolean;
 };
 
-const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar' }: FormFormCar) => {
+const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar', loading }: FormFormCar) => {
   const fetchCep = async ({ value, values, setValues, setErrors, errors }: CepParams) => {
     try {
       const { data: dataCep } = await getCep(value.replace('-', ''));
@@ -156,7 +157,12 @@ const FormAddress = ({ disabled, onSubmit, data, textButton = 'Avançar' }: Form
             />
           </View>
 
-          <Button style={{ marginBottom: RFValue(32) }} disabled={disabled(values)} onPress={() => handleSubmit()}>
+          <Button
+            style={{ marginBottom: RFValue(32) }}
+            disabled={disabled(values) || loading}
+            loading={loading}
+            onPress={() => handleSubmit()}
+          >
             {textButton}
           </Button>
         </View>

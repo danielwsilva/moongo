@@ -12,9 +12,10 @@ type FormFormCar = {
   disabled: (_values: CarForm) => boolean;
   data?: CarForm;
   textButton?: string;
+  loading?: boolean;
 };
 
-const FormCar = ({ onSubmit, disabled, data, textButton = 'Avançar' }: FormFormCar) => {
+const FormCar = ({ onSubmit, disabled, data, textButton = 'Avançar', loading = false }: FormFormCar) => {
   return (
     <Formik
       initialValues={getInitialValues(data!)}
@@ -85,7 +86,12 @@ const FormCar = ({ onSubmit, disabled, data, textButton = 'Avançar' }: FormForm
             />
           </View>
 
-          <Button style={{ marginBottom: RFValue(32) }} disabled={disabled(values)} onPress={() => handleSubmit()}>
+          <Button
+            style={{ marginBottom: RFValue(32) }}
+            disabled={disabled(values) || loading}
+            onPress={() => handleSubmit()}
+            loading={loading}
+          >
             {textButton}
           </Button>
         </View>

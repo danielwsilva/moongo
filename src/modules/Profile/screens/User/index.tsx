@@ -16,7 +16,7 @@ export const User = () => {
 
   const [gender, setGender] = useState(data?.gender);
 
-  const { mutate } = useMutation(postUpdateMotorist, {
+  const { mutate, isLoading } = useMutation(postUpdateMotorist, {
     onSuccess() {
       queryClient.invalidateQueries(['@meKey']);
       goBack();
@@ -41,7 +41,14 @@ export const User = () => {
 
   return (
     <Wrapper title="Alterar dados pessoais" disabledScrollView hasBackButton>
-      <FormUser onSubmit={submitUser} disabled={disabled} getGender={setGender} data={data} textButton="Confirmar" />
+      <FormUser
+        onSubmit={submitUser}
+        disabled={disabled}
+        getGender={setGender}
+        data={data}
+        textButton="Confirmar"
+        loading={isLoading}
+      />
     </Wrapper>
   );
 };

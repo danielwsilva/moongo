@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
+import { useNavigation } from '@react-navigation/native';
 import { Text } from 'components/Text';
 import theme from 'styles/theme';
 
@@ -42,10 +43,12 @@ export const Wrapper = ({
 }: WrapperProps) => {
   const styles = getStyles();
 
+  const { goBack } = useNavigation();
+
   const Header = () => (
     <View style={styles.containerHeader}>
       {hasBackButton ? (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={goBack}>
           <AntDesign name="arrowleft" color={theme.colors.primary} size={16} />
         </TouchableOpacity>
       ) : (
