@@ -1,6 +1,6 @@
-import HomeStack from 'modules/Home/routes/HomeStack';
-import ProfileStack from 'modules/Profile/routes/ProfileStack';
-import SalesStack from 'modules/Sales/routes/SalesStack';
+import HomeStack from 'modules/home/routes/HomeStack';
+import ProfileStack from 'modules/profile/routes/ProfileStack';
+import SalesStack from 'modules/sales/routes/SalesStack';
 import { ROUTES } from 'navigation/appRoutes';
 
 export const MENU_ROUTES = [

@@ -11,8 +11,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Text } from 'components';
 import { Product, useCart } from 'hooks/cart';
-import { CountCart } from 'modules/Home/components/CountCart';
-import { ProductRow } from 'modules/Home/components/ProductRow';
+import { CountCart } from 'modules/home/components/CountCart';
+import { ProductRow } from 'modules/home/components/ProductRow';
 import { ROUTES } from 'navigation/appRoutes';
 import { getMe } from 'services/api/Home';
 import theme from 'styles/theme';

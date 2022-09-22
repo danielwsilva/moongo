@@ -7,7 +7,7 @@ import { Formik, FormikHelpers } from 'formik';
 import { Button } from 'components';
 import { useCatch } from 'hooks/catch';
 import { useForgotPassword } from 'hooks/forgotPassword';
-import { Wrapper } from 'modules/Register/components';
+import { Wrapper } from 'modules/register/components';
 import { ROUTES } from 'navigation/appRoutes';
 
 import { getForgotCode, postForgotCpf } from 'services/api/Auth';

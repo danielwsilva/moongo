@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ForgotProvider } from 'hooks/forgotPassword';
-import RegisterStack from 'modules/Register/routes/RegisterStack';
+import RegisterStack from 'modules/register/routes/RegisterStack';
 import { ROUTES } from 'navigation/appRoutes';
 
 import { SignIn, CPF, Code, Password } from '../screens';

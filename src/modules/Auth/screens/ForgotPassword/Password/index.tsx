@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Animated, Modal, Text } from 'components';
 import { FormPassword, PasswordForm } from 'components/forms/FormPassword';
 import { useForgotPassword } from 'hooks/forgotPassword';
-import { Wrapper } from 'modules/Register/components';
+import { Wrapper } from 'modules/register/components';
 import { ROUTES } from 'navigation/appRoutes';
 import { postForgotPassword } from 'services/api/Auth';
 import theme from 'styles/theme';

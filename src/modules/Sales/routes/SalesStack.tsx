@@ -3,7 +3,7 @@ import { getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/n
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { CartProvider } from 'hooks/cart';
 
-import { Cart } from 'modules/Home/screens';
+import { Cart } from 'modules/home/screens';
 import { ROUTES } from 'navigation/appRoutes';
 import styles from 'navigation/tabNavigation/styles';
 import { Products } from '../screens';
