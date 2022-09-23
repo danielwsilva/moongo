@@ -1,6 +1,7 @@
 import HomeStack from 'modules/home/routes/HomeStack';
 import ProfileStack from 'modules/profile/routes/ProfileStack';
 import SalesStack from 'modules/sales/routes/SalesStack';
+import WalletStack from 'modules/wallet/routes/WalletStack';
 import { ROUTES } from 'navigation/appRoutes';
 
 export const MENU_ROUTES = [
@@ -20,7 +21,7 @@ export const MENU_ROUTES = [
   },
   {
     name: ROUTES.REGISTER_ADDRESS,
-    component: HomeStack,
+    component: WalletStack,
     iconName: 'wallet',
     size: 22,
     textBottomBar: 'Carteira'

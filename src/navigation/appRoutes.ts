@@ -6,6 +6,7 @@ export enum ROUTES {
   HOME_TABNAVIGATION = 'home-tabnavigation',
   SALES_TABNAVIGATION = 'sales-tabnavigation',
   PROFILE_TABNAVIGATION = 'profile-tabnavigation',
+  WALLET_TABNAVIGATION = 'wallet-tabnavigation',
 
   // REGISTER
   REGISTER_STACK = 'register-stack',
@@ -36,5 +37,9 @@ export enum ROUTES {
   PROFILE_USER = 'profile-user',
   PROFILE_CAR = 'profile-car',
   PROFILE_ADDRESS = 'profile-address',
-  PROFILE_PASSWORD = 'profile-password'
+  PROFILE_PASSWORD = 'profile-password',
+
+  // WALLET
+  WALLET_STACK = 'wallet-stack',
+  WALLET = 'wallet'
 }

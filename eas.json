@@ -5,7 +5,7 @@
   "build": {
     "development": {
       "distribution": "internal",
-      "releaseChannel": "production-staging",
+      "releaseChannel": "staging",
       "android": {
         "buildType": "apk"
       }
@@ -14,10 +14,9 @@
       "distribution": "store",
       "releaseChannel": "production",
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "apk"
       }
     },
-
     "preview": {
       "channel": "preview",
       "android": {
