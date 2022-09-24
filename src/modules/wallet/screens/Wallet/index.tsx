@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { TabView, TabBar, NavigationState, SceneRendererProps } from 'react-native-tab-view';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons, Feather } from '@expo/vector-icons';
 
 import { Text, Wrapper } from 'components';
 import theme from 'styles/theme';
@@ -28,75 +28,145 @@ export const Wallet = () => {
   const FirstRoute = useCallback(
     () => (
       <>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 24 }}>
+        <Text color={colors.text} fontSize={16} style={{ marginTop: 12, marginLeft: 4 }}>
+          24 de setembro
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View
-              style={{
-                height: 45,
-                width: 45,
-                borderRadius: 45,
-                backgroundColor: 'rgba(92, 184, 92, 0.2)',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <AntDesign name="plus" size={20} color={colors.success} />
-            </View>
-            <Text color={colors.success} style={{ marginLeft: 12 }}>
-              R$ 92,03
+            <AntDesign name="bank" size={20} color={colors.withdraw} />
+
+            <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+              Saque
             </Text>
           </View>
 
-          <Text fontSize={13} color={colors.textLight} style={{ marginLeft: 12 }}>
-            23/09/2022
+          <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+            -R$ 12,00
           </Text>
         </View>
 
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 24 }}>
+        <Text color={colors.text} fontSize={16} style={{ marginTop: 12, marginLeft: 4 }}>
+          23 de setembro
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View
-              style={{
-                height: 45,
-                width: 45,
-                borderRadius: 45,
-                backgroundColor: 'rgba(92, 184, 92, 0.2)',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <MaterialIcons name="compare-arrows" size={20} color={colors.success} />
-            </View>
-            <Text color={colors.success} style={{ marginLeft: 12 }}>
-              R$ 92,03
+            <Feather name="dollar-sign" size={20} color={colors.withdraw} />
+
+            <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+              Dinheiro
             </Text>
           </View>
 
-          <Text fontSize={13} color={colors.textLight} style={{ marginLeft: 12 }}>
-            23/09/2022
+          <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+            -R$ 3,00
           </Text>
         </View>
 
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 24 }}>
+        <Text color={colors.text} fontSize={16} style={{ marginTop: 12, marginLeft: 4 }}>
+          20 de setembro
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View
-              style={{
-                height: 45,
-                width: 45,
-                borderRadius: 45,
-                backgroundColor: 'rgba(239,12,12, 0.2)',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <AntDesign name="minus" size={20} color={colors.error} />
-            </View>
-            <Text color={colors.error} style={{ marginLeft: 12 }}>
-              R$ 92,03
+            <AntDesign name="swap" size={20} color={colors.success} />
+
+            <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
+              Pix
             </Text>
           </View>
 
-          <Text fontSize={13} color={colors.textLight} style={{ marginLeft: 12 }}>
-            23/09/2022
+          <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
+            R$ 10,00
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Feather name="dollar-sign" size={20} color={colors.withdraw} />
+
+            <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+              Dinheiro
+            </Text>
+          </View>
+
+          <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+            -R$ 3,00
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <AntDesign name="swap" size={20} color={colors.success} />
+
+            <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
+              Pix
+            </Text>
+          </View>
+
+          <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
+            R$ 8,00
           </Text>
         </View>
       </>
@@ -107,34 +177,62 @@ export const Wallet = () => {
   const SecondRoute = useCallback(
     () => (
       <>
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <View
-            key={item}
-            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 24 }}
-          >
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View
-                style={{
-                  height: 45,
-                  width: 45,
-                  borderRadius: 45,
-                  backgroundColor: 'rgba(92, 184, 92, 0.2)',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <AntDesign name="plus" size={20} color={colors.success} />
-              </View>
-              <Text color={colors.success} style={{ marginLeft: 12 }}>
-                R$ 92,03
-              </Text>
-            </View>
+        <Text color={colors.text} fontSize={16} style={{ marginTop: 12, marginLeft: 4 }}>
+          20 de setembro
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <AntDesign name="swap" size={20} color={colors.success} />
 
-            <Text fontSize={13} color={colors.textLight} style={{ marginLeft: 12 }}>
-              23/09/2022
+            <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
+              Pix
             </Text>
           </View>
-        ))}
+
+          <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
+            R$ 10,00
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <AntDesign name="swap" size={20} color={colors.success} />
+
+            <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
+              Pix
+            </Text>
+          </View>
+
+          <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
+            R$ 8,00
+          </Text>
+        </View>
       </>
     ),
     []
@@ -143,34 +241,35 @@ export const Wallet = () => {
   const ThirdRoute = useCallback(
     () => (
       <>
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <View
-            key={item}
-            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 24 }}
-          >
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View
-                style={{
-                  height: 45,
-                  width: 45,
-                  borderRadius: 45,
-                  backgroundColor: 'rgba(92, 184, 92, 0.2)',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <MaterialIcons name="compare-arrows" size={20} color={colors.success} />
-              </View>
-              <Text color={colors.success} style={{ marginLeft: 12 }}>
-                R$ 92,03
-              </Text>
-            </View>
+        <Text color={colors.text} fontSize={16} style={{ marginTop: 12, marginLeft: 4 }}>
+          24 de setembro
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <AntDesign name="bank" size={20} color={colors.withdraw} />
 
-            <Text fontSize={13} color={colors.textLight} style={{ marginLeft: 12 }}>
-              23/09/2022
+            <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+              Saque
             </Text>
           </View>
-        ))}
+
+          <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+            -R$ 12,00
+          </Text>
+        </View>
       </>
     ),
     []
@@ -179,34 +278,62 @@ export const Wallet = () => {
   const FourthRoute = useCallback(
     () => (
       <>
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <View
-            key={item}
-            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 24 }}
-          >
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View
-                style={{
-                  height: 45,
-                  width: 45,
-                  borderRadius: 45,
-                  backgroundColor: 'rgba(239,12,12, 0.2)',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <AntDesign name="minus" size={20} color={colors.error} />
-              </View>
-              <Text color={colors.error} style={{ marginLeft: 12 }}>
-                R$ 92,03
-              </Text>
-            </View>
+        <Text color={colors.text} fontSize={16} style={{ marginTop: 12, marginLeft: 4 }}>
+          23 de setembro
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Feather name="dollar-sign" size={20} color={colors.withdraw} />
 
-            <Text fontSize={13} color={colors.textLight} style={{ marginLeft: 12 }}>
-              23/09/2022
+            <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+              Dinheiro
             </Text>
           </View>
-        ))}
+
+          <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+            -R$ 3,00
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 12,
+            backgroundColor: colors.white,
+            elevation: 2,
+            marginHorizontal: 4,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Feather name="dollar-sign" size={20} color={colors.withdraw} />
+
+            <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+              Dinheiro
+            </Text>
+          </View>
+
+          <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
+            -R$ 3,00
+          </Text>
+        </View>
       </>
     ),
     []
@@ -249,7 +376,7 @@ export const Wallet = () => {
           Saldo disponível
         </Text>
         <Text fontWeight="bold" fontSize={32} style={{ marginTop: 12 }}>
-          R$ 92,03
+          R$ 00,00
         </Text>
       </View>
 
