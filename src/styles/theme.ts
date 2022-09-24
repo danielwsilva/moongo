@@ -11,6 +11,7 @@ export default {
     // Status Colors
     success: '#5CB85C',
     error: '#EF0C0C',
+    withdraw: '#f76060',
     danger: '#EB0E0F',
 
     // Gray colors
