@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { TabView, TabBar, NavigationState, SceneRendererProps } from 'react-native-tab-view';
-import { AntDesign, MaterialIcons, Feather } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 
 import { Text, Wrapper } from 'components';
 import theme from 'styles/theme';
@@ -371,12 +371,18 @@ export const Wallet = () => {
 
   return (
     <Wrapper title="Carteira digital" disabledScrollView hasBackButton={false}>
-      <View style={{ alignItems: 'center', marginBottom: 20 }}>
+      <View style={{ alignItems: 'center', marginBottom: 16 }}>
         <Text fontWeight="normal" style={{ marginTop: 20 }}>
-          Saldo disponível
+          Saldo da conta
         </Text>
-        <Text fontWeight="bold" fontSize={32} style={{ marginTop: 12 }}>
-          R$ 00,00
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 12 }}>
+          <Text fontWeight="bold" fontSize={32} style={{ marginRight: 12 }}>
+            R$ 00,00
+          </Text>
+          <Feather name="eye" color={colors.text} size={32} />
+        </View>
+        <Text fontWeight="bold" color={colors.primary} style={{ marginTop: 12 }}>
+          Resgatar
         </Text>
       </View>
 
