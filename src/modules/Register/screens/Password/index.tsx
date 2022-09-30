@@ -7,7 +7,7 @@ import { Animated, Modal, Text } from 'components';
 import { FormPassword, PasswordForm } from 'components/forms/FormPassword';
 import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
-import { useUpdateMotorist } from 'services/api/register';
+import { useCreateMotorist } from 'services/api/register';
 import theme from 'styles/theme';
 
 import { Wrapper } from '../../components';
@@ -24,7 +24,7 @@ export const Password = () => {
   const { user, car, address } = useRegister();
   const { colors } = theme;
 
-  const { mutate, isLoading } = useUpdateMotorist();
+  const { mutate, isLoading } = useCreateMotorist();
 
   const submitPassword = (values: PasswordForm) => {
     const objMotorist = { ...user, ...car, ...address, password: values.password };

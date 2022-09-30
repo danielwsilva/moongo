@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import { postLogin } from 'services/api/Auth';
+import { postLogin } from 'services/api/auth';
 import { LoginDtoReq } from 'services/dtos/LoginDto';
 import { authToken, saveString } from 'services/storage';
 import { useCatch } from './catch';

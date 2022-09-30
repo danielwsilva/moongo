@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Wrapper } from 'components';
 import { FormUser, UserForm } from 'components/forms/FormUser';
-import { postUpdateMotorist } from 'services/api/Profile';
+import { useUpdateMotorist } from 'services/api/register';
 import { MeDtoRes } from 'services/dtos/MeDto';
 import { onlyNumbers } from 'utils/helpers';
 
@@ -16,16 +16,16 @@ export const User = () => {
 
   const [gender, setGender] = useState(data?.gender);
 
-  const { mutate, isLoading } = useMutation(postUpdateMotorist, {
-    onSuccess() {
-      queryClient.invalidateQueries(['@meKey']);
-      goBack();
-    }
-  });
+  const { mutate, isLoading } = useUpdateMotorist();
 
   const submitUser = (values: UserForm) => {
     const item = { module: 'profile', ...values, gender };
-    mutate(item);
+    mutate(item, {
+      onSuccess() {
+        queryClient.invalidateQueries(['@meKey']);
+        goBack();
+      }
+    });
   };
 
   const disabled = (values: UserForm) => {

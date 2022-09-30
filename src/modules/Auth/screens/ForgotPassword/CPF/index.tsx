@@ -10,7 +10,7 @@ import { useCatch } from 'hooks/catch';
 import { useForgotPassword } from 'hooks/forgotPassword';
 import { Wrapper } from 'modules/register/components';
 import { ROUTES } from 'navigation/appRoutes';
-import { postForgotCpf } from 'services/api/Auth';
+import { postForgotCpf } from 'services/api/auth';
 import { onlyNumbers } from 'utils/helpers';
 
 import { initialValues, ForgotPasswordForm, validationSchema } from './form';

@@ -6,7 +6,7 @@ import { FontAwesome, Octicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { Text, Wrapper } from 'components';
-import { getMe } from 'services/api/Home';
+import { getMe } from 'services/api/home';
 import theme from 'styles/theme';
 import { maskPhone } from 'utils/helpers';
 import avatar from 'assets/avatar.png';

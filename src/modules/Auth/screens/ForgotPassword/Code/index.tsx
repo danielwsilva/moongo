@@ -10,7 +10,7 @@ import { useForgotPassword } from 'hooks/forgotPassword';
 import { Wrapper } from 'modules/register/components';
 import { ROUTES } from 'navigation/appRoutes';
 
-import { getForgotCode, postForgotCpf } from 'services/api/Auth';
+import { getForgotCode, postForgotCpf } from 'services/api/auth';
 import { CodeInput } from '../../../components/CodeInput';
 import { initialValues, SMSForm } from './form';
 

@@ -9,7 +9,7 @@ import { FormPassword, PasswordForm } from 'components/forms/FormPassword';
 import { useForgotPassword } from 'hooks/forgotPassword';
 import { Wrapper } from 'modules/register/components';
 import { ROUTES } from 'navigation/appRoutes';
-import { postForgotPassword } from 'services/api/Auth';
+import { postForgotPassword } from 'services/api/auth';
 import theme from 'styles/theme';
 
 type ModalType = {

@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Wrapper } from 'components';
 import { FormCar, CarForm } from 'components/forms/FormCar';
-import { postUpdateMotorist } from 'services/api/Profile';
+import { useUpdateMotorist } from 'services/api/register';
 import { MeDtoRes } from 'services/dtos/MeDto';
 
 export const Car = () => {
@@ -12,16 +12,16 @@ export const Car = () => {
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<MeDtoRes>(['@meKey']);
 
-  const { mutate, isLoading } = useMutation(postUpdateMotorist, {
-    onSuccess() {
-      queryClient.invalidateQueries(['@meKey']);
-      goBack();
-    }
-  });
+  const { mutate, isLoading } = useUpdateMotorist();
 
   const submitCar = (values: CarForm) => {
     const item = { module: 'car', ...values };
-    mutate(item);
+    mutate(item, {
+      onSuccess() {
+        queryClient.invalidateQueries(['@meKey']);
+        goBack();
+      }
+    });
   };
 
   const disabled = (values: CarForm) => {
