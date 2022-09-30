@@ -1,4 +1,4 @@
-export type MotoristDtoReq = {
+export type UpdateMotoristRequest = {
   module?: string;
   company?: string;
   name: string;

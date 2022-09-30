@@ -37,15 +37,11 @@ export const Wallet = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
             marginTop: 12,
-            backgroundColor: colors.white,
-            elevation: 2,
-            marginHorizontal: 4,
-            borderRadius: 8,
-            paddingHorizontal: 12,
-            paddingVertical: 12
+            marginHorizontal: 4
           }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ width: 5, height: 38, backgroundColor: colors.withdraw, borderRadius: 8, marginRight: 8 }} />
             <AntDesign name="bank" size={20} color={colors.withdraw} />
 
             <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
@@ -67,15 +63,11 @@ export const Wallet = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
             marginTop: 12,
-            backgroundColor: colors.white,
-            elevation: 2,
-            marginHorizontal: 4,
-            borderRadius: 8,
-            paddingHorizontal: 12,
-            paddingVertical: 12
+            marginHorizontal: 4
           }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ width: 5, height: 38, backgroundColor: colors.withdraw, borderRadius: 8, marginRight: 8 }} />
             <Feather name="dollar-sign" size={20} color={colors.withdraw} />
 
             <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
@@ -97,15 +89,11 @@ export const Wallet = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
             marginTop: 12,
-            backgroundColor: colors.white,
-            elevation: 2,
-            marginHorizontal: 4,
-            borderRadius: 8,
-            paddingHorizontal: 12,
-            paddingVertical: 12
+            marginHorizontal: 4
           }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ width: 5, height: 38, backgroundColor: colors.success, borderRadius: 8, marginRight: 8 }} />
             <AntDesign name="swap" size={20} color={colors.success} />
 
             <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
@@ -123,15 +111,11 @@ export const Wallet = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
             marginTop: 12,
-            backgroundColor: colors.white,
-            elevation: 2,
-            marginHorizontal: 4,
-            borderRadius: 8,
-            paddingHorizontal: 12,
-            paddingVertical: 12
+            marginHorizontal: 4
           }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ width: 5, height: 38, backgroundColor: colors.withdraw, borderRadius: 8, marginRight: 8 }} />
             <Feather name="dollar-sign" size={20} color={colors.withdraw} />
 
             <Text fontWeight="normal" color={colors.withdraw} fontSize={14} style={{ marginLeft: 12 }}>
@@ -149,15 +133,11 @@ export const Wallet = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
             marginTop: 12,
-            backgroundColor: colors.white,
-            elevation: 2,
-            marginHorizontal: 4,
-            borderRadius: 8,
-            paddingHorizontal: 12,
-            paddingVertical: 12
+            marginHorizontal: 4
           }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ width: 5, height: 38, backgroundColor: colors.success, borderRadius: 8, marginRight: 8 }} />
             <AntDesign name="swap" size={20} color={colors.success} />
 
             <Text fontWeight="normal" color={colors.success} fontSize={14} style={{ marginLeft: 12 }}>
@@ -377,7 +357,7 @@ export const Wallet = () => {
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 12 }}>
           <Text fontWeight="bold" fontSize={32} style={{ marginRight: 12 }}>
-            R$ 00,00
+            R$ 00,0
           </Text>
           <Feather name="eye" color={colors.text} size={32} />
         </View>

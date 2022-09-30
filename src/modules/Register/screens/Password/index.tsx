@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { Alert, View } from 'react-native';
+import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import { useMutation } from '@tanstack/react-query';
 
 import { Animated, Modal, Text } from 'components';
 import { FormPassword, PasswordForm } from 'components/forms/FormPassword';
 import { useRegister } from 'hooks/register';
 import { ROUTES } from 'navigation/appRoutes';
-import { postMotorist } from 'services/api/Register';
+import { useUpdateMotorist } from 'services/api/register';
 import theme from 'styles/theme';
 
 import { Wrapper } from '../../components';
@@ -25,31 +24,32 @@ export const Password = () => {
   const { user, car, address } = useRegister();
   const { colors } = theme;
 
-  const { mutate, isLoading } = useMutation(postMotorist, {
-    onSuccess: async () => {
-      setModal({ type: 'success', visible: true });
-      setTimeout(() => {
-        setModal({ type: 'success', visible: false });
-
-        dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: ROUTES.AUTH_SIGNIN }]
-          })
-        );
-      }, 3000);
-    },
-    onError: async () => {
-      setModal({ type: 'error', visible: true });
-      setTimeout(() => {
-        setModal({ type: 'error', visible: false });
-      }, 4000);
-    }
-  });
+  const { mutate, isLoading } = useUpdateMotorist();
 
   const submitPassword = (values: PasswordForm) => {
     const objMotorist = { ...user, ...car, ...address, password: values.password };
-    mutate(objMotorist);
+
+    mutate(objMotorist, {
+      onSuccess: async () => {
+        setModal({ type: 'success', visible: true });
+        setTimeout(() => {
+          setModal({ type: 'success', visible: false });
+
+          dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: ROUTES.AUTH_SIGNIN }]
+            })
+          );
+        }, 3000);
+      },
+      onError: async () => {
+        setModal({ type: 'error', visible: true });
+        setTimeout(() => {
+          setModal({ type: 'error', visible: false });
+        }, 4000);
+      }
+    });
   };
 
   const disabled = (values: PasswordForm) => {

@@ -1,13 +1,11 @@
-import { moongoAPI } from 'services/apiConfig';
-import { MotoristDtoReq } from 'services/dtos/MotoristDto';
-import { Error } from 'utils/types';
+import { useMutation } from '@tanstack/react-query';
 
-export const postMotorist = async (motorist: MotoristDtoReq) => {
-  try {
-    const { data } = await moongoAPI.post<MotoristDtoReq>(`/create/motorist`, motorist);
-    return data;
-  } catch (error) {
-    const { response } = error as Error;
-    throw response.data.message;
-  }
+import { UpdateMotoristRequest } from 'services/api/register/types';
+import { moongoAPI } from 'services/apiConfig';
+import { Error, Success } from '../types';
+
+export const useUpdateMotorist = () => {
+  return useMutation<Success, Error, UpdateMotoristRequest>((data) =>
+    moongoAPI.post(`/create/motorist`, data).then((response) => response.data)
+  );
 };
