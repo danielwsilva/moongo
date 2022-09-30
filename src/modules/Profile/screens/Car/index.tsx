@@ -3,14 +3,15 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { Wrapper } from 'components';
 import { FormCar, CarForm } from 'components/forms/FormCar';
+import { createMe } from 'services/api/home/keys';
+import { MeResponse } from 'services/api/home/types';
 import { useUpdateMotorist } from 'services/api/register';
-import { MeDtoRes } from 'services/dtos/MeDto';
 
 export const Car = () => {
   const { goBack } = useNavigation();
 
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<MeDtoRes>(['@meKey']);
+  const data = queryClient.getQueryData<MeResponse>(createMe());
 
   const { mutate, isLoading } = useUpdateMotorist();
 

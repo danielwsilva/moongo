@@ -4,15 +4,16 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { Wrapper } from 'components';
 import { FormUser, UserForm } from 'components/forms/FormUser';
+import { createMe } from 'services/api/home/keys';
+import { MeResponse } from 'services/api/home/types';
 import { useUpdateMotorist } from 'services/api/register';
-import { MeDtoRes } from 'services/dtos/MeDto';
 import { onlyNumbers } from 'utils/helpers';
 
 export const User = () => {
   const { goBack } = useNavigation();
 
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<MeDtoRes>(['@meKey']);
+  const data = queryClient.getQueryData<MeResponse>(createMe());
 
   const [gender, setGender] = useState(data?.gender);
 

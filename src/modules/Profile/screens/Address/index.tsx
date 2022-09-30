@@ -3,15 +3,16 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { Wrapper } from 'components';
 import { FormAddress, AddressForm } from 'components/forms/FormAddress';
+import { createMe } from 'services/api/home/keys';
+import { MeResponse } from 'services/api/home/types';
 import { useUpdateMotorist } from 'services/api/register';
-import { MeDtoRes } from 'services/dtos/MeDto';
 import { onlyNumbers } from 'utils/helpers';
 
 export const Address = () => {
   const { goBack } = useNavigation();
 
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<MeDtoRes>(['@meKey']);
+  const data = queryClient.getQueryData<MeResponse>(createMe());
 
   const { mutate, isLoading } = useUpdateMotorist();
 

@@ -4,9 +4,8 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { FontAwesome, Octicons } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
-import { useQuery } from '@tanstack/react-query';
 import { Text, Wrapper } from 'components';
-import { getMe } from 'services/api/home';
+import { useMe } from 'services/api/home';
 import theme from 'styles/theme';
 import { maskPhone } from 'utils/helpers';
 import avatar from 'assets/avatar.png';
@@ -18,7 +17,7 @@ export const Profile = () => {
   const { colors } = theme;
   const { navigate } = useNavigation();
 
-  const { data } = useQuery(['@meKey'], getMe);
+  const { data } = useMe();
 
   return (
     <Wrapper title="Meu perfil" disabledScrollView hasBackButton={false}>

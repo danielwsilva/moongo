@@ -7,14 +7,13 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
-import { useQuery } from '@tanstack/react-query';
 
 import { Text } from 'components';
 import { Product, useCart } from 'hooks/cart';
 import { CountCart } from 'modules/home/components/CountCart';
 import { ProductRow } from 'modules/home/components/ProductRow';
 import { ROUTES } from 'navigation/appRoutes';
-import { getMe } from 'services/api/home';
+import { useMe } from 'services/api/home';
 import theme from 'styles/theme';
 
 import amendoim from 'assets/amendoim.png';
@@ -76,7 +75,7 @@ export const Home = () => {
   const { navigate } = useNavigation();
   const { colors } = theme;
 
-  const { data } = useQuery(['@meKey'], getMe);
+  const { data } = useMe();
 
   const AddCart = ({ item }: { item: Product }) => {
     const [product, setProduct] = useState<Product>({} as Product);

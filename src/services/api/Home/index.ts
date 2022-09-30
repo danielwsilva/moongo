@@ -1,13 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
+import { MeResponse } from 'services/api/home/types';
 import { moongoAPI } from 'services/apiConfig';
-import { MeDtoRes } from 'services/dtos/MeDto';
-import { Error } from 'utils/types';
+import { createMe } from './keys';
 
-export const getMe = async () => {
-  try {
-    const { data } = await moongoAPI.get<MeDtoRes>('/me');
-    return data;
-  } catch (error) {
-    const { response } = error as Error;
-    throw response.data.message;
-  }
+export const useMe = () => {
+  return useQuery(createMe(), (data) => moongoAPI.get<MeResponse>(`/me`, data).then((response) => response.data));
 };
