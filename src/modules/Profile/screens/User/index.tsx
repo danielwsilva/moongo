@@ -23,7 +23,7 @@ export const User = () => {
     const item = { module: 'profile', ...values, gender };
     mutate(item, {
       onSuccess() {
-        queryClient.invalidateQueries(['@meKey']);
+        queryClient.invalidateQueries(createMe());
         goBack();
       }
     });

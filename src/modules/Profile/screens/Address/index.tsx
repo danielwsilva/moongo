@@ -20,7 +20,7 @@ export const Address = () => {
     const item = { module: 'place', ...values, zipcode: onlyNumbers(values.zipcode) };
     mutate(item, {
       onSuccess() {
-        queryClient.invalidateQueries(['@meKey']);
+        queryClient.invalidateQueries(createMe());
         goBack();
       }
     });
