@@ -31,3 +31,19 @@ export type MeResponse = {
     color: string;
   };
 };
+
+export type ProductResponse = {
+  id: string;
+  image: string;
+  description: string;
+  sku: string;
+  sale_price: number;
+  percentage: number;
+  brand: string;
+  category: string;
+  stock: number;
+  stock_motorist: number;
+  stock_min: number;
+  stock_max: number;
+  supply?: number;
+};

@@ -4,14 +4,15 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 import { Text } from 'components';
-import { Product, useCart } from 'hooks/cart';
+import { useCart } from 'hooks/cart';
+import { ProductResponse } from 'services/api/home/types';
 import theme from 'styles/theme';
 
 import styles from './styles';
 
 type ProductRowProps = {
-  item: Product;
-  handleTotalCart: (_products: Product[]) => void;
+  item: ProductResponse;
+  handleTotalCart: (_products: ProductResponse[]) => void;
 };
 
 export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
@@ -23,8 +24,8 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
   const increment = () => {
     let amountAux;
 
-    if (amount < item.stockMax - 1) amountAux = amount + 1;
-    else if (item.stock === 0 && amount < item.stockMax) amountAux = amount + 1;
+    if (amount < item.stock_max - 1) amountAux = amount + 1;
+    else if (item.stock === 0 && amount < item.stock_max) amountAux = amount + 1;
     else amountAux = amount;
 
     setAmount(updateProduct(item, amountAux));
@@ -57,13 +58,13 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
     <>
       <Swipeable overshootRight={false} renderRightActions={rightSwipe}>
         <View style={styles.container}>
-          <Image source={item.image} resizeMode="stretch" style={styles.image} />
+          <Image source={{ uri: item.image }} resizeMode="stretch" style={styles.image} />
           <View style={styles.wrapper}>
             <Text fontWeight="bold" fontSize={14} numberOfLines={1}>
-              {item.name}
+              {item.description}
             </Text>
             <Text fontWeight="normal" fontSize={14} color={colors.textLight}>
-              {item.brad}
+              {item.brand}
             </Text>
             <View style={styles.Price}>
               <View style={styles.Amount}>
@@ -81,7 +82,7 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
               </View>
 
               <Text fontWeight="bold" fontSize={14}>
-                R$ {(item.price * amount).toFixed(2)}
+                R$ {(item.sale_price * amount).toFixed(2)}
               </Text>
             </View>
           </View>

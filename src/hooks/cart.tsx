@@ -1,25 +1,12 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-import { ImageSourcePropType } from 'react-native';
-
-export type Product = {
-  id: string;
-  name: string;
-  brad: string;
-  price: number;
-  saleNumber: string;
-  stock: number;
-  supply?: number;
-  stockMin: number;
-  stockMax: number;
-  image: ImageSourcePropType;
-};
+import { ProductResponse } from 'services/api/home/types';
 
 interface CartContextData {
-  cart: Product[];
-  setCart: (_item: Product[]) => void;
-  addProduct: (_cart: Product[], _item: Product) => void;
-  removeProduct: (_item: Product) => void;
-  updateProduct: (_item: Product, _supply: number) => number;
+  cart: ProductResponse[];
+  setCart: (_item: ProductResponse[]) => void;
+  addProduct: (_cart: ProductResponse[], _item: ProductResponse) => void;
+  removeProduct: (_item: ProductResponse) => void;
+  updateProduct: (_item: ProductResponse, _supply: number) => number;
 }
 
 interface PropsProvider {
@@ -29,9 +16,9 @@ interface PropsProvider {
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export function CartProvider({ children }: PropsProvider) {
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<ProductResponse[]>([]);
 
-  const addProduct = (productCart: Product[], product: Product) => {
+  const addProduct = (productCart: ProductResponse[], product: ProductResponse) => {
     const productIndex = productCart.findIndex((item) => item.id === product.id);
 
     if (productIndex < 0) {
@@ -42,7 +29,7 @@ export function CartProvider({ children }: PropsProvider) {
   };
 
   const updateProduct = useCallback(
-    (product: Product, supply: number) => {
+    (product: ProductResponse, supply: number) => {
       const productIndex = cart.findIndex((item) => item.id === product.id);
       cart[productIndex].supply = supply;
       return supply;
@@ -51,7 +38,7 @@ export function CartProvider({ children }: PropsProvider) {
   );
 
   const removeProduct = useCallback(
-    (product: Product) => {
+    (product: ProductResponse) => {
       const filterProduct = cart.filter((item) => item.id !== product.id);
       setCart(filterProduct);
     },

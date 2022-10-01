@@ -9,84 +9,35 @@ import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 
 import { Text } from 'components';
-import { Product, useCart } from 'hooks/cart';
+import { useCart } from 'hooks/cart';
 import { CountCart } from 'modules/home/components/CountCart';
 import { ProductRow } from 'modules/home/components/ProductRow';
 import { ROUTES } from 'navigation/appRoutes';
-import { useMe } from 'services/api/home';
+import { useMe, useStockMotorist } from 'services/api/home';
+import { ProductResponse } from 'services/api/home/types';
 import theme from 'styles/theme';
 
-import amendoim from 'assets/amendoim.png';
 import avatar from 'assets/avatar.png';
-import kitkat from 'assets/kitkat.png';
-import talento_cafe from 'assets/talento-cafe.png';
-import talento_castanhas from 'assets/talento-castanhas.png';
 
 import styles from './styles';
-
-const DATA = [
-  {
-    id: '1',
-    name: 'Kit Kat 45G',
-    brad: 'Nestle',
-    price: 3.51,
-    saleNumber: '14.245',
-    stock: 1,
-    stockMin: 1,
-    stockMax: 4,
-    image: kitkat
-  },
-  {
-    id: '2',
-    name: 'Amendoim Dori',
-    brad: 'Dori',
-    price: 3.51,
-    saleNumber: '14.245',
-    stock: 0,
-    stockMin: 1,
-    stockMax: 4,
-    image: amendoim
-  },
-  {
-    id: '3',
-    name: 'Talento Café',
-    brad: 'Garoto',
-    price: 3.51,
-    saleNumber: '14.245',
-    stock: 1,
-    stockMin: 1,
-    stockMax: 4,
-    image: talento_cafe
-  },
-  {
-    id: '4',
-    name: 'Talento Castanhas',
-    brad: 'Garoto',
-    price: 3.51,
-    saleNumber: '14.245',
-    stock: 1,
-    stockMin: 1,
-    stockMax: 4,
-    image: talento_castanhas
-  }
-];
 
 export const Home = () => {
   const { navigate } = useNavigation();
   const { colors } = theme;
 
-  const { data } = useMe();
+  const { data: dataMe } = useMe();
+  const { data: dataStock } = useStockMotorist();
 
-  const AddCart = ({ item }: { item: Product }) => {
-    const [product, setProduct] = useState<Product>({} as Product);
+  const AddCart = ({ item }: { item: ProductResponse }) => {
+    const [product, setProduct] = useState<ProductResponse>({} as ProductResponse);
     const { cart, addProduct } = useCart();
 
     const productCart = cart.find((p) => p.id === product.id);
 
     const checkStock = () => {
-      if (item.stock === item.stockMax) return false;
-      if (item.stock === item.stockMin || item.stock === 0) return true;
-      if (item.stock > item.stockMin || item.stock < item.stockMax) return false;
+      if (item.stock_motorist === item.stock_max) return false;
+      if (item.stock_motorist === item.stock_min || item.stock_motorist === 0) return true;
+      if (item.stock_motorist > item.stock_min || item.stock_motorist < item.stock_max) return false;
       return true;
     };
 
@@ -120,7 +71,7 @@ export const Home = () => {
         >
           <AntDesign name="dropbox" size={20} color={colors.white} />
           <Text fontWeight="bold" fontSize={14} color={colors.white} style={styles.textStock}>
-            {item.stock}
+            {item.stock_motorist}
           </Text>
         </View>
       </View>
@@ -136,7 +87,7 @@ export const Home = () => {
             <View>
               <Text>Olá,</Text>
               <Text fontSize={20} fontWeight="bold">
-                {data?.name}
+                {dataMe?.name}
               </Text>
             </View>
             <Image source={avatar} resizeMode="stretch" style={styles.avatar} />
@@ -157,13 +108,13 @@ export const Home = () => {
               Total de produtos
             </Text>
             <Text fontWeight="normal" fontSize={14}>
-              {DATA.length}
+              {dataStock?.length}
             </Text>
           </View>
         </View>
 
         <FlashList
-          data={DATA}
+          data={dataStock}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <ProductRow item={item}>

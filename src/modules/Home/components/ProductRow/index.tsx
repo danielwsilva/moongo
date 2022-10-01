@@ -3,13 +3,13 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { Text, Modal } from 'components';
-import { Product } from 'hooks/cart';
+import { ProductResponse } from 'services/api/home/types';
 import theme from 'styles/theme';
 
 import styles from './styles';
 
 type ProductRowProps = {
-  item: Product;
+  item: ProductResponse;
   children: ReactNode;
 };
 
@@ -25,26 +25,26 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
           <AntDesign name="questioncircleo" color={colors.textLight} size={16} />
         </TouchableOpacity>
 
-        <Image source={item.image} resizeMode="stretch" style={styles.image} />
+        <Image source={{ uri: item.image }} resizeMode="stretch" style={styles.image} />
         <View style={styles.wrapperText}>
           <Text fontWeight="bold" fontSize={14} numberOfLines={1} style={{ flex: 1, marginRight: 2 }}>
-            {item.name}
+            {item.description}
           </Text>
           <View style={styles.header}>
             <AntDesign name="star" size={18} color={colors.primaryLight} />
             <Text fontSize={10} color={colors.grayLight}>
-              {item.saleNumber}
+              14.245
             </Text>
           </View>
         </View>
 
         <View style={styles.footer}>
-          <View>
-            <Text fontWeight="normal" fontSize={14} color={colors.textLight}>
-              {item.brad}
+          <View style={{ flex: 1, marginRight: 2 }}>
+            <Text fontWeight="normal" fontSize={14} color={colors.textLight} numberOfLines={1}>
+              {item.brand}
             </Text>
             <Text fontWeight="bold" fontSize={14}>
-              R$ {item.price}
+              R$ {item.sale_price}
             </Text>
           </View>
 
@@ -61,9 +61,9 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
           </Text>
 
           <Text fontSize={14} color={colors.textLight} style={{ textAlign: 'center' }}>
-            {`${item.name}\n`}
+            {`${item.description}\n`}
             <Text fontWeight="normal" fontSize={14} color={colors.textLight}>
-              Minímo: {item.stockMin} / Máximo: {item.stockMax}
+              Minímo: {item.stock_min} / Máximo: {item.stock_max}
             </Text>
           </Text>
 

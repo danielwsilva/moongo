@@ -3,8 +3,9 @@ import { View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
 import { Button, Text, Wrapper } from 'components';
-import { Product, useCart } from 'hooks/cart';
+import { useCart } from 'hooks/cart';
 
+import { ProductResponse } from 'services/api/home/types';
 import { CountCart } from '../../components/CountCart';
 import { ProductCartRow } from '../../components/ProductCartRow';
 import styles from './styles';
@@ -14,9 +15,9 @@ export const Cart = () => {
 
   const { cart } = useCart();
 
-  const handleTotalCart = (products: Product[]) => {
+  const handleTotalCart = (products: ProductResponse[]) => {
     const totalProducts = products.reduce((total, item) => {
-      return total + item.supply! * item.price;
+      return total + item.supply! * item.sale_price;
     }, 0);
 
     setTotalCart(totalProducts);
