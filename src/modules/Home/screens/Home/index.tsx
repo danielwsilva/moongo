@@ -42,7 +42,7 @@ export const Home = () => {
     };
 
     const handleAddCart = () => {
-      const itemAddCart = { ...item, supply: 1 };
+      const itemAddCart = { ...item, quantity: 1 };
       setProduct(itemAddCart);
       addProduct(cart, itemAddCart);
     };

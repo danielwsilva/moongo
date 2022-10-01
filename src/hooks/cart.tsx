@@ -31,7 +31,7 @@ export function CartProvider({ children }: PropsProvider) {
   const updateProduct = useCallback(
     (product: ProductResponse, supply: number) => {
       const productIndex = cart.findIndex((item) => item.id === product.id);
-      cart[productIndex].supply = supply;
+      cart[productIndex].quantity = supply;
       return supply;
     },
     [cart]

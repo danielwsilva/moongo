@@ -16,7 +16,7 @@ type ProductRowProps = {
 };
 
 export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
-  const [amount, setAmount] = useState(item.supply || 0);
+  const [amount, setAmount] = useState(item.quantity || 0);
 
   const { cart, updateProduct, removeProduct } = useCart();
   const { colors } = theme;
@@ -24,8 +24,7 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
   const increment = () => {
     let amountAux;
 
-    if (amount < item.stock_max - 1) amountAux = amount + 1;
-    else if (item.stock === 0 && amount < item.stock_max) amountAux = amount + 1;
+    if (amount < item.stock_max) amountAux = amount + 1;
     else amountAux = amount;
 
     setAmount(updateProduct(item, amountAux));
@@ -73,7 +72,7 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
                 </TouchableOpacity>
 
                 <Text fontWeight="normal" fontSize={14} style={styles.AmountText}>
-                  {item.supply}
+                  {item.quantity}
                 </Text>
 
                 <TouchableOpacity style={styles.buttonPlus} onPress={increment}>

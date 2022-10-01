@@ -45,5 +45,19 @@ export type ProductResponse = {
   stock_motorist: number;
   stock_min: number;
   stock_max: number;
-  supply?: number;
+  quantity: number;
+};
+
+export type SupplyRequest = {
+  movement: string;
+  quantity: number;
+  cost: number;
+  products: Product[];
+};
+
+export type Product = {
+  product: string;
+  percentage: number;
+  quantity: number;
+  price: number;
 };
