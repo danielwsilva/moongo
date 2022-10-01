@@ -17,6 +17,11 @@ export default StyleSheet.create({
   button: {
     marginBottom: RFValue(32)
   },
+  listEmpty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   modal: {
     flex: 1,
     justifyContent: 'center',

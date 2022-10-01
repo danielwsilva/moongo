@@ -6,11 +6,11 @@ import { FlashList } from '@shopify/flash-list';
 
 import { Button, Modal, Text, Wrapper } from 'components';
 import { useCart } from 'hooks/cart';
-
 import { ROUTES } from 'navigation/appRoutes';
 import { useSupply } from 'services/api/home';
 import { ProductResponse } from 'services/api/home/types';
 import theme from 'styles/theme';
+
 import { CountCart } from '../../components/CountCart';
 import { ProductCartRow } from '../../components/ProductCartRow';
 import styles from './styles';
@@ -71,7 +71,7 @@ export const Cart = () => {
   }, [cart]);
 
   const listEmptyComponent = () => (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.listEmpty}>
       <FontAwesome name="opencart" size={32} color={colors.primary} />
       <Text fontWeight="normal" style={{ marginTop: 16 }}>
         Seu carrinho está vazio :(
