@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import { useMutation } from '@tanstack/react-query';
 
 import { Animated, Modal, Text } from 'components';
 import { FormPassword, PasswordForm } from 'components/forms/FormPassword';
-import { useForgotPassword } from 'hooks/forgotPassword';
+import { useForgot } from 'hooks/forgotPassword';
 import { Wrapper } from 'modules/register/components';
 import { ROUTES } from 'navigation/appRoutes';
-import { postForgotPassword } from 'services/api/auth';
+import { useForgotPassword } from 'services/api/auth';
 import theme from 'styles/theme';
 
 type ModalType = {
@@ -22,33 +21,33 @@ export const Password = () => {
   const { dispatch } = useNavigation();
   const { colors } = theme;
 
-  const { cpf, code } = useForgotPassword();
+  const { cpf, code } = useForgot();
 
-  const { mutate, isLoading } = useMutation(postForgotPassword, {
-    onSuccess() {
-      setModal({ type: 'success', visible: true });
-      setTimeout(() => {
-        setModal({ type: 'success', visible: false });
-
-        dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: ROUTES.AUTH_SIGNIN }]
-          })
-        );
-      }, 3000);
-    },
-    onError() {
-      setModal({ type: 'error', visible: true });
-      setTimeout(() => {
-        setModal({ type: 'error', visible: false });
-      }, 4000);
-    }
-  });
+  const { mutate, isLoading } = useForgotPassword();
 
   const submitPassword = (values: PasswordForm) => {
     const objForgot = { password: values.password, cpf, code };
-    mutate(objForgot);
+    mutate(objForgot, {
+      onSuccess() {
+        setModal({ type: 'success', visible: true });
+        setTimeout(() => {
+          setModal({ type: 'success', visible: false });
+
+          dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: ROUTES.AUTH_SIGNIN }]
+            })
+          );
+        }, 3000);
+      },
+      onError() {
+        setModal({ type: 'error', visible: true });
+        setTimeout(() => {
+          setModal({ type: 'error', visible: false });
+        }, 4000);
+      }
+    });
   };
 
   const disabled = (values: PasswordForm) => {

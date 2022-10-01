@@ -34,7 +34,7 @@ export function ForgotProvider({ children }: PropsProvider) {
   );
 }
 
-export function useForgotPassword() {
+export function useForgot() {
   const context = useContext(ForgotContext);
   return context;
 }

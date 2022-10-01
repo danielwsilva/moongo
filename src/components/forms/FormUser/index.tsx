@@ -2,12 +2,11 @@ import { useState } from 'react';
 import { Platform, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useMutation } from '@tanstack/react-query';
 import { Formik, FormikHelpers } from 'formik';
 
 import { useCatch } from 'hooks/catch';
-import { getVerify } from 'services/api/global';
-import { VerifyDtoReq } from 'services/dtos/VerifyDto';
+import { useVerify } from 'services/api/global';
+import { VerifyRequest } from 'services/dtos/VerifyDto';
 import theme from 'styles/theme';
 import { onlyNumbers } from 'utils/helpers';
 
@@ -45,42 +44,44 @@ const FormUser = ({
   const { colors } = theme;
   const { catchFormError } = useCatch();
 
-  const { mutateAsync, isLoading } = useMutation(getVerify);
+  const { mutate, isLoading } = useVerify();
 
   const onSubmitVerify = async (values: UserForm, actions: FormikHelpers<UserForm>) => {
-    try {
-      let objUser = {} as UserForm;
-      let verify = {} as VerifyDtoReq;
+    let objUser = {} as UserForm;
+    let verify = {} as VerifyRequest;
 
-      if (data?.cpf !== onlyNumbers(values.cpf)) {
-        verify = { ...verify, cpf: onlyNumbers(values.cpf) };
-      }
-
-      if (data?.email !== values.email) {
-        verify = { ...verify, email: values.email };
-      }
-
-      if (data?.phone !== onlyNumbers(values.phone)) {
-        verify = { ...verify, phone: onlyNumbers(values.phone) };
-      }
-
-      if (data?.company !== values.company) {
-        verify = { ...verify, company: values.company };
-      }
-
-      objUser = {
-        ...values,
-        ...verify,
-        cpf: verify.cpf || onlyNumbers(values.cpf),
-        phone: verify.phone || onlyNumbers(values.phone),
-        gender
-      };
-
-      await mutateAsync(verify);
-      onSubmit(objUser);
-    } catch (error) {
-      catchFormError(error, actions.setErrors);
+    if (data?.cpf !== onlyNumbers(values.cpf)) {
+      verify = { ...verify, cpf: onlyNumbers(values.cpf) };
     }
+
+    if (data?.email !== values.email) {
+      verify = { ...verify, email: values.email };
+    }
+
+    if (data?.phone !== onlyNumbers(values.phone)) {
+      verify = { ...verify, phone: onlyNumbers(values.phone) };
+    }
+
+    if (data?.company !== values.company) {
+      verify = { ...verify, company: values.company };
+    }
+
+    objUser = {
+      ...values,
+      ...verify,
+      cpf: verify.cpf || onlyNumbers(values.cpf),
+      phone: verify.phone || onlyNumbers(values.phone),
+      gender
+    };
+
+    mutate(verify, {
+      onSuccess() {
+        onSubmit(objUser);
+      },
+      onError(error) {
+        catchFormError(error.response.data.errors, actions.setErrors);
+      }
+    });
   };
 
   const handleOpenContract = () => {

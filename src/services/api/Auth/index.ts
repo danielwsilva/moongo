@@ -1,41 +1,29 @@
+import { useMutation } from '@tanstack/react-query';
+
 import { moongoAPI } from 'services/apiConfig';
-import { ForgotCodeDtoReq, ForgotCpfDtoReq, ForgotPasswordDtoReq } from 'services/dtos/ForgotPassword';
-import { LoginDtoReq, LoginDtoRes } from 'services/dtos/LoginDto';
-import { Error } from 'utils/types';
+import { Success, Error } from '../types';
+import { ForgotCodeRequest, ForgotCpfRequest, ForgotPasswordRequest, LoginRequest, LoginResponse } from './types';
 
-export const postLogin = async (user: LoginDtoReq) => {
-  try {
-    const { data } = await moongoAPI.post<LoginDtoReq, LoginDtoRes>(`/login`, user);
-    return data;
-  } catch (error) {
-    const { response } = error as Error;
-    throw response.data.errors;
-  }
+export const useLogin = () => {
+  return useMutation<LoginResponse, Error, LoginRequest>((data) =>
+    moongoAPI.post(`/login`, data).then((response) => response.data)
+  );
 };
 
-export const postForgotCpf = async (cpf: ForgotCpfDtoReq) => {
-  try {
-    await moongoAPI.post(`/reset/password`, cpf);
-  } catch (error) {
-    const { response } = error as Error;
-    throw response.data.errors;
-  }
+export const useForgotCpf = () => {
+  return useMutation<Success, Error, ForgotCpfRequest>((data) =>
+    moongoAPI.post(`/reset/password`, data).then((response) => response.data)
+  );
 };
 
-export const getForgotCode = async (token: ForgotCodeDtoReq) => {
-  try {
-    await moongoAPI.get(`verify/token/password`, { params: token });
-  } catch (error) {
-    const { response } = error as Error;
-    throw response.data.errors;
-  }
+export const useForgotCode = () => {
+  return useMutation<Success, Error, ForgotCodeRequest>((data) =>
+    moongoAPI.post(`/verify/token/password`, data).then((response) => response.data)
+  );
 };
 
-export const postForgotPassword = async (user: ForgotPasswordDtoReq) => {
-  try {
-    await moongoAPI.post<ForgotPasswordDtoReq>(`/new/password`, user);
-  } catch (error) {
-    const { response } = error as Error;
-    throw response.data.errors;
-  }
+export const useForgotPassword = () => {
+  return useMutation<Success, Error, ForgotPasswordRequest>((data) =>
+    moongoAPI.post(`/new/password`, data).then((response) => response.data)
+  );
 };

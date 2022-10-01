@@ -2,15 +2,14 @@ import { Platform, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/core';
-import { useMutation } from '@tanstack/react-query';
 import { Formik, FormikHelpers } from 'formik';
 
 import { Button, Input } from 'components';
 import { useCatch } from 'hooks/catch';
-import { useForgotPassword } from 'hooks/forgotPassword';
+import { useForgot } from 'hooks/forgotPassword';
 import { Wrapper } from 'modules/register/components';
 import { ROUTES } from 'navigation/appRoutes';
-import { postForgotCpf } from 'services/api/auth';
+import { useForgotCpf } from 'services/api/auth';
 import { onlyNumbers } from 'utils/helpers';
 
 import { initialValues, ForgotPasswordForm, validationSchema } from './form';
@@ -18,18 +17,18 @@ import { initialValues, ForgotPasswordForm, validationSchema } from './form';
 export const CPF = () => {
   const { navigate } = useNavigation();
   const { catchFormError } = useCatch();
-  const { addCpf } = useForgotPassword();
+  const { addCpf } = useForgot();
 
-  const { mutateAsync, isLoading } = useMutation(postForgotCpf, {
-    onSuccess() {
-      navigate(ROUTES.AUTH_FORGOT_CODE);
-    }
-  });
+  const { mutateAsync, isLoading } = useForgotCpf();
 
   const submitUser = async (values: ForgotPasswordForm, actions: FormikHelpers<ForgotPasswordForm>) => {
     try {
       const objCpf = { cpf: onlyNumbers(values.cpf) };
-      await mutateAsync(objCpf);
+      await mutateAsync(objCpf, {
+        onSuccess() {
+          navigate(ROUTES.AUTH_FORGOT_CODE);
+        }
+      });
       addCpf(objCpf.cpf);
     } catch (error) {
       catchFormError(error, actions.setErrors);

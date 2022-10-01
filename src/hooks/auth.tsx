@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { useMutation } from '@tanstack/react-query';
 
-import { postLogin } from 'services/api/auth';
+import { useLogin } from 'services/api/auth';
 import { LoginDtoReq } from 'services/dtos/LoginDto';
 import { authToken, saveString } from 'services/storage';
 import { useCatch } from './catch';
@@ -26,18 +25,18 @@ export function AuthProvider({ children }: PropsProvider) {
 
   const { catchError } = useCatch();
 
-  const { mutate, isLoading } = useMutation(postLogin, {
-    onSuccess: async (data) => {
-      setToken(data.token);
-      await saveString(authToken, data.token);
-    },
-    onError(error: string[]) {
-      catchError(error);
-    }
-  });
+  const { mutate, isLoading } = useLogin();
 
-  const signIn = (data: LoginDtoReq) => {
-    mutate(data);
+  const signIn = (credential: LoginDtoReq) => {
+    mutate(credential, {
+      onSuccess: async (data) => {
+        setToken(data.token);
+        await saveString(authToken, data.token);
+      },
+      onError(error) {
+        catchError(error.response.data.errors);
+      }
+    });
   };
 
   return <AuthContext.Provider value={{ token, isLoading, signIn }}>{children}</AuthContext.Provider>;

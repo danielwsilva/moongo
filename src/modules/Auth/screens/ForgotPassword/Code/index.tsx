@@ -1,29 +1,25 @@
 import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/core';
-import { useMutation } from '@tanstack/react-query';
 import { Formik, FormikHelpers } from 'formik';
 
 import { Button } from 'components';
 import { useCatch } from 'hooks/catch';
-import { useForgotPassword } from 'hooks/forgotPassword';
+import { useForgot } from 'hooks/forgotPassword';
 import { Wrapper } from 'modules/register/components';
 import { ROUTES } from 'navigation/appRoutes';
 
-import { getForgotCode, postForgotCpf } from 'services/api/auth';
+import { useForgotCode, useForgotCpf } from 'services/api/auth';
 import { CodeInput } from '../../../components/CodeInput';
 import { initialValues, SMSForm } from './form';
 
 export const Code = () => {
   const { navigate } = useNavigation();
   const { catchFormError } = useCatch();
-  const { cpf, addCode } = useForgotPassword();
+  const { cpf, addCode } = useForgot();
 
-  const { mutateAsync, isLoading } = useMutation(getForgotCode, {
-    onSuccess() {
-      navigate(ROUTES.AUTH_FORGOT_PASSWORD);
-    }
-  });
+  const { mutateAsync: mutateCodeAsync, isLoading } = useForgotCode();
+  const { mutateAsync: mutateCpfAsync } = useForgotCpf();
 
   const handleResendCode = async () => {
     fetchTempToken();
@@ -31,13 +27,17 @@ export const Code = () => {
 
   const fetchTempToken = async () => {
     try {
-      await postForgotCpf({ cpf });
+      await mutateCpfAsync({ cpf });
     } catch (error) {}
   };
 
   const submitCode = async (values: SMSForm, actions: FormikHelpers<SMSForm>) => {
     try {
-      await mutateAsync(values);
+      await mutateCodeAsync(values, {
+        onSuccess() {
+          navigate(ROUTES.AUTH_FORGOT_PASSWORD);
+        }
+      });
       addCode(values.token);
     } catch (error) {
       catchFormError({ token: error }, actions.setErrors);

@@ -7,3 +7,10 @@ export type Error = {
     data: Record<string, Array<string>>;
   };
 };
+
+export type VerifyRequest = {
+  cpf: string;
+  email: string;
+  phone: string;
+  company: string;
+};
