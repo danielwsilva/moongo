@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 
-import { Button, Text, Wrapper } from 'components';
+import { Button, Modal, Text, Wrapper } from 'components';
 import { useCart } from 'hooks/cart';
 
+import { ROUTES } from 'navigation/appRoutes';
 import { useSupply } from 'services/api/home';
 import { ProductResponse } from 'services/api/home/types';
+import theme from 'styles/theme';
 import { CountCart } from '../../components/CountCart';
 import { ProductCartRow } from '../../components/ProductCartRow';
 import styles from './styles';
@@ -14,9 +18,12 @@ import styles from './styles';
 export const Cart = () => {
   const [totalCart, setTotalCart] = useState(0);
   const [totalQuantityCart, setTotalQuantityCart] = useState(0);
+  const [visible, setVisible] = useState(false);
 
-  const { cart } = useCart();
+  const { colors } = theme;
+  const { cart, setCart } = useCart();
   const { mutate, isLoading } = useSupply();
+  const { dispatch } = useNavigation();
 
   const handleTotalCart = (products: ProductResponse[]) => {
     const totalProducts = products.reduce((total, item) => {
@@ -46,33 +53,77 @@ export const Cart = () => {
       })
     };
 
-    mutate(objSupply);
+    mutate(objSupply, {
+      onSuccess() {
+        setCart([]);
+        dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: ROUTES.HOME }]
+          })
+        );
+      }
+    });
   };
 
   useEffect(() => {
     handleTotalCart(cart);
   }, [cart]);
 
-  return (
-    <Wrapper title="Carrinho" disabledScrollView action={<CountCart />} styleContainer={{ paddingHorizontal: 0 }}>
-      <FlashList
-        data={cart}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCartRow item={item} handleTotalCart={handleTotalCart} />}
-        estimatedItemSize={200}
-        contentContainerStyle={styles.list}
-        showsVerticalScrollIndicator={false}
-      />
+  const listEmptyComponent = () => (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <FontAwesome name="opencart" size={32} color={colors.primary} />
+      <Text fontWeight="normal" style={{ marginTop: 16 }}>
+        Seu carrinho está vazio :(
+      </Text>
+    </View>
+  );
 
-      <View style={styles.footer}>
-        <View style={styles.totalText}>
-          <Text fontWeight="normal">Total</Text>
-          <Text fontWeight="bold">{`R$ ${totalCart.toFixed(2)}`}</Text>
+  return (
+    <>
+      <Wrapper title="Carrinho" disabledScrollView action={<CountCart />} styleContainer={{ paddingHorizontal: 0 }}>
+        {!cart.length ? (
+          listEmptyComponent()
+        ) : (
+          <FlashList
+            data={cart}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <ProductCartRow item={item} handleTotalCart={handleTotalCart} />}
+            estimatedItemSize={200}
+            contentContainerStyle={styles.list}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
+
+        <View style={styles.footer}>
+          <View style={styles.totalText}>
+            <Text fontWeight="normal">Total</Text>
+            <Text fontWeight="bold">{`R$ ${totalCart.toFixed(2)}`}</Text>
+          </View>
+          <Button style={styles.button} onPress={() => setVisible(true)} disabled={!cart.length}>
+            Finalizar
+          </Button>
         </View>
-        <Button style={styles.button} onPress={onSubmit} disabled={!cart.length} loading={isLoading}>
-          Finalizar
-        </Button>
-      </View>
-    </Wrapper>
+      </Wrapper>
+
+      <Modal visible={visible} height={170}>
+        <View style={styles.modal}>
+          <Text fontWeight="normal" fontSize={14} color={colors.textLight}>
+            Deseja confirmar a solicitação de abastecimento?
+          </Text>
+          <View style={styles.modalWrapperButton}>
+            <Button style={styles.modalButton} onPress={onSubmit} loading={isLoading}>
+              Confirmar
+            </Button>
+            <Button
+              style={{ ...styles.modalButton, backgroundColor: colors.withdraw }}
+              onPress={() => setVisible(!visible)}
+            >
+              Cancelar
+            </Button>
+          </View>
+        </View>
+      </Modal>
+    </>
   );
 };

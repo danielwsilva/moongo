@@ -16,5 +16,19 @@ export default StyleSheet.create({
   },
   button: {
     marginBottom: RFValue(32)
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: RFValue(24)
+  },
+  modalWrapperButton: {
+    flexDirection: 'row',
+    marginTop: RFValue(18)
+  },
+  modalButton: {
+    flex: 1,
+    marginHorizontal: RFValue(8)
   }
 });
