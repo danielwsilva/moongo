@@ -24,7 +24,7 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
   const increment = () => {
     let amountAux;
 
-    if (amount < item.stock_max) amountAux = amount + 1;
+    if (amount < item.stock && amount < item.stock_max) amountAux = amount + 1;
     else amountAux = amount;
 
     setAmount(updateProduct(item, amountAux));
