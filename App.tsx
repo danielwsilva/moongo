@@ -35,7 +35,7 @@ export default function App() {
   const toastConfig = {
     generic: ({ props }: ToastProps) => (
       <View style={styles.toast}>
-        <Text fontWeight="normal" fontSize={14}>
+        <Text fontWeight="normal" fontSize={14} style={{ textAlign: 'center' }}>
           {props.title}
         </Text>
       </View>
@@ -56,12 +56,13 @@ export default function App() {
 
 const styles = StyleSheet.create({
   toast: {
-    height: RFValue(54),
     width: '90%',
     borderRadius: 8,
     backgroundColor: theme.colors.white,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: RFValue(-18)
+    marginTop: RFValue(-18),
+    elevation: 3,
+    padding: 12
   }
 });

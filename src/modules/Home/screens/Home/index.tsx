@@ -1,9 +1,10 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/no-unstable-nested-components */
 import { StatusBar } from 'expo-status-bar';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import Toast from 'react-native-toast-message';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
@@ -13,8 +14,8 @@ import { useCart } from 'hooks/cart';
 import { CountCart } from 'modules/home/components/CountCart';
 import { ProductRow } from 'modules/home/components/ProductRow';
 import { ROUTES } from 'navigation/appRoutes';
-import { useMe, useStockMotorist } from 'services/api/home';
-import { ProductResponse } from 'services/api/home/types';
+import { useMe, useStockMotorist, useSupplyPending } from 'services/api/home';
+import { ProductResponse, SupplyPendingProduct, SupplyPendingResponse } from 'services/api/home/types';
 import theme from 'styles/theme';
 
 import avatar from 'assets/avatar.png';
@@ -28,22 +29,49 @@ export const Home = () => {
   const { colors } = theme;
 
   const { data: dataMe } = useMe();
-  const { data: dataStock, refetch } = useStockMotorist({
+  const { data: dataSupplyPending, refetch: refetchSupplyPending } = useSupplyPending();
+  const { data: dataStock, refetch: refetchStock } = useStockMotorist({
     onSettled() {
       setRefreshing(false);
     }
   });
 
+  const supplyPendingNormalized = dataSupplyPending?.reduce(
+    (finalArr: SupplyPendingProduct[], item: SupplyPendingResponse) => {
+      if (item.products.length) {
+        const products = item.products.map((product) => {
+          return {
+            ...product
+          };
+        });
+        finalArr.push(...products);
+      }
+
+      return finalArr;
+    },
+    []
+  );
+
+  const dataStockFormatted = dataStock?.map((stock) => {
+    const supplyPending = supplyPendingNormalized?.find((prod) => prod.id === stock.id);
+
+    return {
+      ...stock,
+      supply_pending: !!supplyPending
+    };
+  });
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    refetch();
-  }, [refetch]);
+    refetchStock();
+    refetchSupplyPending();
+  }, [refetchStock, refetchSupplyPending]);
 
   const AddCart = ({ item }: { item: ProductResponse }) => {
     const [product, setProduct] = useState<ProductResponse>({} as ProductResponse);
     const { cart, addProduct } = useCart();
 
-    const productCart = cart.find((p) => p.id === product.id);
+    const productCart = useMemo(() => cart.find((p) => p.id === product.id), [cart]);
 
     const checkStock = () => {
       if (item.stock === 0) return false;
@@ -53,9 +81,16 @@ export const Home = () => {
     };
 
     const handleAddCart = () => {
-      const itemAddCart = { ...item, quantity: 1 };
-      setProduct(itemAddCart);
-      addProduct(cart, itemAddCart);
+      if (item.supply_pending) {
+        Toast.show({
+          type: 'generic',
+          props: { title: 'Já exite uma solicitação de abastecimento deste produto.' }
+        });
+      } else {
+        const itemAddCart = { ...item, quantity: 1 };
+        setProduct(itemAddCart);
+        addProduct(cart, itemAddCart);
+      }
     };
 
     return (
@@ -115,6 +150,13 @@ export const Home = () => {
             </View>
             <View style={styles.buttomCountCart}>
               <TouchableOpacity activeOpacity={0.8} onPress={() => navigate(ROUTES.HOME_SUPPLY_PENDING)}>
+                {!!dataSupplyPending?.length && (
+                  <View style={styles.countCart}>
+                    <Text fontSize={10} color={colors.white} style={styles.countCartText}>
+                      {`${dataSupplyPending?.length}`}
+                    </Text>
+                  </View>
+                )}
                 <MaterialIcons name="pending-actions" size={18} color={colors.white} />
               </TouchableOpacity>
             </View>
@@ -130,7 +172,7 @@ export const Home = () => {
         </View>
 
         <FlashList
-          data={dataStock}
+          data={dataStockFormatted}
           keyExtractor={(item) => item.id}
           onRefresh={onRefresh}
           refreshing={refreshing}
