@@ -78,15 +78,13 @@ export const Wrapper = ({
       <StatusBar barStyle={isLight ? 'dark-content' : 'light-content'} backgroundColor={theme.colors.white} />
       {showHeader && <Header />}
       <SafeAreaView style={[styles.container, styleContainer]}>
-        {!disabledScrollView ? (
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          {!disabledScrollView ? (
             <ScrollView style={{ flex: 1 }}>{children}</ScrollView>
-          </TouchableWithoutFeedback>
-        ) : (
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          ) : (
             <View style={{ flex: 1 }}>{children}</View>
-          </TouchableWithoutFeedback>
-        )}
+          )}
+        </TouchableWithoutFeedback>
       </SafeAreaView>
     </>
   );

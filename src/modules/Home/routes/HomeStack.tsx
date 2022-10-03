@@ -6,11 +6,12 @@ import { CartProvider } from 'hooks/cart';
 import { ROUTES } from 'navigation/appRoutes';
 
 import styles from 'navigation/tabNavigation/styles';
-import { Cart, Home } from '../screens';
+import { Cart, Home, SupplyPending } from '../screens';
 
 export type HomeRouteMap = {
   [ROUTES.HOME]: undefined;
   [ROUTES.HOME_CART]: undefined;
+  [ROUTES.HOME_SUPPLY_PENDING]: undefined;
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<HomeRouteMap>();
@@ -36,6 +37,7 @@ const HomeRoutes = ({ route }: NativeStackScreenProps<HomeRouteMap>) => {
       >
         <Screen name={ROUTES.HOME} component={Home} />
         <Screen name={ROUTES.HOME_CART} component={Cart} />
+        <Screen name={ROUTES.HOME_SUPPLY_PENDING} component={SupplyPending} />
       </Navigator>
     </CartProvider>
   );

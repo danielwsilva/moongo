@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/no-unstable-nested-components */
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 
@@ -22,11 +22,22 @@ import avatar from 'assets/avatar.png';
 import styles from './styles';
 
 export const Home = () => {
+  const [refreshing, setRefreshing] = useState(false);
+
   const { navigate } = useNavigation();
   const { colors } = theme;
 
   const { data: dataMe } = useMe();
-  const { data: dataStock } = useStockMotorist();
+  const { data: dataStock, refetch } = useStockMotorist({
+    onSettled() {
+      setRefreshing(false);
+    }
+  });
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetch();
+  }, [refetch]);
 
   const AddCart = ({ item }: { item: ProductResponse }) => {
     const [product, setProduct] = useState<ProductResponse>({} as ProductResponse);
@@ -36,9 +47,8 @@ export const Home = () => {
 
     const checkStock = () => {
       if (item.stock === 0) return false;
-      if (item.stock_motorist === item.stock_max) return false;
-      if (item.stock_motorist === item.stock_min || item.stock_motorist === 0) return true;
-      if (item.stock_motorist > item.stock_min || item.stock_motorist < item.stock_max) return false;
+      if (item.stock_motorist >= item.stock_max) return false;
+      if (item.stock_motorist > item.stock_min && item.stock_motorist < item.stock_max) return false;
       return true;
     };
 
@@ -103,6 +113,11 @@ export const Home = () => {
             <View style={styles.buttomCountCart}>
               <CountCart color={colors.white} onPress={() => navigate(ROUTES.HOME_CART)} />
             </View>
+            <View style={styles.buttomCountCart}>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => navigate(ROUTES.HOME_SUPPLY_PENDING)}>
+                <MaterialIcons name="pending-actions" size={18} color={colors.white} />
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.countProduct}>
             <Text fontWeight="bold" fontSize={14}>
@@ -117,6 +132,8 @@ export const Home = () => {
         <FlashList
           data={dataStock}
           keyExtractor={(item) => item.id}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
           renderItem={({ item }) => (
             <ProductRow item={item}>
               <AddCart item={item} />

@@ -61,3 +61,15 @@ export type Product = {
   quantity: number;
   price: number;
 };
+
+export type SupplyPendingResponse = {
+  status: string;
+  created_at: string;
+  products: SupplyPendingProduct[];
+};
+
+export type SupplyPendingProduct = {
+  id: string;
+  description: string;
+  quantity: number;
+};

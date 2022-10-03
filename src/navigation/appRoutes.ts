@@ -26,6 +26,7 @@ export enum ROUTES {
   HOME_STACK = 'home-stack',
   HOME_CART = 'home-cart',
   HOME = 'home',
+  HOME_SUPPLY_PENDING = 'home-supply-pending',
 
   // SALES
   SALES_STACK = 'sales-stack',
