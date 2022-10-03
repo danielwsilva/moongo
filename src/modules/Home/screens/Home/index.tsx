@@ -35,6 +35,7 @@ export const Home = () => {
     const productCart = cart.find((p) => p.id === product.id);
 
     const checkStock = () => {
+      if (item.stock === 0) return false;
       if (item.stock_motorist === item.stock_max) return false;
       if (item.stock_motorist === item.stock_min || item.stock_motorist === 0) return true;
       if (item.stock_motorist > item.stock_min || item.stock_motorist < item.stock_max) return false;
