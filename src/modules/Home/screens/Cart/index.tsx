@@ -10,6 +10,7 @@ import { ROUTES } from 'navigation/appRoutes';
 import { useSupply } from 'services/api/home';
 import { ProductResponse } from 'services/api/home/types';
 import theme from 'styles/theme';
+import { maskMoney } from 'utils/helpers';
 
 import { CountCart } from '../../components/CountCart';
 import { ProductCartRow } from '../../components/ProductCartRow';
@@ -98,7 +99,7 @@ export const Cart = () => {
         <View style={styles.footer}>
           <View style={styles.totalText}>
             <Text fontWeight="normal">Total</Text>
-            <Text fontWeight="bold">{`R$ ${totalCart.toFixed(2)}`}</Text>
+            <Text fontWeight="bold">{maskMoney(totalCart)}</Text>
           </View>
           <Button style={styles.button} onPress={() => setVisible(true)} disabled={!cart.length}>
             Finalizar

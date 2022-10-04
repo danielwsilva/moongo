@@ -8,6 +8,7 @@ import { useCart } from 'hooks/cart';
 import { ProductResponse } from 'services/api/home/types';
 import { API_MOONGO_IMAGE_DEV } from 'services/apiConfig/consts';
 import theme from 'styles/theme';
+import { maskMoney } from 'utils/helpers';
 
 import styles from './styles';
 
@@ -44,8 +45,6 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
     setAmount(updateProduct(item, amountAux));
     handleTotalCart(cart);
   };
-
-  const totalByProduct = `R$ ${String((item.sale_price * amount).toFixed(2)).replace('.', ',')}`;
 
   const rightSwipe = () => (
     <TouchableOpacity
@@ -87,7 +86,7 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
               </View>
 
               <Text fontWeight="bold" fontSize={14}>
-                {totalByProduct}
+                {maskMoney(item.sale_price * amount)}
               </Text>
             </View>
           </View>

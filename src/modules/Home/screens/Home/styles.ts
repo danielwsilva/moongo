@@ -58,23 +58,6 @@ export default StyleSheet.create({
     marginTop: RFValue(32),
     marginBottom: RFValue(14)
   },
-  button: {
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: RFValue(2),
-    padding: RFValue(5)
-  },
-  stock: {
-    flexDirection: 'row',
-    backgroundColor: theme.colors.lightBlack,
-    borderRadius: 8,
-    padding: RFValue(5)
-  },
-  textStock: {
-    marginLeft: RFValue(10)
-  },
   list: {
     paddingTop: RFValue(2),
     paddingBottom: RFValue(100)

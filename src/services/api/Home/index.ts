@@ -23,8 +23,10 @@ export const useSupply = () => {
   );
 };
 
-export const useSupplyPending = () => {
-  return useQuery(createSupplyPending(), (data) =>
-    moongoAPI.get<SupplyPendingResponse[]>(`/supply-pending`, data).then((response) => response.data)
+export const useSupplyPending = (options?: UseQueryOptions<SupplyPendingResponse[]>) => {
+  return useQuery(
+    createSupplyPending(),
+    (data) => moongoAPI.get<SupplyPendingResponse[]>(`/supply-pending`, data).then((response) => response.data),
+    options
   );
 };

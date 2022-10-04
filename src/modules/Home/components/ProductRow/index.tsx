@@ -6,6 +6,7 @@ import { Text, Modal } from 'components';
 import { ProductResponse } from 'services/api/home/types';
 import { API_MOONGO_IMAGE_DEV } from 'services/apiConfig/consts';
 import theme from 'styles/theme';
+import { maskMoney } from 'utils/helpers';
 
 import styles from './styles';
 
@@ -16,8 +17,6 @@ type ProductRowProps = {
 
 export const ProductRow = ({ item, children }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
-
-  const salePrice = `R$ ${String(item.sale_price.toFixed(2)).replace('.', ',')}`;
 
   const { colors } = theme;
 
@@ -48,7 +47,7 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
               {item.brand}
             </Text>
             <Text fontWeight="bold" fontSize={14}>
-              {salePrice}
+              {maskMoney(item.sale_price)}
             </Text>
           </View>
 

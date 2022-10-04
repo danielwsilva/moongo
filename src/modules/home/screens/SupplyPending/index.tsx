@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import { View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
@@ -10,9 +11,20 @@ import theme from 'styles/theme';
 import styles from './styles';
 
 export const SupplyPending = () => {
+  const [refreshing, setRefreshing] = useState(false);
+
   const { colors } = theme;
 
-  const { data } = useSupplyPending();
+  const { data, refetch } = useSupplyPending({
+    onSettled() {
+      setRefreshing(false);
+    }
+  });
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetch();
+  }, [refetch]);
 
   const listEmptyComponent = () => (
     <View style={styles.listEmpty}>
@@ -31,6 +43,8 @@ export const SupplyPending = () => {
         <FlashList
           data={data}
           keyExtractor={(_, index) => String(index)}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
           renderItem={({ item }) => <SupplyPendingRow item={item} />}
           estimatedItemSize={200}
           contentContainerStyle={styles.list}

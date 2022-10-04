@@ -1,21 +1,19 @@
-/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/no-unstable-nested-components */
 import { StatusBar } from 'expo-status-bar';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import Toast from 'react-native-toast-message';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 
 import { Text } from 'components';
-import { useCart } from 'hooks/cart';
+import { ButtonAddCart } from 'modules/home/components/ButtonAddCart';
 import { CountCart } from 'modules/home/components/CountCart';
 import { ProductRow } from 'modules/home/components/ProductRow';
 import { ROUTES } from 'navigation/appRoutes';
 import { useMe, useStockMotorist, useSupplyPending } from 'services/api/home';
-import { ProductResponse, SupplyPendingProduct, SupplyPendingResponse } from 'services/api/home/types';
+import { SupplyPendingProduct, SupplyPendingResponse } from 'services/api/home/types';
 import theme from 'styles/theme';
 
 import avatar from 'assets/avatar.png';
@@ -66,63 +64,6 @@ export const Home = () => {
     refetchStock();
     refetchSupplyPending();
   }, [refetchStock, refetchSupplyPending]);
-
-  const AddCart = ({ item }: { item: ProductResponse }) => {
-    const [product, setProduct] = useState<ProductResponse>({} as ProductResponse);
-    const { cart, addProduct } = useCart();
-
-    const productCart = useMemo(() => cart.find((p) => p.id === product.id), [cart]);
-
-    const checkStock = () => {
-      if (item.stock === 0) return false;
-      if (item.stock_motorist >= item.stock_max) return false;
-      if (item.stock_motorist > item.stock_min && item.stock_motorist < item.stock_max) return false;
-      return true;
-    };
-
-    const handleAddCart = () => {
-      if (item.supply_pending) {
-        Toast.show({
-          type: 'generic',
-          props: { title: 'Já exite uma solicitação de abastecimento deste produto.' }
-        });
-      } else {
-        const itemAddCart = { ...item, quantity: 1 };
-        setProduct(itemAddCart);
-        addProduct(cart, itemAddCart);
-      }
-    };
-
-    return (
-      <View style={{ flexDirection: 'row' }}>
-        {checkStock() && (
-          <TouchableOpacity
-            style={{
-              ...styles.button,
-              backgroundColor: productCart?.id === item.id ? colors.success : colors.lightBlack
-            }}
-            activeOpacity={0.8}
-            onPress={() => handleAddCart()}
-          >
-            <AntDesign name={productCart?.id === item.id ? 'check' : 'plus'} size={20} color={colors.white} />
-          </TouchableOpacity>
-        )}
-
-        <View
-          style={{
-            ...styles.stock,
-            borderTopLeftRadius: !checkStock() ? 8 : 0,
-            borderBottomLeftRadius: !checkStock() ? 8 : 0
-          }}
-        >
-          <AntDesign name="dropbox" size={20} color={colors.white} />
-          <Text fontWeight="bold" fontSize={14} color={colors.white} style={styles.textStock}>
-            {item.stock_motorist}
-          </Text>
-        </View>
-      </View>
-    );
-  };
 
   return (
     <View style={styles.container}>
@@ -178,7 +119,7 @@ export const Home = () => {
           refreshing={refreshing}
           renderItem={({ item }) => (
             <ProductRow item={item}>
-              <AddCart item={item} />
+              <ButtonAddCart item={item} />
             </ProductRow>
           )}
           estimatedItemSize={200}
