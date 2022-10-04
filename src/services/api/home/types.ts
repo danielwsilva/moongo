@@ -46,6 +46,7 @@ export type ProductResponse = {
   stock_min: number;
   stock_max: number;
   quantity: number;
+  sale: number;
   supply_pending: boolean;
 };
 

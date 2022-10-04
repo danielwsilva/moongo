@@ -22,9 +22,15 @@ export default StyleSheet.create({
     justifyContent: 'center',
     zIndex: 1
   },
-  image: {
+  containerImage: {
     width: RFValue(136),
-    height: RFValue(136)
+    height: RFValue(136),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  image: {
+    width: RFValue(100),
+    height: RFValue(100)
   },
   wrapperText: {
     flexDirection: 'row',

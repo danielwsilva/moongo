@@ -112,7 +112,7 @@ export const Cart = () => {
             Deseja confirmar a solicitação de abastecimento?
           </Text>
           <View style={styles.modalWrapperButton}>
-            <Button style={styles.modalButton} onPress={onSubmit} loading={isLoading}>
+            <Button style={styles.modalButton} onPress={onSubmit} loading={isLoading} disabled={isLoading}>
               Confirmar
             </Button>
             <Button

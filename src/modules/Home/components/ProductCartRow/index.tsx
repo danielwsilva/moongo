@@ -6,6 +6,7 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { Text } from 'components';
 import { useCart } from 'hooks/cart';
 import { ProductResponse } from 'services/api/home/types';
+import { API_MOONGO_IMAGE_DEV } from 'services/apiConfig/consts';
 import theme from 'styles/theme';
 
 import styles from './styles';
@@ -24,8 +25,11 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
   const increment = () => {
     let amountAux;
 
-    if (amount < item.stock && amount < item.stock_max) amountAux = amount + 1;
-    else amountAux = amount;
+    if (amount < item.stock && amount < item.stock_max - item.stock_motorist && amount < item.stock_max) {
+      amountAux = amount + 1;
+    } else {
+      amountAux = amount;
+    }
 
     setAmount(updateProduct(item, amountAux));
     handleTotalCart(cart);
@@ -40,6 +44,8 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
     setAmount(updateProduct(item, amountAux));
     handleTotalCart(cart);
   };
+
+  const totalByProduct = `R$ ${String((item.sale_price * amount).toFixed(2)).replace('.', ',')}`;
 
   const rightSwipe = () => (
     <TouchableOpacity
@@ -57,7 +63,7 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
     <>
       <Swipeable overshootRight={false} renderRightActions={rightSwipe}>
         <View style={styles.container}>
-          <Image source={{ uri: item.image }} resizeMode="stretch" style={styles.image} />
+          <Image source={{ uri: API_MOONGO_IMAGE_DEV + item.image }} resizeMode="stretch" style={styles.image} />
           <View style={styles.wrapper}>
             <Text fontWeight="bold" fontSize={14} numberOfLines={1}>
               {item.description}
@@ -81,7 +87,7 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
               </View>
 
               <Text fontWeight="bold" fontSize={14}>
-                R$ {(item.sale_price * amount).toFixed(2)}
+                {totalByProduct}
               </Text>
             </View>
           </View>

@@ -4,6 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { Text, Modal } from 'components';
 import { ProductResponse } from 'services/api/home/types';
+import { API_MOONGO_IMAGE_DEV } from 'services/apiConfig/consts';
 import theme from 'styles/theme';
 
 import styles from './styles';
@@ -16,6 +17,8 @@ type ProductRowProps = {
 export const ProductRow = ({ item, children }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
 
+  const salePrice = `R$ ${String(item.sale_price.toFixed(2)).replace('.', ',')}`;
+
   const { colors } = theme;
 
   return (
@@ -24,16 +27,17 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
         <TouchableOpacity style={styles.doubt} onPress={() => setVisible(true)}>
           <AntDesign name="questioncircleo" color={colors.textLight} size={16} />
         </TouchableOpacity>
-
-        <Image source={{ uri: item.image }} resizeMode="stretch" style={styles.image} />
+        <View style={styles.containerImage}>
+          <Image source={{ uri: API_MOONGO_IMAGE_DEV + item.image }} resizeMode="stretch" style={styles.image} />
+        </View>
         <View style={styles.wrapperText}>
           <Text fontWeight="bold" fontSize={14} numberOfLines={1} style={{ flex: 1, marginRight: 2 }}>
             {item.description}
           </Text>
           <View style={styles.header}>
             <AntDesign name="star" size={18} color={colors.primaryLight} />
-            <Text fontSize={10} color={colors.grayLight}>
-              14.245
+            <Text fontSize={10} color={colors.grayLight} style={{ marginLeft: 2 }}>
+              {item.sale}
             </Text>
           </View>
         </View>
@@ -44,7 +48,7 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
               {item.brand}
             </Text>
             <Text fontWeight="bold" fontSize={14}>
-              R$ {item.sale_price}
+              {salePrice}
             </Text>
           </View>
 
