@@ -5,7 +5,11 @@ import { TabView, TabBar, NavigationState, SceneRendererProps } from 'react-nati
 import { AntDesign, Feather } from '@expo/vector-icons';
 
 import { Text, Wrapper } from 'components';
+import { useBalance } from 'services/api/wallet';
 import theme from 'styles/theme';
+import { maskMoney } from 'utils/helpers';
+
+import { ValuesExtract } from '../../components/ValuesExtract';
 
 const routes = [
   { key: 'first', title: 'Todos' },
@@ -24,6 +28,8 @@ export const Wallet = () => {
 
   const layout = useWindowDimensions();
   const { colors } = theme;
+
+  const { data } = useBalance();
 
   const FirstRoute = useCallback(
     () => (
@@ -352,15 +358,7 @@ export const Wallet = () => {
   return (
     <Wrapper title="Carteira digital" disabledScrollView hasBackButton={false}>
       <View style={{ alignItems: 'center', marginBottom: 16 }}>
-        <Text fontWeight="normal" style={{ marginTop: 20 }}>
-          Saldo da conta
-        </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 12 }}>
-          <Text fontWeight="bold" fontSize={32} style={{ marginRight: 12 }}>
-            R$ 00,0
-          </Text>
-          <Feather name="eye" color={colors.text} size={32} />
-        </View>
+        <ValuesExtract description="Saldo da conta" value={maskMoney(data?.balance || 0)} />
         <Text fontWeight="bold" color={colors.primary} style={{ marginTop: 12 }}>
           Resgatar
         </Text>

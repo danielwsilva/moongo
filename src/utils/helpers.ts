@@ -5,7 +5,7 @@ export const maskCpf = (value: string) => value.replace(/(\d{3})(\d{3})(\d{3})(\
 export const maskPhone = (value: string | undefined) =>
   value!.replace(/^(\d{2})(\d)/g, '($1) $2').replace(/(\d)(\d{4})$/, '$1-$2');
 
-export const maskMoney = (value: number) => `R$ ${String(value.toFixed(2)).replace('.', ',')}`;
+export const maskMoney = (value: number | undefined) => `R$ ${String(value!.toFixed(2)).replace('.', ',')}`;
 
 export const validFullName = (name?: string) => {
   if (!name) return true;

@@ -20,6 +20,9 @@ export const Cart = () => {
   const [totalQuantityCart, setTotalQuantityCart] = useState(0);
   const [visible, setVisible] = useState(false);
 
+  const { getState } = useNavigation();
+  const { routes } = getState();
+
   const { colors } = theme;
   const { cart, setCart } = useCart();
   const { mutate, isLoading } = useSupply();
@@ -40,7 +43,7 @@ export const Cart = () => {
 
   const onSubmit = () => {
     const objSupply = {
-      movement: 'Carro',
+      movement: routes[0].name === ROUTES.HOME ? 'Carro' : 'Venda',
       quantity: totalQuantityCart,
       cost: totalCart,
       products: cart.map((item) => {
@@ -59,7 +62,7 @@ export const Cart = () => {
         dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: ROUTES.HOME }]
+            routes: [{ name: routes[0].name === ROUTES.HOME ? ROUTES.HOME : ROUTES.SALES_PRODUCT }]
           })
         );
       }
@@ -109,7 +112,9 @@ export const Cart = () => {
       <Modal visible={visible} height={170}>
         <View style={styles.modal}>
           <Text fontWeight="normal" fontSize={14} color={colors.textLight}>
-            Deseja confirmar a solicitação de abastecimento?
+            {routes[0].name === ROUTES.HOME
+              ? 'Deseja confirmar a solicitação de abastecimento?'
+              : 'Deseja finalizar a Venda via dinheiro?'}
           </Text>
           <View style={styles.modalWrapperButton}>
             <Button style={styles.modalButton} onPress={onSubmit} loading={isLoading} disabled={isLoading}>

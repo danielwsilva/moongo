@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import { TextInput, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -14,13 +15,23 @@ import { ButtonAddCart } from '../../components/ButtonAddCart';
 import styles from './styles';
 
 export const Products = () => {
+  const [refreshing, setRefreshing] = useState(false);
   const { navigate } = useNavigation();
 
-  const { data } = useStockMotorist();
+  const { data, refetch } = useStockMotorist({
+    onSettled() {
+      setRefreshing(false);
+    }
+  });
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetch();
+  }, [refetch]);
 
   return (
     <Wrapper
-      title="Venda"
+      title="Venda dinheiro"
       disabledScrollView
       hasBackButton={false}
       action={<CountCart onPress={() => navigate(ROUTES.HOME_CART)} />}
@@ -46,6 +57,9 @@ export const Products = () => {
 
           <FlashList
             data={data}
+            keyExtractor={(item) => item.id}
+            onRefresh={onRefresh}
+            refreshing={refreshing}
             renderItem={({ item }) => (
               <ProductRow item={item} showInfo={false}>
                 <ButtonAddCart item={item} />
