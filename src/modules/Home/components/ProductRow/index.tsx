@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { Text, Modal } from 'components';
 import { ProductResponse } from 'services/api/home/types';
-import { API_MOONGO_IMAGE_DEV } from 'services/apiConfig/consts';
+import { getEnvironment } from 'services/apiConfig';
 import theme from 'styles/theme';
 import { maskMoney } from 'utils/helpers';
 
@@ -12,10 +12,11 @@ import styles from './styles';
 
 type ProductRowProps = {
   item: ProductResponse;
+  showInfo?: boolean;
   children: ReactNode;
 };
 
-export const ProductRow = ({ item, children }: ProductRowProps) => {
+export const ProductRow = ({ item, showInfo = true, children }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
 
   const { colors } = theme;
@@ -23,11 +24,17 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.doubt} onPress={() => setVisible(true)}>
-          <AntDesign name="questioncircleo" color={colors.textLight} size={16} />
-        </TouchableOpacity>
+        {showInfo && (
+          <TouchableOpacity style={styles.doubt} onPress={() => setVisible(true)}>
+            <AntDesign name="questioncircleo" color={colors.textLight} size={16} />
+          </TouchableOpacity>
+        )}
         <View style={styles.containerImage}>
-          <Image source={{ uri: API_MOONGO_IMAGE_DEV + item.image }} resizeMode="stretch" style={styles.image} />
+          <Image
+            source={{ uri: getEnvironment().API_MOONGO_IMAGE + item.image }}
+            resizeMode="stretch"
+            style={styles.image}
+          />
         </View>
         <View style={styles.wrapperText}>
           <Text fontWeight="bold" fontSize={14} numberOfLines={1} style={{ flex: 1, marginRight: 2 }}>
@@ -36,7 +43,7 @@ export const ProductRow = ({ item, children }: ProductRowProps) => {
           <View style={styles.header}>
             <AntDesign name="star" size={18} color={colors.primaryLight} />
             <Text fontSize={10} color={colors.grayLight} style={{ marginLeft: 2 }}>
-              {item.sale}
+              {item.sales}
             </Text>
           </View>
         </View>

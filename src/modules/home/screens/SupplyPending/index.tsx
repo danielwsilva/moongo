@@ -4,10 +4,10 @@ import { FontAwesome } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
 
 import { Text, Wrapper } from 'components';
-import { SupplyPendingRow } from 'modules/home/components/SupplyPendingRow';
 import { useSupplyPending } from 'services/api/home';
 import theme from 'styles/theme';
 
+import { SupplyPendingRow } from '../../components';
 import styles from './styles';
 
 export const SupplyPending = () => {

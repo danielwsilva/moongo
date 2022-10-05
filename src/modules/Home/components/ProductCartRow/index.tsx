@@ -6,7 +6,7 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { Text } from 'components';
 import { useCart } from 'hooks/cart';
 import { ProductResponse } from 'services/api/home/types';
-import { API_MOONGO_IMAGE_DEV } from 'services/apiConfig/consts';
+import { getEnvironment } from 'services/apiConfig';
 import theme from 'styles/theme';
 import { maskMoney } from 'utils/helpers';
 
@@ -27,6 +27,8 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
     let amountAux;
 
     if (amount < item.stock && amount < item.stock_max - item.stock_motorist && amount < item.stock_max) {
+      amountAux = amount + 1;
+    } else if (amount < item.stock_motorist) {
       amountAux = amount + 1;
     } else {
       amountAux = amount;
@@ -62,7 +64,11 @@ export const ProductCartRow = ({ item, handleTotalCart }: ProductRowProps) => {
     <>
       <Swipeable overshootRight={false} renderRightActions={rightSwipe}>
         <View style={styles.container}>
-          <Image source={{ uri: API_MOONGO_IMAGE_DEV + item.image }} resizeMode="stretch" style={styles.image} />
+          <Image
+            source={{ uri: getEnvironment().API_MOONGO_IMAGE + item.image }}
+            resizeMode="stretch"
+            style={styles.image}
+          />
           <View style={styles.wrapper}>
             <Text fontWeight="bold" fontSize={14} numberOfLines={1}>
               {item.description}

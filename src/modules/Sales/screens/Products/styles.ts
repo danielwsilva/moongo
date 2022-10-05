@@ -32,12 +32,5 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: RFValue(32),
     marginBottom: RFValue(14)
-  },
-  button: {
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: RFValue(5),
-    width: RFValue(60)
   }
 });

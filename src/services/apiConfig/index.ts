@@ -3,21 +3,23 @@ import { Platform } from 'react-native';
 import axios from 'axios';
 
 import { authToken, loadString } from '../storage';
-import { API_CEP, API_MOONGO, API_MOONGO_DEV } from './consts';
+import { API_CEP, API_MOONGO, API_MOONGO_DEV, API_MOONGO_IMAGE, API_MOONGO_IMAGE_DEV } from './consts';
 
 export const getEnvironment = () => {
   if (Updates.releaseChannel.startsWith('prod')) {
     return {
       envName: 'PRODUCTION',
       API_CEP,
-      API_MOONGO
+      API_MOONGO,
+      API_MOONGO_IMAGE
     };
   }
 
   return {
     envName: 'DEVELOPMENT',
     API_CEP,
-    API_MOONGO: API_MOONGO_DEV
+    API_MOONGO: API_MOONGO_DEV,
+    API_MOONGO_IMAGE: API_MOONGO_IMAGE_DEV
   };
 };
 

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import { StatusBar } from 'expo-status-bar';
 import { useState, useCallback } from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
@@ -8,9 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 
 import { Text } from 'components';
-import { ButtonAddCart } from 'modules/home/components/ButtonAddCart';
-import { CountCart } from 'modules/home/components/CountCart';
-import { ProductRow } from 'modules/home/components/ProductRow';
 import { ROUTES } from 'navigation/appRoutes';
 import { useMe, useStockMotorist, useSupplyPending } from 'services/api/home';
 import { SupplyPendingProduct, SupplyPendingResponse } from 'services/api/home/types';
@@ -18,6 +14,7 @@ import theme from 'styles/theme';
 
 import avatar from 'assets/avatar.png';
 
+import { ButtonAddCart, CountCart, ProductRow } from '../../components';
 import styles from './styles';
 
 export const Home = () => {

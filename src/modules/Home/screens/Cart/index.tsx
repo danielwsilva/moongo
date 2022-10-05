@@ -12,8 +12,7 @@ import { ProductResponse } from 'services/api/home/types';
 import theme from 'styles/theme';
 import { maskMoney } from 'utils/helpers';
 
-import { CountCart } from '../../components/CountCart';
-import { ProductCartRow } from '../../components/ProductCartRow';
+import { CountCart, ProductCartRow } from '../../components';
 import styles from './styles';
 
 export const Cart = () => {
