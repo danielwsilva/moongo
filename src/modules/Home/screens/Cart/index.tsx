@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { FontAwesome } from '@expo/vector-icons';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
@@ -9,6 +10,7 @@ import { useCart } from 'hooks/cart';
 import { ROUTES } from 'navigation/appRoutes';
 import { useSupply } from 'services/api/home';
 import { ProductResponse } from 'services/api/home/types';
+import { useBalance } from 'services/api/wallet';
 import theme from 'styles/theme';
 import { maskMoney } from 'utils/helpers';
 
@@ -17,14 +19,16 @@ import styles from './styles';
 
 export const Cart = () => {
   const [totalCart, setTotalCart] = useState(0);
-  const [totalQuantityCart, setTotalQuantityCart] = useState(0);
   const [visible, setVisible] = useState(false);
 
+  const { colors } = theme;
   const { getState } = useNavigation();
   const { routes } = getState();
+  const isSupply = routes[0].name === ROUTES.HOME;
 
-  const { colors } = theme;
   const { cart, setCart } = useCart();
+
+  const { data } = useBalance();
   const { mutate, isLoading } = useSupply();
   const { dispatch } = useNavigation();
 
@@ -33,40 +37,50 @@ export const Cart = () => {
       return total + item.quantity * item.sale_price;
     }, 0);
 
-    const totalQuantityProducts = products.reduce((total, item) => {
-      return total + item.quantity;
-    }, 0);
-
-    setTotalQuantityCart(totalQuantityProducts);
     setTotalCart(totalProducts);
   };
 
   const onSubmit = () => {
-    const objSupply = {
-      movement: routes[0].name === ROUTES.HOME ? 'Carro' : 'Venda',
-      quantity: totalQuantityCart,
-      cost: totalCart,
-      products: cart.map((item) => {
-        return {
-          product: item.id,
-          percentage: item.percentage,
-          quantity: item.quantity,
-          price: item.sale_price
-        };
-      })
-    };
+    const totalMarginCart = cart.reduce((total, item) => {
+      return Number((total + item.quantity * item.sale_price * (item.percentage / 100)).toPrecision(3));
+    }, 0);
 
-    mutate(objSupply, {
-      onSuccess() {
-        setCart([]);
-        dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: routes[0].name === ROUTES.HOME ? ROUTES.HOME : ROUTES.SALES_PRODUCT }]
-          })
-        );
-      }
-    });
+    if (-totalMarginCart + data!.balance < -10 && !isSupply) {
+      Toast.show({ type: 'generic', props: { title: 'Essa venda irá exceder o saldo negativo permitido.' } });
+      setVisible(false);
+    } else {
+      const totalQuantityCart = cart.reduce((total, item) => {
+        return total + item.quantity;
+      }, 0);
+
+      const objSupply = {
+        movement: isSupply ? 'Carro' : 'Venda',
+        quantity: totalQuantityCart,
+        cost: totalCart,
+        products: cart.map((item) => {
+          return {
+            product: item.id,
+            percentage: item.percentage,
+            quantity: item.quantity,
+            price: item.sale_price
+          };
+        })
+      };
+
+      console.log(objSupply);
+
+      // mutate(objSupply, {
+      //   onSuccess() {
+      //     setCart([]);
+      //     dispatch(
+      //       CommonActions.reset({
+      //         index: 0,
+      //         routes: [{ name: isSupply ? ROUTES.HOME : ROUTES.SALES_PRODUCT }]
+      //       })
+      //     );
+      //   }
+      // });
+    }
   };
 
   useEffect(() => {
