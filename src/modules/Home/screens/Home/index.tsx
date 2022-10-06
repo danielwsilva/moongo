@@ -6,10 +6,12 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { Text } from 'components';
 import { ROUTES } from 'navigation/appRoutes';
 import { useMe, useStockMotorist, useSupplyPending } from 'services/api/home';
 import { SupplyPendingProduct, SupplyPendingResponse } from 'services/api/home/types';
+import { createStockMotorist } from 'services/api/sales/keys';
 import theme from 'styles/theme';
 
 import avatar from 'assets/avatar.png';
@@ -22,6 +24,8 @@ export const Home = () => {
 
   const { navigate } = useNavigation();
   const { colors } = theme;
+
+  const queryClient = useQueryClient();
 
   const { data: dataMe } = useMe();
   const { data: dataSupplyPending, refetch: refetchSupplyPending } = useSupplyPending();
@@ -60,6 +64,7 @@ export const Home = () => {
     setRefreshing(true);
     refetchStock();
     refetchSupplyPending();
+    queryClient.invalidateQueries(createStockMotorist());
   }, [refetchStock, refetchSupplyPending]);
 
   return (

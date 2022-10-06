@@ -1,9 +1,9 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {
   View,
   StatusBar,
-  SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
@@ -77,15 +77,11 @@ export const Wrapper = ({
     <>
       <StatusBar barStyle={isLight ? 'dark-content' : 'light-content'} backgroundColor={theme.colors.white} />
       {showHeader && <Header />}
-      <SafeAreaView style={[styles.container, styleContainer]}>
+      <View style={[styles.container, styleContainer]}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          {!disabledScrollView ? (
-            <ScrollView style={{ flex: 1 }}>{children}</ScrollView>
-          ) : (
-            <View style={{ flex: 1 }}>{children}</View>
-          )}
+          {!disabledScrollView ? <ScrollView style={{ flex: 1 }}>{children}</ScrollView> : <>{children}</>}
         </TouchableWithoutFeedback>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

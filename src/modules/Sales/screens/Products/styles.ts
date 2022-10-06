@@ -32,5 +32,15 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: RFValue(32),
     marginBottom: RFValue(14)
+  },
+  list: {
+    paddingTop: RFValue(2),
+    paddingBottom: RFValue(100)
+  },
+  listEmpty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: RFValue(24)
   }
 });

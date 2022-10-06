@@ -6,6 +6,7 @@ export default StyleSheet.create({
     paddingBottom: RFValue(48)
   },
   listEmpty: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: RFValue(24)

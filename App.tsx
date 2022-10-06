@@ -3,6 +3,7 @@
 import { LogBox, View, StyleSheet } from 'react-native';
 import GestureHandlerRootView from 'react-native-gesture-handler/src/GestureHandlerRootView';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { useFonts, Nunito_400Regular, Nunito_600SemiBold, Nunito_700Bold } from '@expo-google-fonts/nunito';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -43,14 +44,16 @@ export default function App() {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <CatchProvider>
-          <AuthProvider>{fontsLoaded ? <Routes /> : null}</AuthProvider>
-          <Toast config={toastConfig} />
-        </CatchProvider>
+        <QueryClientProvider client={queryClient}>
+          <CatchProvider>
+            <AuthProvider>{fontsLoaded ? <Routes /> : null}</AuthProvider>
+            <Toast config={toastConfig} />
+          </CatchProvider>
+        </QueryClientProvider>
       </GestureHandlerRootView>
-    </QueryClientProvider>
+    </SafeAreaProvider>
   );
 }
 

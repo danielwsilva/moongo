@@ -1,3 +1,3 @@
 import { QueryKey } from '@tanstack/react-query';
 
-export const createStockMotorist = (): QueryKey => [`useStock`];
+export const createStockMotorist = (): QueryKey => [`useStockMotorist`];

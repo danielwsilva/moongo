@@ -18,6 +18,8 @@ export const Products = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { navigate } = useNavigation();
 
+  const { colors } = theme;
+
   const { data, refetch } = useStockMotorist({
     onSettled() {
       setRefreshing(false);
@@ -28,6 +30,15 @@ export const Products = () => {
     setRefreshing(true);
     refetch();
   }, [refetch]);
+
+  const listEmptyComponent = () => (
+    <View style={styles.listEmpty}>
+      <AntDesign name="dropbox" size={48} color={colors.primary} />
+      <Text fontWeight="normal" style={{ marginTop: 16, textAlign: 'center' }}>
+        Sua caixa está vazia :( {`\n\n`}Adicione produtos realizado o abastecimento.
+      </Text>
+    </View>
+  );
 
   return (
     <Wrapper
@@ -55,21 +66,25 @@ export const Products = () => {
             </View>
           </View>
 
-          <FlashList
-            data={data}
-            keyExtractor={(item) => item.id}
-            onRefresh={onRefresh}
-            refreshing={refreshing}
-            renderItem={({ item }) => (
-              <ProductRow item={item} showInfo={false}>
-                <ButtonAddCart item={item} />
-              </ProductRow>
-            )}
-            estimatedItemSize={200}
-            numColumns={2}
-            contentContainerStyle={{ paddingTop: 2, paddingBottom: 100 }}
-            showsVerticalScrollIndicator={false}
-          />
+          {!data?.length ? (
+            listEmptyComponent()
+          ) : (
+            <FlashList
+              data={data}
+              keyExtractor={(item) => item.id}
+              onRefresh={onRefresh}
+              refreshing={refreshing}
+              renderItem={({ item }) => (
+                <ProductRow item={item} showInfo={false}>
+                  <ButtonAddCart item={item} />
+                </ProductRow>
+              )}
+              estimatedItemSize={200}
+              numColumns={2}
+              contentContainerStyle={styles.list}
+              showsVerticalScrollIndicator={false}
+            />
+          )}
         </View>
       </View>
     </Wrapper>

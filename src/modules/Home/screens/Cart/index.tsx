@@ -5,12 +5,15 @@ import { FontAwesome } from '@expo/vector-icons';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { Button, Modal, Text, Wrapper } from 'components';
 import { useCart } from 'hooks/cart';
 import { ROUTES } from 'navigation/appRoutes';
 import { useSupply } from 'services/api/home';
+import { createStock } from 'services/api/home/keys';
 import { ProductResponse } from 'services/api/home/types';
 import { useBalance } from 'services/api/wallet';
+import { createBalance } from 'services/api/wallet/keys';
 import theme from 'styles/theme';
 import { maskMoney } from 'utils/helpers';
 
@@ -29,6 +32,7 @@ export const Cart = () => {
   const { cart, setCart } = useCart();
 
   const { data } = useBalance();
+  const queryClient = useQueryClient();
   const { mutate, isLoading } = useSupply();
   const { dispatch } = useNavigation();
 
@@ -67,19 +71,18 @@ export const Cart = () => {
         })
       };
 
-      console.log(objSupply);
-
-      // mutate(objSupply, {
-      //   onSuccess() {
-      //     setCart([]);
-      //     dispatch(
-      //       CommonActions.reset({
-      //         index: 0,
-      //         routes: [{ name: isSupply ? ROUTES.HOME : ROUTES.SALES_PRODUCT }]
-      //       })
-      //     );
-      //   }
-      // });
+      mutate(objSupply, {
+        onSuccess() {
+          setCart([]);
+          queryClient.invalidateQueries([createStock(), createBalance()]);
+          dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: isSupply ? ROUTES.HOME : ROUTES.SALES_PRODUCT }]
+            })
+          );
+        }
+      });
     }
   };
 
@@ -89,9 +92,11 @@ export const Cart = () => {
 
   const listEmptyComponent = () => (
     <View style={styles.listEmpty}>
-      <FontAwesome name="opencart" size={32} color={colors.primary} />
-      <Text fontWeight="normal" style={{ marginTop: 16 }}>
-        Seu carrinho está vazio :(
+      <FontAwesome name="shopping-basket" size={48} color={colors.primary} />
+      <Text fontWeight="normal" style={styles.listEmptyText}>
+        {`Seu carrinho está vazio :( \n\nAdicione produtos clicando no botão ${
+          isSupply ? '"+"' : '"Comprar"'
+        } na tela de produto.`}
       </Text>
     </View>
   );

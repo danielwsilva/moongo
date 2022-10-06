@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { View } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
 
 import { Text, Wrapper } from 'components';
@@ -28,9 +28,9 @@ export const SupplyPending = () => {
 
   const listEmptyComponent = () => (
     <View style={styles.listEmpty}>
-      <FontAwesome name="opencart" size={32} color={colors.primary} />
+      <Fontisto name="shopping-bag-1" size={48} color={colors.primary} />
       <Text fontWeight="normal" style={{ marginTop: 16, textAlign: 'center' }}>
-        Não encontramos nenhuma solicitação de abastecimento :(
+        Não existe solicitações de abastecimento pendentes.
       </Text>
     </View>
   );
