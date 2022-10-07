@@ -42,5 +42,6 @@ export enum ROUTES {
 
   // WALLET
   WALLET_STACK = 'wallet-stack',
-  WALLET = 'wallet'
+  WALLET = 'wallet',
+  WALLET_CASH_WITHDRAWAL = 'wallet-cash-withdrawal'
 }

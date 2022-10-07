@@ -5,15 +5,16 @@ import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navig
 import { ROUTES } from 'navigation/appRoutes';
 import styles from 'navigation/tabNavigation/styles';
 
-import { Wallet } from '../screens';
+import { Wallet, CashWithdrawal } from '../screens';
 
-export type ProfileRouteMap = {
+export type WalletRouteMap = {
   [ROUTES.WALLET]: undefined;
+  [ROUTES.WALLET_CASH_WITHDRAWAL]: { balance: number | undefined };
 };
 
-const { Navigator, Screen } = createNativeStackNavigator<ProfileRouteMap>();
+const { Navigator, Screen } = createNativeStackNavigator<WalletRouteMap>();
 
-const WalletRoutes = ({ route }: NativeStackScreenProps<ProfileRouteMap>) => {
+const WalletRoutes = ({ route }: NativeStackScreenProps<WalletRouteMap>) => {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const WalletRoutes = ({ route }: NativeStackScreenProps<ProfileRouteMap>) => {
       screenOptions={{ headerShown: false, animation: 'slide_from_right', animationTypeForReplace: 'pop' }}
     >
       <Screen name={ROUTES.WALLET} component={Wallet} />
+      <Screen name={ROUTES.WALLET_CASH_WITHDRAWAL} component={CashWithdrawal} />
     </Navigator>
   );
 };

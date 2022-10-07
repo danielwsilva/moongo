@@ -1,10 +1,13 @@
 import { useCallback, useState } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { TabView, TabBar, NavigationState, SceneRendererProps } from 'react-native-tab-view';
 import { AntDesign, Feather } from '@expo/vector-icons';
 
+import { useNavigation } from '@react-navigation/native';
 import { Text, Wrapper } from 'components';
+import { ROUTES } from 'navigation/appRoutes';
 import { useBalance } from 'services/api/wallet';
 import theme from 'styles/theme';
 import { maskMoney } from 'utils/helpers';
@@ -26,10 +29,11 @@ export type MaisCashNavigationTabState = NavigationState<{
 export const Wallet = () => {
   const [index, setIndex] = useState(0);
 
+  const { navigate } = useNavigation();
+  const { data } = useBalance();
+
   const layout = useWindowDimensions();
   const { colors } = theme;
-
-  const { data } = useBalance();
 
   const FirstRoute = useCallback(
     () => (
@@ -348,9 +352,7 @@ export const Wallet = () => {
         indicatorStyle={{ backgroundColor: colors.primary }}
         labelStyle={styles.titleAnimated}
         style={styles.tabBar}
-        // tabStyle={{ width: 'auto' }}
         activeColor={colors.primary}
-        // scrollEnabled
       />
     );
   }, []);
@@ -359,9 +361,14 @@ export const Wallet = () => {
     <Wrapper title="Carteira digital" disabledScrollView hasBackButton={false}>
       <View style={{ alignItems: 'center', marginBottom: 16 }}>
         <ValuesExtract description="Saldo da conta" value={maskMoney(data?.balance || 0)} />
-        <Text fontWeight="bold" color={colors.primary} style={{ marginTop: 12 }}>
-          Resgatar
-        </Text>
+
+        {!!data?.balance && data?.balance > 0 && (
+          <TouchableOpacity onPress={() => navigate(ROUTES.WALLET_CASH_WITHDRAWAL, { balance: data?.balance })}>
+            <Text fontWeight="bold" color={colors.primary} style={{ marginTop: 12 }}>
+              Resgatar
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       <TabView

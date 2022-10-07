@@ -40,3 +40,5 @@ export const isValidCpf = (cpf?: string) => {
 export const isValidNinthDigit = (phone?: string) => {
   return Number(phone!.slice(5, 6)) === 9;
 };
+
+export const currencyNormalized = (num: string) => (Number(num.replace(/[^0-9]/g, '')) / 100).toFixed(2);
