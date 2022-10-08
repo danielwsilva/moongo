@@ -28,7 +28,12 @@ export const Home = () => {
   const queryClient = useQueryClient();
 
   const { data: dataMe } = useMe();
-  const { data: dataSupplyPending, refetch: refetchSupplyPending } = useSupplyPending();
+  const { data: dataSupplyPending, refetch: refetchSupplyPending } = useSupplyPending({
+    onSettled() {
+      queryClient.invalidateQueries(createStockMotorist());
+    }
+  });
+
   const { data: dataStock, refetch: refetchStock } = useStockMotorist({
     onSettled() {
       setRefreshing(false);
@@ -64,7 +69,6 @@ export const Home = () => {
     setRefreshing(true);
     refetchStock();
     refetchSupplyPending();
-    queryClient.invalidateQueries(createStockMotorist());
   }, [refetchStock, refetchSupplyPending]);
 
   return (

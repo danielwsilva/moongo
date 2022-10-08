@@ -3,8 +3,10 @@ import { View } from 'react-native';
 import { Fontisto } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { Text, Wrapper } from 'components';
 import { useSupplyPending } from 'services/api/home';
+import { createStockMotorist } from 'services/api/sales/keys';
 import theme from 'styles/theme';
 
 import { SupplyPendingRow } from '../../components';
@@ -14,10 +16,12 @@ export const SupplyPending = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   const { colors } = theme;
+  const queryClient = useQueryClient();
 
   const { data, refetch } = useSupplyPending({
     onSettled() {
       setRefreshing(false);
+      queryClient.invalidateQueries(createStockMotorist());
     }
   });
 

@@ -79,11 +79,7 @@ export const Wrapper = ({
       {showHeader && <Header />}
       <View style={[styles.container, styleContainer]}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          {!disabledScrollView ? (
-            <ScrollView style={{ flex: 1 }}>{children}</ScrollView>
-          ) : (
-            <View style={{ flex: 1 }}>{children}</View>
-          )}
+          {!disabledScrollView ? <ScrollView style={{ flex: 1 }}>{children}</ScrollView> : <>{children}</>}
         </TouchableWithoutFeedback>
       </View>
     </>

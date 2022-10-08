@@ -10,7 +10,6 @@ import { Button, Modal, Text, Wrapper } from 'components';
 import { useCart } from 'hooks/cart';
 import { ROUTES } from 'navigation/appRoutes';
 import { useSupply } from 'services/api/home';
-import { createStock } from 'services/api/home/keys';
 import { ProductResponse } from 'services/api/home/types';
 import { useBalance } from 'services/api/wallet';
 import { createBalance } from 'services/api/wallet/keys';
@@ -73,8 +72,9 @@ export const Cart = () => {
 
       mutate(objSupply, {
         onSuccess() {
+          if (!isSupply) queryClient.invalidateQueries(createBalance());
           setCart([]);
-          queryClient.invalidateQueries([createStock(), createBalance()]);
+
           dispatch(
             CommonActions.reset({
               index: 0,
