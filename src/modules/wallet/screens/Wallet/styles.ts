@@ -1,20 +1,28 @@
 import { StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import theme from 'styles/theme';
 
 export default StyleSheet.create({
-  titleAnimated: {
-    fontSize: RFValue(14),
-    fontFamily: theme.fonts.primary_400,
-    textTransform: 'capitalize',
-    color: theme.colors.textLight,
-    width: '100%'
+  wrapperValueExtract: {
+    alignItems: 'center',
+    marginBottom: RFValue(16)
   },
-  tabBar: {
-    height: RFValue(42),
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.lightGray,
-    backgroundColor: theme.colors.white,
-    elevation: 0
+  wrapperFilter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  title: {
+    marginTop: RFValue(12),
+    marginBottom: RFValue(8)
+  },
+  listEmpty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  listEmptyText: {
+    marginTop: RFValue(16),
+    marginHorizontal: RFValue(24),
+    textAlign: 'center'
   }
 });

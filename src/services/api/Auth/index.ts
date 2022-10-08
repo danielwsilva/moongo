@@ -18,7 +18,7 @@ export const useForgotCpf = () => {
 
 export const useForgotCode = () => {
   return useMutation<Success, Error, ForgotCodeRequest>((data) =>
-    moongoAPI.post(`/verify/token/password`, data).then((response) => response.data)
+    moongoAPI.get(`/verify/token/password`, { params: data }).then((response) => response.data)
   );
 };
 

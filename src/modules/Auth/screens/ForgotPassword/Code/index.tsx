@@ -32,12 +32,15 @@ export const Code = () => {
   };
 
   const submitCode = async (values: SMSForm, actions: FormikHelpers<SMSForm>) => {
+    console.log(values);
+
     try {
       await mutateCodeAsync(values, {
         onSuccess() {
           navigate(ROUTES.AUTH_FORGOT_PASSWORD);
         }
       });
+
       addCode(values.token);
     } catch (error) {
       catchFormError({ token: error }, actions.setErrors);

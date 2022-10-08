@@ -19,6 +19,7 @@ export default {
     textLight: '#989898',
     grayLight: '#D2D2D2',
     lightGray: '#E7E7E7',
+    lightGray1: '#F2F2F2',
     lightBlack: '#343333',
 
     // Transparent color
