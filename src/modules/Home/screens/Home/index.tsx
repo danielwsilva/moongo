@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useCallback } from 'react';
-import { Image, TextInput, TouchableOpacity, View } from 'react-native';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -13,8 +13,6 @@ import { useMe, useStockMotorist, useSupplyPending } from 'services/api/home';
 import { SupplyPendingProduct, SupplyPendingResponse } from 'services/api/home/types';
 import { createStockMotorist } from 'services/api/sales/keys';
 import theme from 'styles/theme';
-
-import avatar from 'assets/avatar.png';
 
 import { ButtonAddCart, CountCart, ProductRow } from '../../components';
 import styles from './styles';
@@ -80,10 +78,15 @@ export const Home = () => {
             <View>
               <Text>Olá,</Text>
               <Text fontSize={20} fontWeight="bold">
-                {dataMe?.name}
+                {dataMe?.name.split(' ')[0]}
               </Text>
             </View>
-            <Image source={avatar} resizeMode="stretch" style={styles.avatar} />
+
+            <View style={styles.avatar}>
+              <Text fontSize={28} color={colors.white}>
+                {dataMe?.name.slice(0, 1)}
+              </Text>
+            </View>
           </View>
 
           <View style={styles.filters}>
@@ -110,7 +113,7 @@ export const Home = () => {
           </View>
           <View style={styles.countProduct}>
             <Text fontWeight="bold" fontSize={14}>
-              Total de produtos
+              Produtos
             </Text>
             <Text fontWeight="normal" fontSize={14}>
               {dataStock?.length}

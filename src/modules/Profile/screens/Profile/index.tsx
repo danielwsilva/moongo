@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Image, View, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { FontAwesome, Octicons } from '@expo/vector-icons';
 
@@ -8,7 +8,6 @@ import { Text, Wrapper } from 'components';
 import { useMe } from 'services/api/home';
 import theme from 'styles/theme';
 import { maskPhone } from 'utils/helpers';
-import avatar from 'assets/avatar.png';
 
 import { PROFILE_MODULES } from './consts';
 import styles from './styles';
@@ -22,7 +21,11 @@ export const Profile = () => {
   return (
     <Wrapper title="Meu perfil" disabledScrollView hasBackButton={false}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image source={avatar} resizeMode="stretch" style={styles.avatar} />
+        <View style={styles.avatar}>
+          <Text fontSize={28} color={colors.white}>
+            {data?.name.slice(0, 1)}
+          </Text>
+        </View>
         <View style={{ marginLeft: RFValue(12) }}>
           <Text fontWeight="bold" fontSize={18}>
             {data?.name}

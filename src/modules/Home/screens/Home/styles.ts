@@ -23,7 +23,10 @@ export default StyleSheet.create({
   avatar: {
     width: RFValue(44),
     height: RFValue(44),
-    borderRadius: 44
+    borderRadius: 44,
+    backgroundColor: theme.colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   filters: {
     flexDirection: 'row',

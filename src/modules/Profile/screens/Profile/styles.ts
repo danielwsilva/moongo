@@ -7,7 +7,10 @@ export default StyleSheet.create({
   avatar: {
     width: RFValue(60),
     height: RFValue(60),
-    borderRadius: 44
+    borderRadius: 44,
+    backgroundColor: theme.colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   buttom: {
     flexDirection: 'row',
