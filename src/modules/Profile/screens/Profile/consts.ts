@@ -15,15 +15,10 @@ export const PROFILE_MODULES = [
     name: 'Endereço',
     icon: 'home',
     route: ROUTES.PROFILE_ADDRESS
-  },
+  }
   // {
   //   name: 'Alterar senha',
   //   icon: 'lock',
   //   route: ROUTES.PROFILE_PASSWORD
   // },
-  {
-    name: 'Sair',
-    icon: 'power-off',
-    route: ROUTES.REGISTER_ADDRESS
-  }
 ];

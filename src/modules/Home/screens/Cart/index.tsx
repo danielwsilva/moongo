@@ -12,7 +12,7 @@ import { ROUTES } from 'navigation/appRoutes';
 import { useSupply } from 'services/api/home';
 import { ProductResponse } from 'services/api/home/types';
 import { useBalance } from 'services/api/wallet';
-import { createBalance } from 'services/api/wallet/keys';
+import { createBalance, createExtract } from 'services/api/wallet/keys';
 import theme from 'styles/theme';
 import { maskMoney } from 'utils/helpers';
 
@@ -72,7 +72,11 @@ export const Cart = () => {
 
       mutate(objSupply, {
         onSuccess() {
-          if (!isSupply) queryClient.invalidateQueries(createBalance());
+          if (!isSupply) {
+            queryClient.invalidateQueries(createBalance());
+            queryClient.invalidateQueries(createExtract());
+          }
+
           setCart([]);
 
           dispatch(

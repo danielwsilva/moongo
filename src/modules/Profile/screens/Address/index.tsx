@@ -1,15 +1,16 @@
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { Wrapper } from 'components';
 import { FormAddress, AddressForm } from 'components/forms/FormAddress';
+import { ROUTES } from 'navigation/appRoutes';
 import { createMe } from 'services/api/home/keys';
 import { MeResponse } from 'services/api/home/types';
 import { useUpdateMotorist } from 'services/api/register';
 import { onlyNumbers } from 'utils/helpers';
 
 export const Address = () => {
-  const { goBack } = useNavigation();
+  const { dispatch } = useNavigation();
 
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<MeResponse>(createMe());
@@ -20,8 +21,12 @@ export const Address = () => {
     const item = { module: 'place', ...values, zipcode: onlyNumbers(values.zipcode) };
     mutate(item, {
       onSuccess() {
-        queryClient.invalidateQueries(createMe());
-        goBack();
+        dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: ROUTES.PROFILE }]
+          })
+        );
       }
     });
   };

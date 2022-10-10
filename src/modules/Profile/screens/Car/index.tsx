@@ -1,14 +1,15 @@
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { Wrapper } from 'components';
 import { FormCar, CarForm } from 'components/forms/FormCar';
+import { ROUTES } from 'navigation/appRoutes';
 import { createMe } from 'services/api/home/keys';
 import { MeResponse } from 'services/api/home/types';
 import { useUpdateMotorist } from 'services/api/register';
 
 export const Car = () => {
-  const { goBack } = useNavigation();
+  const { dispatch } = useNavigation();
 
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<MeResponse>(createMe());
@@ -19,8 +20,12 @@ export const Car = () => {
     const item = { module: 'car', ...values };
     mutate(item, {
       onSuccess() {
-        queryClient.invalidateQueries(createMe());
-        goBack();
+        dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: ROUTES.PROFILE }]
+          })
+        );
       }
     });
   };

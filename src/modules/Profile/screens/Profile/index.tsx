@@ -5,6 +5,7 @@ import { FontAwesome, Octicons } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 import { Text, Wrapper } from 'components';
+import { useAuth } from 'hooks/auth';
 import { useMe } from 'services/api/home';
 import theme from 'styles/theme';
 import { maskPhone } from 'utils/helpers';
@@ -15,6 +16,7 @@ import styles from './styles';
 export const Profile = () => {
   const { colors } = theme;
   const { navigate } = useNavigation();
+  const { signOut } = useAuth();
 
   const { data } = useMe();
 
@@ -51,9 +53,8 @@ export const Profile = () => {
       </View>
 
       <View style={{ marginTop: RFValue(18) }}>
-        {PROFILE_MODULES.map((item, index) => (
+        {PROFILE_MODULES.map((item) => (
           <View key={item.name}>
-            {PROFILE_MODULES.length - 1 === index && <View style={styles.divider} />}
             <Pressable onPress={() => navigate(item.route as any)} style={styles.buttom}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <View style={styles.icon}>
@@ -63,14 +64,26 @@ export const Profile = () => {
                   {item.name}
                 </Text>
               </View>
-              {PROFILE_MODULES.length - 1 !== index && (
-                <View style={styles.iconChevron}>
-                  <Octicons name="chevron-right" color={colors.lightBlack} size={18} />
-                </View>
-              )}
+
+              <View style={styles.iconChevron}>
+                <Octicons name="chevron-right" color={colors.lightBlack} size={18} />
+              </View>
             </Pressable>
           </View>
         ))}
+      </View>
+
+      <View style={{ marginTop: RFValue(18) }}>
+        <Pressable onPress={signOut} style={styles.buttom}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={styles.icon}>
+              <FontAwesome name="power-off" color={colors.primary} size={20} />
+            </View>
+            <Text fontSize={14} color={colors.lightBlack}>
+              Sair
+            </Text>
+          </View>
+        </Pressable>
       </View>
     </Wrapper>
   );

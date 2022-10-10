@@ -1,14 +1,15 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
 
 import { useLogin } from 'services/api/auth';
-import { LoginDtoReq } from 'services/dtos/LoginDto';
-import { authToken, saveString } from 'services/storage';
+import { LoginRequest } from 'services/api/auth/types';
+import { authToken, saveString, loadString, remove } from 'services/storage';
 import { useCatch } from './catch';
 
 interface AuthContextData {
   token: string;
   isLoading: boolean;
-  signIn: (_data: LoginDtoReq) => void;
+  signIn: (_data: LoginRequest) => void;
+  signOut: () => void;
 }
 interface PropsProvider {
   children: ReactNode;
@@ -27,7 +28,18 @@ export function AuthProvider({ children }: PropsProvider) {
 
   const { mutate, isLoading } = useLogin();
 
-  const signIn = (credential: LoginDtoReq) => {
+  const loadToken = async () => {
+    const tokenStorage = await loadString(authToken);
+    if (tokenStorage) {
+      setToken(tokenStorage);
+    }
+  };
+
+  useEffect(() => {
+    loadToken();
+  }, []);
+
+  const signIn = (credential: LoginRequest) => {
     mutate(credential, {
       onSuccess: async (data) => {
         setToken(data.token);
@@ -39,7 +51,12 @@ export function AuthProvider({ children }: PropsProvider) {
     });
   };
 
-  return <AuthContext.Provider value={{ token, isLoading, signIn }}>{children}</AuthContext.Provider>;
+  const signOut = useCallback(async () => {
+    await remove(authToken);
+    setToken('');
+  }, []);
+
+  return <AuthContext.Provider value={{ token, isLoading, signIn, signOut }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
