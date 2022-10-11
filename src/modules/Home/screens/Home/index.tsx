@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
@@ -50,30 +50,35 @@ export const Home = () => {
     }
   });
 
-  const supplyPendingNormalized = dataSupplyPending?.reduce(
-    (finalArr: SupplyPendingProduct[], item: SupplyPendingResponse) => {
-      if (item.products.length) {
-        const products = item.products.map((product) => {
-          return {
-            ...product
-          };
-        });
-        finalArr.push(...products);
-      }
+  const supplyPendingNormalized = useMemo(
+    () =>
+      dataSupplyPending?.reduce((finalArr: SupplyPendingProduct[], item: SupplyPendingResponse) => {
+        if (item.products.length) {
+          const products = item.products.map((product) => {
+            return {
+              ...product
+            };
+          });
+          finalArr.push(...products);
+        }
 
-      return finalArr;
-    },
-    []
+        return finalArr;
+      }, []),
+    [dataSupplyPending]
   );
 
-  const dataStockFormatted = dataStock?.map((stock) => {
-    const supplyPending = supplyPendingNormalized?.find((prod) => prod.id === stock.id);
+  const dataStockFormatted = useMemo(
+    () =>
+      dataStock?.map((stock) => {
+        const supplyPending = supplyPendingNormalized?.find((prod) => prod.id === stock.id);
 
-    return {
-      ...stock,
-      supply_pending: !!supplyPending
-    };
-  });
+        return {
+          ...stock,
+          supply_pending: !!supplyPending
+        };
+      }),
+    [dataStock, supplyPendingNormalized]
+  );
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -97,7 +102,7 @@ export const Home = () => {
           <View style={styles.personalData}>
             <View>
               <Text>Olá,</Text>
-              <Skeleton colorMode="light" show={isLoadingMe || loading}>
+              <Skeleton colorMode="light" width={100} show={isLoadingMe || loading}>
                 <Text fontSize={20} fontWeight="bold">
                   {dataMe?.name.split(' ')[0]}
                 </Text>
@@ -123,21 +128,22 @@ export const Home = () => {
               <CountCart color={colors.white} onPress={() => navigate(ROUTES.HOME_CART)} />
             </View>
 
-            <View style={{ width: 5 }} />
-            <Skeleton colorMode="light" show={isLoadingSupplyPending || loading || refreshing}>
-              <View style={styles.buttomCountCart}>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => navigate(ROUTES.HOME_SUPPLY_PENDING)}>
-                  {!!dataSupplyPending?.length && (
-                    <View style={styles.countCart}>
-                      <Text fontSize={10} color={colors.white} style={styles.countCartText}>
-                        {`${dataSupplyPending?.length}`}
-                      </Text>
-                    </View>
-                  )}
-                  <MaterialIcons name="pending-actions" size={18} color={colors.white} />
-                </TouchableOpacity>
-              </View>
-            </Skeleton>
+            <View style={{ marginLeft: RFValue(5) }}>
+              <Skeleton colorMode="light" show={isLoadingSupplyPending || refreshing || loading}>
+                <View style={styles.buttomCountCart}>
+                  <TouchableOpacity activeOpacity={0.8} onPress={() => navigate(ROUTES.HOME_SUPPLY_PENDING)}>
+                    {!!dataSupplyPending?.length && (
+                      <View style={styles.countCart}>
+                        <Text fontSize={10} color={colors.white} style={styles.countCartText}>
+                          {`${dataSupplyPending?.length}`}
+                        </Text>
+                      </View>
+                    )}
+                    <MaterialIcons name="pending-actions" size={18} color={colors.white} />
+                  </TouchableOpacity>
+                </View>
+              </Skeleton>
+            </View>
           </View>
 
           <View style={styles.countProduct}>
@@ -159,7 +165,7 @@ export const Home = () => {
             onRefresh={onRefresh}
             refreshing={refreshing}
             renderItem={({ item }) => (
-              <ProductRow item={item} loading={isLoadingStockMotorist || refreshing}>
+              <ProductRow item={item} loading={refreshing}>
                 <ButtonAddCart item={item} />
               </ProductRow>
             )}

@@ -38,7 +38,7 @@ export default StyleSheet.create({
     paddingBottom: RFValue(100)
   },
   listEmpty: {
-    flex: 1,
+    marginTop: '50%',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: RFValue(24)
