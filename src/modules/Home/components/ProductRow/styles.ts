@@ -5,10 +5,12 @@ import theme from 'styles/theme';
 
 export default StyleSheet.create({
   container: {
+    marginBottom: RFValue(8),
+    marginLeft: RFValue(8)
+  },
+  product: {
     backgroundColor: theme.colors.white,
     padding: RFValue(8),
-    marginBottom: RFValue(8),
-    marginLeft: RFValue(8),
     borderRadius: 8,
     elevation: 5
   },

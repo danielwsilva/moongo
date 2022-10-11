@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { Skeleton } from 'moti/skeleton';
 
 import { Text, Modal } from 'components';
 import { ProductResponse } from 'services/api/home/types';
@@ -14,9 +15,10 @@ type ProductRowProps = {
   item: ProductResponse;
   showInfo?: boolean;
   children: ReactNode;
+  loading?: boolean;
 };
 
-export const ProductRow = ({ item, showInfo = true, children }: ProductRowProps) => {
+export const ProductRow = ({ item, showInfo = true, loading = false, children }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
 
   const { colors } = theme;
@@ -24,42 +26,46 @@ export const ProductRow = ({ item, showInfo = true, children }: ProductRowProps)
   return (
     <>
       <View style={styles.container}>
-        {showInfo && (
-          <TouchableOpacity style={styles.doubt} onPress={() => setVisible(true)}>
-            <AntDesign name="questioncircleo" color={colors.textLight} size={16} />
-          </TouchableOpacity>
-        )}
-        <View style={styles.containerImage}>
-          <Image
-            source={{ uri: getEnvironment().API_MOONGO_IMAGE + item.image }}
-            resizeMode="stretch"
-            style={styles.image}
-          />
-        </View>
-        <View style={styles.wrapperText}>
-          <Text fontWeight="bold" fontSize={14} numberOfLines={1} style={{ flex: 1, marginRight: 2 }}>
-            {item.description}
-          </Text>
-          <View style={styles.header}>
-            <AntDesign name="star" size={18} color={colors.primaryLight} />
-            <Text fontSize={10} color={colors.grayLight} style={{ marginLeft: 2 }}>
-              {item.sales}
-            </Text>
-          </View>
-        </View>
+        <Skeleton colorMode="light" show={loading}>
+          <View style={styles.product}>
+            {showInfo && (
+              <TouchableOpacity style={styles.doubt} onPress={() => setVisible(true)}>
+                <AntDesign name="questioncircleo" color={colors.textLight} size={16} />
+              </TouchableOpacity>
+            )}
+            <View style={styles.containerImage}>
+              <Image
+                source={{ uri: getEnvironment().API_MOONGO_IMAGE + item.image }}
+                resizeMode="stretch"
+                style={styles.image}
+              />
+            </View>
+            <View style={styles.wrapperText}>
+              <Text fontWeight="bold" fontSize={14} numberOfLines={1} style={{ flex: 1, marginRight: 2 }}>
+                {item.description}
+              </Text>
+              <View style={styles.header}>
+                <AntDesign name="star" size={18} color={colors.primaryLight} />
+                <Text fontSize={10} color={colors.grayLight} style={{ marginLeft: 2 }}>
+                  {item.sales}
+                </Text>
+              </View>
+            </View>
 
-        <View style={styles.footer}>
-          <View style={{ flex: 1, marginRight: 2 }}>
-            <Text fontWeight="normal" fontSize={14} color={colors.textLight} numberOfLines={1}>
-              {item.brand}
-            </Text>
-            <Text fontWeight="bold" fontSize={14}>
-              {maskMoney(item.sale_price)}
-            </Text>
-          </View>
+            <View style={styles.footer}>
+              <View style={{ flex: 1, marginRight: 2 }}>
+                <Text fontWeight="normal" fontSize={14} color={colors.textLight} numberOfLines={1}>
+                  {item.brand}
+                </Text>
+                <Text fontWeight="bold" fontSize={14}>
+                  {maskMoney(item.sale_price)}
+                </Text>
+              </View>
 
-          {children}
-        </View>
+              {children}
+            </View>
+          </View>
+        </Skeleton>
       </View>
 
       <Modal visible={visible} close={() => setVisible(!visible)} height={210}>

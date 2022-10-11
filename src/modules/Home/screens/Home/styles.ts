@@ -51,7 +51,6 @@ export default StyleSheet.create({
   buttomCountCart: {
     backgroundColor: theme.colors.lightBlack,
     padding: RFValue(12),
-    marginLeft: RFValue(5),
     borderRadius: 8
   },
   countProduct: {
