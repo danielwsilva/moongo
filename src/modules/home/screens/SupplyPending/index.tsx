@@ -34,7 +34,7 @@ export const SupplyPending = () => {
     <View style={styles.listEmpty}>
       <Fontisto name="shopping-bag-1" size={48} color={colors.primary} />
       <Text fontWeight="normal" style={{ marginTop: 16, textAlign: 'center' }}>
-        Não existe solicitações de abastecimento pendentes.
+        Não existem solicitações de abastecimento pendentes.
       </Text>
     </View>
   );

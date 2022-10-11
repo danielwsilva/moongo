@@ -33,7 +33,7 @@ export const ButtonAddCart = ({ item }: ButtonAddCartProps) => {
     if (item.supply_pending) {
       Toast.show({
         type: 'generic',
-        props: { title: 'Já exite uma solicitação de abastecimento deste produto.' }
+        props: { title: 'Já existe solicitação de abastecimento desse produto.' }
       });
     } else {
       const itemAddCart = { ...item, quantity: 1 };

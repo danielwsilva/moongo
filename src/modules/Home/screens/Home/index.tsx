@@ -139,6 +139,7 @@ export const Home = () => {
               </View>
             </Skeleton>
           </View>
+
           <View style={styles.countProduct}>
             <Text fontWeight="bold" fontSize={14}>
               Produtos
