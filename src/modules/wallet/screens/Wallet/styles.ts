@@ -16,13 +16,8 @@ export default StyleSheet.create({
     marginBottom: RFValue(8)
   },
   listEmpty: {
-    flex: 1,
+    marginTop: '50%',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  listEmptyText: {
-    marginTop: RFValue(16),
-    marginHorizontal: RFValue(24),
-    textAlign: 'center'
   }
 });

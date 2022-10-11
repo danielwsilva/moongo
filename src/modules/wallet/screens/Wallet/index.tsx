@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { SectionList, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import { Text, Wrapper } from 'components';
+import { WalletSkeleton } from 'modules/wallet/skeletons/WalletSkeleton';
 import { ROUTES } from 'navigation/appRoutes';
 import { useBalance, useExtract } from 'services/api/wallet';
 import { ExtractResponse } from 'services/api/wallet/types';
@@ -21,6 +22,7 @@ import { Extract, FILTERS, SectionDataType, SectionListType } from './types';
 export const Wallet = () => {
   const [active, setActive] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [extract, setExtract] = useState<SectionDataType[]>([]);
 
   const { colors } = theme;
@@ -31,11 +33,11 @@ export const Wallet = () => {
 
   endDate.setDate(endDate.getDate() + 1);
 
-  const { data: dataBalance } = useBalance();
+  const { data: dataBalance, isLoading: isLoadingBalance, refetch: refetchBalance } = useBalance();
   const {
     data: dataExtract,
-    isLoading,
-    refetch
+    isLoading: isLoadingExtract,
+    refetch: refetchExtract
   } = useExtract({
     onSuccess(data) {
       filterDate(1, data);
@@ -94,8 +96,17 @@ export const Wallet = () => {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    refetch();
-  }, [refetch]);
+    refetchExtract();
+    refetchBalance();
+  }, [refetchExtract, refetchBalance]);
+
+  useEffect(() => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, []);
 
   const renderSectionHeader = ({ section: { title } }: SectionListType) => (
     <Text fontWeight="normal" color={colors.textLight} fontSize={14} style={styles.title}>
@@ -106,7 +117,7 @@ export const Wallet = () => {
   const listEmptyComponent = () => (
     <View style={styles.listEmpty}>
       <Ionicons name="newspaper" size={48} color={colors.primary} />
-      <Text fontWeight="normal" style={styles.listEmptyText}>
+      <Text fontWeight="normal" style={{ marginHorizontal: RFValue(24), textAlign: 'center' }}>
         Não existem lançamentos de extrato.
       </Text>
     </View>
@@ -115,7 +126,11 @@ export const Wallet = () => {
   return (
     <Wrapper title="Carteira digital" disabledScrollView hasBackButton={false}>
       <View style={styles.wrapperValueExtract}>
-        <ValuesExtract description="Saldo da conta" value={maskMoney(dataBalance?.balance || 0)} />
+        <ValuesExtract
+          description="Saldo da conta"
+          value={maskMoney(dataBalance?.balance || 0)}
+          loading={loading || isLoadingBalance || refreshing}
+        />
 
         {!!dataBalance?.balance && dataBalance?.balance > 0 && (
           <TouchableOpacity onPress={() => navigate(ROUTES.WALLET_CASH_WITHDRAWAL, { balance: dataBalance?.balance })}>
@@ -138,24 +153,21 @@ export const Wallet = () => {
         ))}
       </View>
 
-      {!isLoading && (
-        <View style={{ flex: 1 }}>
-          {!dataExtract?.length ? (
-            listEmptyComponent()
-          ) : (
-            <SectionList
-              sections={extract}
-              onRefresh={onRefresh}
-              refreshing={refreshing}
-              keyExtractor={(_, indexT) => indexT.toString()}
-              stickySectionHeadersEnabled={false}
-              renderItem={({ item }) => <ExtractRow item={item} />}
-              renderSectionHeader={renderSectionHeader}
-              contentContainerStyle={{ paddingBottom: RFValue(110) }}
-              showsVerticalScrollIndicator={false}
-            />
-          )}
-        </View>
+      {refreshing || isLoadingExtract || loading ? (
+        <WalletSkeleton />
+      ) : (
+        <SectionList
+          sections={extract}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
+          keyExtractor={(_, indexT) => indexT.toString()}
+          stickySectionHeadersEnabled={false}
+          renderItem={({ item }) => <ExtractRow item={item} />}
+          renderSectionHeader={renderSectionHeader}
+          contentContainerStyle={{ paddingBottom: RFValue(110) }}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={listEmptyComponent}
+        />
       )}
     </Wrapper>
   );
