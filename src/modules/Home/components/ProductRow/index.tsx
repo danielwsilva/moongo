@@ -15,10 +15,9 @@ type ProductRowProps = {
   item: ProductResponse;
   showInfo?: boolean;
   children: ReactNode;
-  loading?: boolean;
 };
 
-export const ProductRow = ({ item, showInfo = true, loading = false, children }: ProductRowProps) => {
+export const ProductRow = ({ item, showInfo = true, children }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
 
   const { colors } = theme;
@@ -26,7 +25,7 @@ export const ProductRow = ({ item, showInfo = true, loading = false, children }:
   return (
     <>
       <View style={styles.container}>
-        <Skeleton colorMode="light" show={loading}>
+        <Skeleton colorMode="light" show={item.loading}>
           <View style={styles.product}>
             {showInfo && (
               <TouchableOpacity style={styles.doubt} onPress={() => setVisible(true)}>

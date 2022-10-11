@@ -74,10 +74,11 @@ export const Home = () => {
 
         return {
           ...stock,
-          supply_pending: !!supplyPending
+          supply_pending: !!supplyPending,
+          loading: refreshing
         };
       }),
-    [dataStock, supplyPendingNormalized]
+    [dataStock, supplyPendingNormalized, refreshing]
   );
 
   const onRefresh = useCallback(() => {
@@ -91,7 +92,7 @@ export const Home = () => {
 
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1500);
   }, []);
 
   return (
@@ -165,7 +166,7 @@ export const Home = () => {
             onRefresh={onRefresh}
             refreshing={refreshing}
             renderItem={({ item }) => (
-              <ProductRow item={item} loading={refreshing}>
+              <ProductRow item={item}>
                 <ButtonAddCart item={item} />
               </ProductRow>
             )}

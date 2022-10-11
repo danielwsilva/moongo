@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import { TextInput, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -41,6 +41,17 @@ export const Products = () => {
     }, 1500);
   }, []);
 
+  const dataFormatted = useMemo(
+    () =>
+      data?.map((item) => {
+        return {
+          ...item,
+          loading: refreshing
+        };
+      }),
+    [data, refreshing]
+  );
+
   const listEmptyComponent = () => (
     <View style={styles.listEmpty}>
       <AntDesign name="dropbox" size={48} color={colors.primary} />
@@ -80,12 +91,12 @@ export const Products = () => {
             <HomeSkeleton />
           ) : (
             <FlashList
-              data={data}
+              data={dataFormatted}
               keyExtractor={(item) => item.id}
               onRefresh={onRefresh}
               refreshing={refreshing}
               renderItem={({ item }) => (
-                <ProductRow item={item} showInfo={false} loading={refreshing}>
+                <ProductRow item={item} showInfo={false}>
                   <ButtonAddCart item={item} />
                 </ProductRow>
               )}

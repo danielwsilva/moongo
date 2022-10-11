@@ -48,6 +48,7 @@ export type ProductResponse = {
   quantity: number;
   sales: number;
   supply_pending: boolean;
+  loading: boolean;
 };
 
 export type SupplyRequest = {
