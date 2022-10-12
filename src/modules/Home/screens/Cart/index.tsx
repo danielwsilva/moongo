@@ -45,7 +45,10 @@ export const Cart = () => {
 
   const onSubmit = () => {
     const totalMarginCart = cart.reduce((total, item) => {
-      return Number((total + item.quantity * item.sale_price * (item.percentage / 100)).toPrecision(3));
+      const percentage = item.percentage / 100;
+      const totalProduct = item.quantity * item.sale_price;
+
+      return Number((total + totalProduct - totalProduct * percentage).toPrecision(3));
     }, 0);
 
     if (-totalMarginCart + data!.balance < -10 && !isSupply) {
