@@ -52,7 +52,10 @@ export const Cart = () => {
     }, 0);
 
     if (-totalMarginCart + data!.balance < -10 && !isSupply) {
-      Toast.show({ type: 'generic', props: { title: 'Essa venda irá exceder o saldo negativo permitido.' } });
+      Toast.show({
+        type: 'generic',
+        props: { title: 'Ops, a carteira só permite até R$10 negativos. Essa venda irá exceder o saldo permitido.' }
+      });
       setVisible(false);
     } else {
       const totalQuantityCart = cart.reduce((total, item) => {
