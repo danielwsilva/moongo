@@ -110,7 +110,7 @@ export const Home = () => {
               </Skeleton>
             </View>
 
-            <Skeleton radius="round" colorMode="light" width={48} height={48} show={isLoadingMe || loading}>
+            <Skeleton radius="round" colorMode="light" height={50} show={isLoadingMe || loading}>
               <View style={styles.avatar}>
                 <Text fontSize={28} color={colors.white}>
                   {dataMe?.name.slice(0, 1)}
@@ -165,8 +165,11 @@ export const Home = () => {
             keyExtractor={(item) => item.id}
             onRefresh={onRefresh}
             refreshing={refreshing}
-            renderItem={({ item }) => (
-              <ProductRow item={item}>
+            renderItem={({ item, index }) => (
+              <ProductRow
+                item={item}
+                style={index % 2 === 0 ? { marginLeft: 8, marginRight: 6 } : { marginLeft: 6, marginRight: 8 }}
+              >
                 <ButtonAddCart item={item} />
               </ProductRow>
             )}

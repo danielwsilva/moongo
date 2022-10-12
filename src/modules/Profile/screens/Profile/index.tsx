@@ -35,7 +35,7 @@ export const Profile = () => {
   return (
     <Wrapper title="Meu perfil" disabledScrollView hasBackButton={false}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Skeleton radius="round" colorMode="light" width={66} height={66} show={loading}>
+        <Skeleton radius="round" colorMode="light" height={68} show={loading}>
           <View style={styles.avatar}>
             <Text fontSize={28} color={colors.white}>
               {data?.name.slice(0, 1)}

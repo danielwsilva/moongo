@@ -5,8 +5,8 @@ import theme from 'styles/theme';
 
 export default StyleSheet.create({
   container: {
-    marginBottom: RFValue(8),
-    marginLeft: RFValue(8)
+    flex: 1,
+    marginBottom: RFValue(8)
   },
   product: {
     backgroundColor: theme.colors.white,

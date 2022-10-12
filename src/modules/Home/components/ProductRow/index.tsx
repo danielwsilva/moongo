@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Skeleton } from 'moti/skeleton';
 
@@ -15,16 +15,17 @@ type ProductRowProps = {
   item: ProductResponse;
   showInfo?: boolean;
   children: ReactNode;
+  style?: StyleProp<ViewStyle>;
 };
 
-export const ProductRow = ({ item, showInfo = true, children }: ProductRowProps) => {
+export const ProductRow = ({ item, showInfo = true, children, style }: ProductRowProps) => {
   const [visible, setVisible] = useState(false);
 
   const { colors } = theme;
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         <Skeleton colorMode="light" show={item.loading}>
           <View style={styles.product}>
             {showInfo && (

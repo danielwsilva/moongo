@@ -7,8 +7,8 @@ export const HomeSkeleton = () => {
   return (
     <View style={{ flexDirection: 'row', marginLeft: RFValue(8) }}>
       {[1, 2].map((item) => (
-        <View key={item} style={{ marginRight: RFValue(16) }}>
-          <Skeleton colorMode="light" show height={238} width={170} />
+        <View key={item} style={{ marginRight: RFValue(10) }}>
+          <Skeleton colorMode="light" show height={238} width={168} />
         </View>
       ))}
     </View>

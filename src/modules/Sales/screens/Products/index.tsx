@@ -95,8 +95,12 @@ export const Products = () => {
               keyExtractor={(item) => item.id}
               onRefresh={onRefresh}
               refreshing={refreshing}
-              renderItem={({ item }) => (
-                <ProductRow item={item} showInfo={false}>
+              renderItem={({ item, index }) => (
+                <ProductRow
+                  item={item}
+                  showInfo={false}
+                  style={index % 2 === 0 ? { marginLeft: 8, marginRight: 6 } : { marginLeft: 6, marginRight: 8 }}
+                >
                   <ButtonAddCart item={item} />
                 </ProductRow>
               )}
