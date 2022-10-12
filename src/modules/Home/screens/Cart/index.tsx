@@ -10,6 +10,7 @@ import { Button, Modal, Text, Wrapper } from 'components';
 import { useCart } from 'hooks/cart';
 import { ROUTES } from 'navigation/appRoutes';
 import { useSupply } from 'services/api/home';
+import { createStock } from 'services/api/home/keys';
 import { ProductResponse } from 'services/api/home/types';
 import { useBalance } from 'services/api/wallet';
 import { createBalance, createExtract } from 'services/api/wallet/keys';
@@ -81,6 +82,7 @@ export const Cart = () => {
           if (!isSupply) {
             queryClient.invalidateQueries(createBalance());
             queryClient.invalidateQueries(createExtract());
+            queryClient.invalidateQueries(createStock());
           }
 
           setCart([]);

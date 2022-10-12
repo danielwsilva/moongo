@@ -13,7 +13,7 @@ import styles from './styles';
 
 const Tab = createBottomTabNavigator();
 
-const BottomNav = () => {
+export const BottomNav = () => {
   const { colors } = theme;
 
   return (
@@ -54,5 +54,3 @@ const BottomNav = () => {
     </Tab.Navigator>
   );
 };
-
-export default BottomNav;
