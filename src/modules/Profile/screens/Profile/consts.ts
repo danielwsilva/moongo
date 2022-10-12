@@ -16,9 +16,4 @@ export const PROFILE_MODULES = [
     icon: 'home',
     route: ROUTES.PROFILE_ADDRESS
   }
-  // {
-  //   name: 'Alterar senha',
-  //   icon: 'lock',
-  //   route: ROUTES.PROFILE_PASSWORD
-  // },
 ];

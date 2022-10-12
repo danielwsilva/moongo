@@ -16,13 +16,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: RFValue(10)
+    paddingVertical: RFValue(4),
+    paddingHorizontal: RFValue(4)
   },
   icon: {
     width: RFValue(40),
     height: RFValue(40),
     borderRadius: 40,
-    elevation: 5,
+    elevation: 3,
     backgroundColor: theme.colors.white,
     alignItems: 'center',
     justifyContent: 'center',
