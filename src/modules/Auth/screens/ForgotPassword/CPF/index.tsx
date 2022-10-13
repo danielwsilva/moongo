@@ -19,20 +19,20 @@ export const CPF = () => {
   const { catchFormError } = useCatch();
   const { addCpf } = useForgot();
 
-  const { mutateAsync, isLoading } = useForgotCpf();
+  const { mutate, isLoading } = useForgotCpf();
 
   const submitUser = async (values: ForgotPasswordForm, actions: FormikHelpers<ForgotPasswordForm>) => {
-    try {
-      const objCpf = { cpf: onlyNumbers(values.cpf) };
-      await mutateAsync(objCpf, {
-        onSuccess() {
-          navigate(ROUTES.AUTH_FORGOT_CODE);
-        }
-      });
-      addCpf(objCpf.cpf);
-    } catch (error) {
-      catchFormError(error, actions.setErrors);
-    }
+    const objCpf = { cpf: onlyNumbers(values.cpf) };
+
+    mutate(objCpf, {
+      onSuccess() {
+        addCpf(objCpf.cpf);
+        navigate(ROUTES.AUTH_FORGOT_CODE);
+      },
+      onError(error) {
+        catchFormError(error.response.data.errors, actions.setErrors);
+      }
+    });
   };
 
   const disabled = (values: ForgotPasswordForm) => {

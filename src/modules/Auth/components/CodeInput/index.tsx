@@ -22,7 +22,7 @@ type CodeInputProps = {
   disabled?: boolean;
   error?: FormikErrors<ValuesProps>;
   onChange?: () => void;
-  onResendCode: () => Promise<void>;
+  onResendCode: () => void;
   onChangeText: (_text: string) => void;
   setErrors?: (_errors: FormikErrors<ValuesProps>) => void;
 };

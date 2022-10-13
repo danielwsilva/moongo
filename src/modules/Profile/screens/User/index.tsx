@@ -37,11 +37,11 @@ export const User = () => {
   const disabled = (values: UserForm) => {
     return (
       gender === data?.gender &&
-      data?.name === values.name &&
-      data?.cpf === onlyNumbers(values.cpf) &&
-      data?.date_birth === values.date_birth &&
-      data?.email === values.email &&
-      data?.phone === onlyNumbers(values.phone)
+      (data?.name === values.name || values.name === '') &&
+      (data?.cpf === onlyNumbers(values.cpf) || values.cpf === '') &&
+      (data?.date_birth === values.date_birth || values.date_birth === '') &&
+      (data?.email === values.email || values.email === '') &&
+      (data?.phone === onlyNumbers(values.phone) || values.phone === '')
     );
   };
 

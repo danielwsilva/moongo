@@ -33,13 +33,13 @@ export const Address = () => {
 
   const disabled = (values: AddressForm) => {
     return (
-      onlyNumbers(values.zipcode) === data?.place.zipcode &&
-      values.city === data?.place.city &&
-      values.state === data?.place.state &&
-      values.address === data?.place.address &&
-      values.address_number === data?.place.address_number &&
-      values.complement === data?.place.complement &&
-      values.neighborhood === data?.place.neighborhood
+      (onlyNumbers(values.zipcode) === data?.place.zipcode || values.zipcode === '') &&
+      (values.city === data?.place.city || values.city === '') &&
+      (values.state === data?.place.state || values.state === '') &&
+      (values.address === data?.place.address || values.address === '') &&
+      (values.address_number === data?.place.address_number || values.address_number === '') &&
+      (values.complement === data?.place.complement || values.complement === '') &&
+      (values.neighborhood === data?.place.neighborhood || values.neighborhood === '')
     );
   };
 

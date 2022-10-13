@@ -32,11 +32,11 @@ export const Car = () => {
 
   const disabled = (values: CarForm) => {
     return (
-      values.car_plate === data?.car.car_plate &&
-      values.car_renamed === data?.car.car_renamed &&
-      values.model === data?.car.model &&
-      values.year === data?.car.year &&
-      values.color === data?.car.color
+      (values.car_plate === data?.car.car_plate || values.car_plate === '') &&
+      (values.car_renamed === data?.car.car_renamed || values.car_renamed === '') &&
+      (values.model === data?.car.model || values.model === '') &&
+      (values.year === data?.car.year || values.year === '') &&
+      (values.color === data?.car.color || values.color === '')
     );
   };
 

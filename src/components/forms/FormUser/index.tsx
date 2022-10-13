@@ -6,7 +6,7 @@ import { Formik, FormikHelpers } from 'formik';
 
 import { useCatch } from 'hooks/catch';
 import { useVerify } from 'services/api/global';
-import { VerifyRequest } from 'services/dtos/VerifyDto';
+import { VerifyRequest } from 'services/api/types';
 import theme from 'styles/theme';
 import { onlyNumbers } from 'utils/helpers';
 

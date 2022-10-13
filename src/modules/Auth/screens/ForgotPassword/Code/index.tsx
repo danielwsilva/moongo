@@ -1,5 +1,6 @@
 import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import Toast from 'react-native-toast-message';
 import { useNavigation } from '@react-navigation/core';
 import { Formik, FormikHelpers } from 'formik';
 
@@ -18,33 +19,37 @@ export const Code = () => {
   const { catchFormError } = useCatch();
   const { cpf, addCode } = useForgot();
 
-  const { mutateAsync: mutateCodeAsync, isLoading } = useForgotCode();
-  const { mutateAsync: mutateCpfAsync } = useForgotCpf();
+  const { mutate: mutateForgotCode, isLoading } = useForgotCode();
+  const { mutate: mutateCpf } = useForgotCpf();
 
-  const handleResendCode = async () => {
+  const handleResendCode = () => {
     fetchTempToken();
   };
 
-  const fetchTempToken = async () => {
-    try {
-      await mutateCpfAsync({ cpf });
-    } catch (error) {}
+  const fetchTempToken = () => {
+    mutateCpf(
+      { cpf },
+      {
+        onError() {
+          Toast.show({
+            type: 'generic',
+            props: { title: 'Serviço indisponível no momento. Por favor, tente mais tarde.' }
+          });
+        }
+      }
+    );
   };
 
-  const submitCode = async (values: SMSForm, actions: FormikHelpers<SMSForm>) => {
-    console.log(values);
-
-    try {
-      await mutateCodeAsync(values, {
-        onSuccess() {
-          navigate(ROUTES.AUTH_FORGOT_PASSWORD);
-        }
-      });
-
-      addCode(values.token);
-    } catch (error) {
-      catchFormError({ token: error }, actions.setErrors);
-    }
+  const submitCode = (values: SMSForm, actions: FormikHelpers<SMSForm>) => {
+    mutateForgotCode(values, {
+      onSuccess() {
+        addCode(values.token);
+        navigate(ROUTES.AUTH_FORGOT_PASSWORD);
+      },
+      onError(error) {
+        catchFormError({ token: error.response.data.errors }, actions.setErrors);
+      }
+    });
   };
 
   return (
