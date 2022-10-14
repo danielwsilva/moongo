@@ -1,8 +1,10 @@
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useState, useEffect } from 'react';
-import { SectionList, View } from 'react-native';
+import { useCallback, useState, useEffect, useRef, Children, useMemo } from 'react';
+import { SectionList, View, Animated, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
+import Toast from 'react-native-toast-message';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -19,6 +21,13 @@ import { ExtractRow } from '../../components/ExtractRow';
 import styles from './styles';
 import { Extract, FILTERS, SectionDataType, SectionListType } from './types';
 
+type DataWalletRender = {
+  item: {
+    value?: number;
+    description: string;
+  };
+};
+
 export const Wallet = () => {
   const [active, setActive] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
@@ -27,6 +36,9 @@ export const Wallet = () => {
 
   const { colors } = theme;
   const { navigate } = useNavigation();
+
+  const { width } = Dimensions.get('window');
+  const scrollX = useRef(new Animated.Value(0)).current;
 
   const startDate = new Date();
   const endDate = new Date();
@@ -46,6 +58,13 @@ export const Wallet = () => {
       setRefreshing(false);
     }
   });
+
+  const balanceFormatted = useMemo(() => {
+    return [
+      { value: dataBalance?.balance, description: 'Saldo disponível' },
+      { value: dataBalance?.pending_withdraw, description: 'Sua solicitação de saque' }
+    ];
+  }, [dataBalance]);
 
   const groupBy = useCallback((array: [], key: string) => {
     if (!array) return [];
@@ -100,6 +119,17 @@ export const Wallet = () => {
     refetchBalance();
   }, [refetchExtract, refetchBalance]);
 
+  const handleCashWithdrawal = () => {
+    if (dataBalance!.pending_withdraw > 0) {
+      Toast.show({
+        type: 'generic',
+        props: { title: 'Ops, já existe uma solicitação de saque. Aguarde o seu processamento.' }
+      });
+    } else {
+      navigate(ROUTES.WALLET_CASH_WITHDRAWAL, { balance: dataBalance?.balance });
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
 
@@ -123,17 +153,69 @@ export const Wallet = () => {
     </View>
   );
 
+  const renderItem = useCallback(
+    ({ item }: DataWalletRender) => {
+      return (
+        <View style={{ flex: 1, width: width * 0.87, paddingVertical: RFValue(0) }}>
+          <ValuesExtract
+            description={item.description}
+            value={maskMoney(item.value || 0)}
+            loading={loading || isLoadingBalance || refreshing}
+          />
+        </View>
+      );
+    },
+    [isLoadingBalance, loading, refreshing, width]
+  );
+
   return (
     <Wrapper title="Carteira digital" disabledScrollView hasBackButton={false}>
-      <View style={styles.wrapperValueExtract}>
-        <ValuesExtract
-          description="Saldo da conta"
-          value={maskMoney(dataBalance?.balance || 0)}
-          loading={loading || isLoadingBalance || refreshing}
+      <View>
+        <Animated.FlatList
+          data={balanceFormatted}
+          keyExtractor={(item) => item.description}
+          renderItem={renderItem}
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
+            useNativeDriver: false
+          })}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
         />
 
+        <View accessible style={styles.paginationContainer}>
+          {Children.toArray(
+            balanceFormatted.map((_, idx) => {
+              const inputRange = [(idx - 1) * width, idx * width, (idx + 1) * width];
+              const opacity = scrollX.interpolate({
+                inputRange,
+                outputRange: [0.3, 1, 0.3],
+                extrapolate: 'clamp'
+              });
+              const widthDot = scrollX.interpolate({
+                inputRange,
+                outputRange: [8, 22, 8],
+                extrapolate: 'clamp'
+              });
+              return (
+                <Animated.View
+                  style={[
+                    styles.dot,
+                    {
+                      width: widthDot,
+                      opacity
+                    }
+                  ]}
+                />
+              );
+            })
+          )}
+        </View>
+      </View>
+
+      <View style={styles.wrapperValueExtract}>
         {!!dataBalance?.balance && dataBalance?.balance > 0 && (
-          <TouchableOpacity onPress={() => navigate(ROUTES.WALLET_CASH_WITHDRAWAL, { balance: dataBalance?.balance })}>
+          <TouchableOpacity activeOpacity={0.8} onPress={handleCashWithdrawal}>
             <Text fontWeight="bold" color={colors.primary} style={{ marginTop: RFValue(12) }}>
               Resgatar
             </Text>

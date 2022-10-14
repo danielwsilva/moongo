@@ -1,5 +1,6 @@
 export type BalanceResponse = {
   balance: number;
+  pending_withdraw: number;
 };
 
 export type CashWithdrawalRequest = {

@@ -25,7 +25,7 @@ export const ValuesExtract = ({ description, value, loading }: ValuesExtractsPro
     <View style={styles.container}>
       <Text fontWeight="normal">{description}</Text>
       <Skeleton colorMode="light" show={loading} width={180}>
-        <TouchableOpacity style={styles.button} onPress={() => setVisible(!visible)}>
+        <TouchableOpacity activeOpacity={0.8} style={styles.button} onPress={() => setVisible(!visible)}>
           {visible ? (
             <Text fontWeight="bold" fontSize={30}>
               {value}
