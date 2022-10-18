@@ -62,7 +62,7 @@ export const Wallet = () => {
   const balanceFormatted = useMemo(() => {
     return [
       { value: dataBalance?.balance, description: 'Saldo disponível' },
-      { value: dataBalance?.pending_withdraw, description: 'Sua solicitação de saque' }
+      { value: dataBalance?.pending_withdraw, description: 'Solicitação de saque pendente' }
     ];
   }, [dataBalance]);
 
