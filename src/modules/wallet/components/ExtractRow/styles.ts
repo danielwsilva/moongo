@@ -15,16 +15,20 @@ export const getStyles = ({ item }: StylesProps) => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginBottom: RFValue(12),
-      borderLeftWidth: 5,
+      marginBottom: RFValue(-1),
+      borderLeftWidth: 2,
       borderColor: item.type === 'Saque' || item.sub_type === 'Dinheiro' ? colors.withdraw : colors.success,
-      height: RFValue(38),
-      borderRadius: 2
+      height: RFValue(48)
     },
     wrapper: {
       flexDirection: 'row',
       alignItems: 'center',
       marginLeft: RFValue(8)
+    },
+    icon: {
+      backgroundColor: colors.textLight,
+      borderRadius: 8,
+      padding: RFValue(6)
     }
   });
 };

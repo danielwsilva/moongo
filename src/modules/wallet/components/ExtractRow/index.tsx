@@ -21,16 +21,13 @@ const ExtractRowComponent = ({ item }: ExtractRowProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        {item.type === 'Saque' && <AntDesign name="bank" size={20} color={colors.withdraw} />}
-        {item.sub_type === 'Dinheiro' && <Feather name="dollar-sign" size={20} color={colors.withdraw} />}
-        {item.type === 'Venda' && item.sub_type === 'PIX' && <AntDesign name="swap" size={20} color={colors.success} />}
+        <View style={styles.icon}>
+          {item.type === 'Saque' && <AntDesign name="bank" size={18} color={colors.white} />}
+          {item.sub_type === 'Dinheiro' && <Feather name="dollar-sign" size={18} color={colors.white} />}
+          {item.type === 'Venda' && item.sub_type === 'PIX' && <AntDesign name="swap" size={18} color={colors.white} />}
+        </View>
 
-        <Text
-          fontWeight="normal"
-          color={item.type === 'Saque' || item.sub_type === 'Dinheiro' ? colors.withdraw : colors.success}
-          fontSize={14}
-          style={{ marginLeft: 12 }}
-        >
+        <Text fontWeight="normal" color={colors.text} fontSize={14} style={{ marginLeft: 12 }}>
           {item.sub_type === 'Dinheiro' ? item.sub_type : item.type}
         </Text>
       </View>
