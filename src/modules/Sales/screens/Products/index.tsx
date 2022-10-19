@@ -9,6 +9,7 @@ import { CountCart } from 'modules/home/components/CountCart';
 import { ProductRow } from 'modules/home/components/ProductRow';
 import { HomeSkeleton } from 'modules/home/skeletons/HomeSkeleton';
 import { ROUTES } from 'navigation/appRoutes';
+import { ProductResponse } from 'services/api/home/types';
 import { useStockMotorist } from 'services/api/sales';
 import theme from 'styles/theme';
 
@@ -16,6 +17,7 @@ import { ButtonAddCart } from '../../components/ButtonAddCart';
 import styles from './styles';
 
 export const Products = () => {
+  const [products, setProducts] = useState<ProductResponse[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -41,16 +43,22 @@ export const Products = () => {
     }, 1500);
   }, []);
 
-  const dataFormatted = useMemo(
-    () =>
-      data?.map((item) => {
-        return {
-          ...item,
-          loading: refreshing
-        };
-      }),
-    [data, refreshing]
-  );
+  const dataFormatted = useMemo(() => {
+    const productFormatted = data?.map((item) => {
+      return {
+        ...item,
+        loading: refreshing
+      };
+    });
+
+    setProducts(productFormatted!);
+    return productFormatted;
+  }, [data, refreshing]);
+
+  const handleSearch = (text: string) => {
+    const filtered = dataFormatted!.filter((item) => item.description.toUpperCase().includes(text.toUpperCase()));
+    setProducts(filtered);
+  };
 
   const listEmptyComponent = () => (
     <View style={styles.listEmpty}>
@@ -74,7 +82,7 @@ export const Products = () => {
           <View style={{ marginHorizontal: 8 }}>
             <View style={styles.search}>
               <AntDesign name="search1" color={theme.colors.text} size={18} />
-              <TextInput placeholder="Produtos" style={styles.input} />
+              <TextInput placeholder="Produtos" style={styles.input} onChangeText={(text) => handleSearch(text)} />
             </View>
 
             <View style={styles.count}>
@@ -91,7 +99,7 @@ export const Products = () => {
             <HomeSkeleton />
           ) : (
             <FlashList
-              data={dataFormatted}
+              data={products}
               keyExtractor={(item) => item.id}
               onRefresh={onRefresh}
               refreshing={refreshing}

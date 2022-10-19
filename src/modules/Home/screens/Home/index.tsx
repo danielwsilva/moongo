@@ -69,7 +69,7 @@ export const Home = () => {
   );
 
   const dataStockFormatted = useMemo(() => {
-    const data = dataStock?.map((stock) => {
+    const productFormatted = dataStock?.map((stock) => {
       const supplyPending = supplyPendingNormalized?.find((prod) => prod.id === stock.id);
 
       return {
@@ -79,8 +79,8 @@ export const Home = () => {
       };
     });
 
-    setProducts(data!);
-    return data;
+    setProducts(productFormatted!);
+    return productFormatted;
   }, [dataStock, supplyPendingNormalized, refreshing]);
 
   const onRefresh = useCallback(() => {

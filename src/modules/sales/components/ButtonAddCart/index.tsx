@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -14,15 +13,13 @@ type ButtonAddCartProps = {
 };
 
 export const ButtonAddCart = ({ item }: ButtonAddCartProps) => {
-  const [product, setProduct] = useState<ProductResponse>({} as ProductResponse);
   const { cart, addProduct } = useCart();
 
-  const productCart = cart.find((p) => p.id === product.id);
+  const productCart = cart.find((p) => p.id === item.id);
   const { colors } = theme;
 
   const handleAddCart = () => {
     const itemAddCart = { ...item, quantity: 1 };
-    setProduct(itemAddCart);
     addProduct(cart, itemAddCart);
   };
 
