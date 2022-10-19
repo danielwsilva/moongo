@@ -12,7 +12,7 @@ import { Text } from 'components';
 import { HomeSkeleton } from 'modules/home/skeletons/HomeSkeleton';
 import { ROUTES } from 'navigation/appRoutes';
 import { useMe, useStockMotorist, useSupplyPending } from 'services/api/home';
-import { SupplyPendingProduct, SupplyPendingResponse } from 'services/api/home/types';
+import { ProductResponse, SupplyPendingProduct, SupplyPendingResponse } from 'services/api/home/types';
 import { createStockMotorist } from 'services/api/sales/keys';
 import theme from 'styles/theme';
 
@@ -21,6 +21,7 @@ import styles from './styles';
 
 export const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
+  const [products, setProducts] = useState<ProductResponse[]>([]);
   const [loading, setLoading] = useState(false);
 
   const { navigate } = useNavigation();
@@ -54,12 +55,12 @@ export const Home = () => {
     () =>
       dataSupplyPending?.reduce((finalArr: SupplyPendingProduct[], item: SupplyPendingResponse) => {
         if (item.products.length) {
-          const products = item.products.map((product) => {
+          const arrayProduct = item.products.map((product) => {
             return {
               ...product
             };
           });
-          finalArr.push(...products);
+          finalArr.push(...arrayProduct);
         }
 
         return finalArr;
@@ -67,25 +68,31 @@ export const Home = () => {
     [dataSupplyPending]
   );
 
-  const dataStockFormatted = useMemo(
-    () =>
-      dataStock?.map((stock) => {
-        const supplyPending = supplyPendingNormalized?.find((prod) => prod.id === stock.id);
+  const dataStockFormatted = useMemo(() => {
+    const data = dataStock?.map((stock) => {
+      const supplyPending = supplyPendingNormalized?.find((prod) => prod.id === stock.id);
 
-        return {
-          ...stock,
-          supply_pending: !!supplyPending,
-          loading: refreshing
-        };
-      }),
-    [dataStock, supplyPendingNormalized, refreshing]
-  );
+      return {
+        ...stock,
+        supply_pending: !!supplyPending,
+        loading: refreshing
+      };
+    });
+
+    setProducts(data!);
+    return data;
+  }, [dataStock, supplyPendingNormalized, refreshing]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     refetchStock();
     refetchSupplyPending();
   }, [refetchStock, refetchSupplyPending]);
+
+  const handleSearch = (text: string) => {
+    const filtered = dataStockFormatted!.filter((item) => item.description.toUpperCase().includes(text.toUpperCase()));
+    setProducts(filtered);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -122,7 +129,7 @@ export const Home = () => {
           <View style={styles.filters}>
             <View style={styles.search}>
               <AntDesign name="search1" color={colors.text} size={18} />
-              <TextInput placeholder="Produtos" style={styles.input} />
+              <TextInput placeholder="Produtos" style={styles.input} onChangeText={(text) => handleSearch(text)} />
             </View>
 
             <View style={styles.buttomCountCart}>
@@ -161,7 +168,7 @@ export const Home = () => {
           <HomeSkeleton />
         ) : (
           <FlashList
-            data={dataStockFormatted}
+            data={products}
             keyExtractor={(item) => item.id}
             onRefresh={onRefresh}
             refreshing={refreshing}

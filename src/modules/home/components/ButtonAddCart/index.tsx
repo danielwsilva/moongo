@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { AntDesign } from '@expo/vector-icons';
@@ -15,12 +15,11 @@ type ButtonAddCartProps = {
 };
 
 export const ButtonAddCart = ({ item }: ButtonAddCartProps) => {
-  const [product, setProduct] = useState<ProductResponse>({} as ProductResponse);
   const { cart, addProduct } = useCart();
 
   const { colors } = theme;
 
-  const productCart = useMemo(() => cart.find((p) => p.id === product.id), [cart]);
+  const productCart = useMemo(() => cart.find((p) => p.id === item.id), [cart]);
 
   const checkStock = () => {
     if (item.stock === 0) return false;
@@ -37,7 +36,6 @@ export const ButtonAddCart = ({ item }: ButtonAddCartProps) => {
       });
     } else {
       const itemAddCart = { ...item, quantity: 1 };
-      setProduct(itemAddCart);
       addProduct(cart, itemAddCart);
     }
   };
