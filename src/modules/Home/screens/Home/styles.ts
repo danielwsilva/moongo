@@ -76,5 +76,11 @@ export default StyleSheet.create({
     width: '100%',
     marginHorizontal: RFValue(6),
     marginVertical: RFValue(3)
+  },
+  listEmpty: {
+    marginTop: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: RFValue(24)
   }
 });

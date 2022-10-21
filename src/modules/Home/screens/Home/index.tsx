@@ -102,6 +102,15 @@ export const Home = () => {
     }, 1500);
   }, []);
 
+  const listEmptyComponent = () => (
+    <View style={styles.listEmpty}>
+      <AntDesign name="dropbox" size={48} color={colors.primary} />
+      <Text fontWeight="normal" style={{ marginTop: 16, textAlign: 'center' }}>
+        Produto não encontrado :(
+      </Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={colors.white} translucent={false} />
@@ -183,6 +192,7 @@ export const Home = () => {
             estimatedItemSize={200}
             numColumns={2}
             contentContainerStyle={styles.list}
+            ListEmptyComponent={listEmptyComponent}
             showsVerticalScrollIndicator={false}
           />
         )}

@@ -64,7 +64,9 @@ export const Products = () => {
     <View style={styles.listEmpty}>
       <AntDesign name="dropbox" size={48} color={colors.primary} />
       <Text fontWeight="normal" style={{ marginTop: 16, textAlign: 'center' }}>
-        Sua caixa está vazia :( {`\n\n`}Adicione produtos realizado o abastecimento.
+        {dataFormatted?.length !== products.length
+          ? `Produto não encontrado :(`
+          : `Sua caixa está vazia :( \n\nAdicione produtos realizado o abastecimento.`}
       </Text>
     </View>
   );

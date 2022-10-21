@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect } from 'react';
+import { getFocusedRouteNameFromRoute, useFocusEffect, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { ROUTES } from 'navigation/appRoutes';
@@ -20,15 +20,17 @@ const { Navigator, Screen } = createNativeStackNavigator<ProfileRouteMap>();
 const ProfileRoutes = ({ route }: NativeStackScreenProps<ProfileRouteMap>) => {
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const routeName = getFocusedRouteNameFromRoute(route);
+  useFocusEffect(
+    useCallback(() => {
+      const routeName = getFocusedRouteNameFromRoute(route);
 
-    if (routeName !== ROUTES.PROFILE && !!routeName) {
-      navigation.setOptions({ tabBarStyle: { display: 'none' } });
-    } else {
-      navigation.setOptions({ tabBarStyle: styles.navigator });
-    }
-  }, [navigation, route]);
+      if (routeName !== ROUTES.PROFILE && !!routeName) {
+        navigation.setOptions({ tabBarStyle: { display: 'none' } });
+      } else {
+        navigation.setOptions({ tabBarStyle: styles.navigator });
+      }
+    }, [navigation, route])
+  );
 
   return (
     <Navigator
