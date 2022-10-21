@@ -32,6 +32,7 @@ export const Wallet = () => {
   const [active, setActive] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingExtract, setLoadingExtract] = useState(false);
   const [extract, setExtract] = useState<SectionDataType[]>([]);
 
   const { colors } = theme;
@@ -39,11 +40,6 @@ export const Wallet = () => {
 
   const { width } = Dimensions.get('window');
   const scrollX = useRef(new Animated.Value(0)).current;
-
-  const startDate = new Date();
-  const endDate = new Date();
-
-  endDate.setDate(endDate.getDate() + 1);
 
   const { data: dataBalance, isLoading: isLoadingBalance, refetch: refetchBalance } = useBalance();
   const {
@@ -83,35 +79,45 @@ export const Wallet = () => {
     }));
   }, []);
 
-  const filterDate = useCallback((value: number, data: ExtractResponse[]) => {
-    setActive(value);
+  const filterDate = useCallback(
+    (value: number, data: ExtractResponse[]) => {
+      setLoadingExtract(true);
+      const startDate = new Date();
+      const endDate = new Date();
 
-    switch (value) {
-      case 1:
-        startDate.setDate(endDate.getDate() - 8);
-        break;
-      case 2:
-        startDate.setDate(endDate.getDate() - 16);
-        break;
-      case 3:
-        startDate.setDate(endDate.getDate() - 31);
-        break;
-      default:
-        break;
-    }
+      endDate.setDate(endDate.getDate() + 1);
 
-    const extractFiltered = data?.filter((item) => {
-      const [day, month, year] = item.created_at.split('/');
-      const dateExtract = new Date(Number(year), Number(month), Number(day));
-      dateExtract.setMonth(dateExtract.getMonth() - 1);
+      switch (value) {
+        case 1:
+          startDate.setDate(endDate.getDate() - 8);
+          break;
+        case 2:
+          startDate.setDate(endDate.getDate() - 16);
+          break;
+        case 3:
+          startDate.setDate(endDate.getDate() - 31);
+          break;
+        default:
+          break;
+      }
 
-      return dateExtract > startDate && dateExtract < endDate;
-    });
+      const extractFiltered = data?.filter((item) => {
+        const [day, month, year] = item.created_at.split('/');
+        const dateExtract = new Date(Number(year), Number(month), Number(day));
+        dateExtract.setMonth(dateExtract.getMonth() - 1);
 
-    const results = groupBy(extractFiltered as any, 'created_at');
+        return dateExtract > startDate && dateExtract < endDate;
+      });
 
-    setExtract(results);
-  }, []);
+      const results = groupBy(extractFiltered as any, 'created_at');
+
+      setTimeout(() => {
+        setLoadingExtract(false);
+        setExtract(results);
+      }, 500);
+    },
+    [groupBy]
+  );
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -229,13 +235,16 @@ export const Wallet = () => {
             key={item.id}
             day={item.day}
             active={item.id === active}
-            onPress={() => filterDate(item.id, dataExtract!)}
+            onPress={() => {
+              setActive(item.id);
+              filterDate(item.id, dataExtract!);
+            }}
             style={item.id === 1 ? { marginLeft: 0 } : item.id === 3 && { marginRight: 0 }}
           />
         ))}
       </View>
 
-      {refreshing || isLoadingExtract || loading ? (
+      {refreshing || isLoadingExtract || loading || loadingExtract ? (
         <WalletSkeleton />
       ) : (
         <SectionList
