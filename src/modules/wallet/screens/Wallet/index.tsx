@@ -48,7 +48,7 @@ export const Wallet = () => {
     refetch: refetchExtract
   } = useExtract({
     onSuccess(data) {
-      filterDate(1, data);
+      filterDate(active, data);
     },
     onSettled() {
       setRefreshing(false);
