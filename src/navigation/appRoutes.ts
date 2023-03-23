@@ -1,13 +1,6 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-shadow
 export enum ROUTES {
-  // BUTTON-NAV
-  BUTTON_NAV = 'button_nav',
-  HOME_TABNAVIGATION = 'home-tabnavigation',
-  SALES_TABNAVIGATION = 'sales-tabnavigation',
-  PROFILE_TABNAVIGATION = 'profile-tabnavigation',
-  WALLET_TABNAVIGATION = 'wallet-tabnavigation',
-
   // REGISTER
   REGISTER_STACK = 'register-stack',
   REGISTER_USER = 'register-user',

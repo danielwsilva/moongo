@@ -32,7 +32,7 @@ const Routes = () => {
   }, [hasNetworkError, stateConnect]);
 
   return (
-    <NavigationContainer>
+    <>
       {token ? <BottomNav /> : <AuthStack />}
 
       <Modal visible={hasNetworkError} height={300}>
@@ -46,7 +46,7 @@ const Routes = () => {
           </Text>
         </View>
       </Modal>
-    </NavigationContainer>
+    </>
   );
 };
 

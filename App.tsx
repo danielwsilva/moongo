@@ -6,6 +6,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { useFonts, Nunito_400Regular, Nunito_600SemiBold, Nunito_700Bold } from '@expo-google-fonts/nunito';
+import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { Text } from 'components';
@@ -43,12 +44,20 @@ export default function App() {
     )
   };
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <QueryClientProvider client={queryClient}>
           <CatchProvider>
-            <AuthProvider>{fontsLoaded ? <Routes /> : null}</AuthProvider>
+            <NavigationContainer>
+              <AuthProvider>
+                <Routes />
+              </AuthProvider>
+            </NavigationContainer>
             <Toast config={toastConfig} />
           </CatchProvider>
         </QueryClientProvider>

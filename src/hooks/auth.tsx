@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
+import { CommonActions, useNavigation } from '@react-navigation/native';
+import { ROUTES } from 'navigation/appRoutes';
 
 import { useLogin } from 'services/api/auth';
 import { LoginRequest } from 'services/api/auth/types';
@@ -23,6 +25,8 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }: PropsProvider) {
   const [token, setToken] = useState('');
+
+  const { dispatch } = useNavigation();
 
   const { catchError } = useCatch();
 
@@ -54,6 +58,12 @@ export function AuthProvider({ children }: PropsProvider) {
   const signOut = useCallback(async () => {
     await remove(authToken);
     setToken('');
+    dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: ROUTES.AUTH_SIGNIN }]
+      })
+    );
   }, []);
 
   return <AuthContext.Provider value={{ token, isLoading, signIn, signOut }}>{children}</AuthContext.Provider>;

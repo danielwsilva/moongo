@@ -6,28 +6,28 @@ import { ROUTES } from 'navigation/appRoutes';
 
 export const MENU_ROUTES = [
   {
-    name: ROUTES.HOME_TABNAVIGATION,
+    name: ROUTES.HOME_STACK,
     component: HomeStack,
     iconName: 'home',
     size: 22,
     textBottomBar: 'Início'
   },
   {
-    name: ROUTES.SALES_TABNAVIGATION,
+    name: ROUTES.SALES_STACK,
     component: SalesStack,
     iconName: 'isv',
     size: 22,
     textBottomBar: 'Venda'
   },
   {
-    name: ROUTES.REGISTER_ADDRESS,
+    name: ROUTES.REGISTER_STACK,
     component: WalletStack,
     iconName: 'wallet',
     size: 22,
     textBottomBar: 'Carteira'
   },
   {
-    name: ROUTES.PROFILE_TABNAVIGATION,
+    name: ROUTES.PROFILE_STACK,
     component: ProfileStack,
     iconName: 'user',
     size: 22,

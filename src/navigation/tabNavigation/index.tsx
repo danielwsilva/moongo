@@ -18,7 +18,7 @@ export const BottomNav = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={ROUTES.HOME_TABNAVIGATION}
+      initialRouteName={ROUTES.HOME_STACK}
       screenOptions={{
         headerShown: false,
         tabBarStyle: styles.navigator
