@@ -1,8 +1,8 @@
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/danielwsilva/carefy?color=%2304D361&style=for-the-badge">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/danielwsilva/moongo?color=%2304D361&style=for-the-badge">
   
-  <a href="https://github.com/danielwsilva/carefy/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/danielwsilva/carefy?style=for-the-badge">
+  <a href="https://github.com/danielwsilva/moongo/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/danielwsilva/moongo?style=for-the-badge">
   </a>
   
   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen?style=for-the-badge">
